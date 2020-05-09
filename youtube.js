@@ -15,16 +15,14 @@ $("body").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-mess
 		hasDonation = '';
 	}
 
-    var backgroundColor = "black";
-    var borderColor = "#333";
-    var textColor = "white";
-  	if(this.style.getPropertyValue('--yt-live-chat-paid-message-secondary-color')) {
-  		backgroundColor = this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color');
-  		borderColor = this.style.getPropertyValue('--yt-live-chat-paid-message-secondary-color');
-  		textColor = "black";
+    var backgroundColor = "";
+    var textColor = "";
+  	if(this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')) {
+  		backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')+";";
+  		textColor = "color: #111;";
   	}
 
-	$( "highlight-chat" ).append('<div class="hl-c-cont fadeout"><div class="hl-name">' + chatname + '</div>' + '<div class="hl-message" style="background-color: '+backgroundColor+'; color: '+textColor+';">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '" style="border-color:'+borderColor+'"></div>'+hasDonation+'</div>')
+	$( "highlight-chat" ).append('<div class="hl-c-cont fadeout"><div class="hl-name">' + chatname + '</div>' + '<div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div>'+hasDonation+'</div>')
 	.delay(10).queue(function(next){	
 		$( ".hl-c-cont" ).removeClass("fadeout");
 		next();

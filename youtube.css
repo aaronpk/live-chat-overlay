@@ -29,7 +29,7 @@ highlight-chat {
 	overflow: hidden;
 	margin: 0px;
 	padding: 40px 50px 40px 220px;
-	background-color: #00b140;
+	background-color: #000; /* black background for Luma key */
 	color: #fff;
 	font-size: 30px;
 }
@@ -50,7 +50,7 @@ highlight-chat {
 	left: 50px;
 	font-weight: 700;
 	background: #ffa500;
-	color: #000;
+	color: #080808;
 	padding: 10px;
 	transform: rotate(-0deg);
 	z-index: 1;
@@ -60,7 +60,7 @@ highlight-chat {
 	font-size: 45px;
 	font-weight: 600;
 	padding: 20px 40px 20px 70px;
-	background-color: black;
+	background-color: #222; /* needs to be slightly above black to not get keyed out */
 }
 .hl-message img {
 	width: 50px;
@@ -82,6 +82,24 @@ highlight-chat {
 	display: block;
 	width: 100%;
 	border-radius: 50%;
+	z-index: 1;
+}
+/* overlay a very faint white layer to bump the blacks above the luma key cutoff */
+.hl-img:after {
+	content: '';
+	display: block;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	border-radius: 50%;
+	position:absolute;
+	pointer-events: none;
+	z-index: 3;
+}
+.hl-img::after {
+	background: rgba(255,255,255,.04);
+	mix-blend-mode: lighten;
 }
 
 
