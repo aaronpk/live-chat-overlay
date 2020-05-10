@@ -1,11 +1,15 @@
 $("body").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer", function () {
 	$(".hl-c-cont").remove();
-	var chatname = $(this).find("#author-name").html();
+	var chatname = $(this).find("#author-name").text();
+	
+	// Show just the first name. Comment this out to show the full name.
+	chatname = chatname.replace(/ .*/,'');
+	
 	var chatmessage = $(this).find("#message").html();
 	var chatimg = $(this).find("#img").attr('src');
 	chatimg = chatimg.replace("32", "128");
 	var chatdonation = $(this).find("#purchase-amount").html();
-    $(this).addClass("show-comment");
+	$(this).addClass("show-comment");
 
 	var hasDonation;
 	if(chatdonation) {
@@ -15,8 +19,8 @@ $("body").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-mess
 		hasDonation = '';
 	}
 
-    var backgroundColor = "";
-    var textColor = "";
+	var backgroundColor = "";
+	var textColor = "";
   	if(this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')) {
   		backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')+";";
   		textColor = "color: #111;";
