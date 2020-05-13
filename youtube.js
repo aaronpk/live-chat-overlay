@@ -1,18 +1,26 @@
-$("body").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer", function () {
+$("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer", function () {
 	$(".hl-c-cont").remove();
 	var chatname = $(this).find("#author-name").html();
 	var chatmessage = $(this).find("#message").html();
 	var chatimg = $(this).find("#img").attr('src');
 	chatimg = chatimg.replace("32", "128");
 	var chatdonation = $(this).find("#purchase-amount").html();
-    $(this).addClass("show-comment");
+	var chatmembership = $(this).find(".yt-live-chat-membership-item-renderer #header-subtext").html();
+	$(this).addClass("show-comment");
 
 	var hasDonation;
 	if(chatdonation) {
 		hasDonation = '<div class="donation">' + chatdonation + '</div>';
-	}
-	else {
+	} else {
 		hasDonation = '';
+	}
+
+	var hasMembership;
+	if(chatmembership) {
+		hasMembership = '<div class="donation membership">NEW MEMBER!</div>';
+		chatmessage = chatmembership;
+	} else {
+		hasMembership = '';
 	}
 
     var backgroundColor = "";
@@ -21,8 +29,14 @@ $("body").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-mess
   		backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')+";";
   		textColor = "color: #111;";
   	}
+	console.log(this.style.getPropertyValue('--yt-live-chat-sponsor-color'));
+	if(this.style.getPropertyValue('--yt-live-chat-sponsor-color')) {
+		backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-sponsor-color')+";";
+		textColor = "color: #111;";
+	}
 
-	$( "highlight-chat" ).append('<div class="hl-c-cont fadeout"><div class="hl-name">' + chatname + '</div>' + '<div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div>'+hasDonation+'</div>')
+
+	$( "highlight-chat" ).append('<div class="hl-c-cont fadeout"><div class="hl-name">' + chatname + '</div>' + '<div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div>'+hasDonation+hasMembership+'</div>')
 	.delay(10).queue(function(next){	
 		$( ".hl-c-cont" ).removeClass("fadeout");
 		next();
@@ -32,7 +46,7 @@ $("body").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-mess
 
 $("body").on("click", ".btn-clear", function () {
 	$(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
-	    $(".hl-c-cont").remove().dequeue();
+		$(".hl-c-cont").remove().dequeue();
 	});
 });
 

@@ -117,7 +117,9 @@ highlight-chat {
 	background: linear-gradient(to right, #BF953F, #ede599, #B38728);
 	color: #5a4211;
 	transform: rotate(-5deg) translateX(-50%);
-
+}
+.membership {
+	padding: 10px 10px 5px 10px;
 }
 .donation::before {
 	position: absolute;
@@ -132,6 +134,9 @@ highlight-chat {
 	display: block;
 	content: 'SUPERCHAT';
 	color: #fff;
+}
+.membership::before {
+	content: '';
 }
 .donation::after {
 	content: '';
