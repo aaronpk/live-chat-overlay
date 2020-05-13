@@ -1,6 +1,10 @@
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer", function () {
 	$(".hl-c-cont").remove();
-	var chatname = $(this).find("#author-name").html();
+	var chatname = $(this).find("#author-name").text();
+	
+	// Show just the first name. Comment this out to show the full name.
+	chatname = chatname.replace(/ .*/,'');
+	
 	var chatmessage = $(this).find("#message").html();
 	var chatimg = $(this).find("#img").attr('src');
 	chatimg = chatimg.replace("32", "128");
@@ -23,12 +27,12 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 		hasMembership = '';
 	}
 
-    var backgroundColor = "";
-    var textColor = "";
-  	if(this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')) {
-  		backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')+";";
-  		textColor = "color: #111;";
-  	}
+	var backgroundColor = "";
+	var textColor = "";
+	if(this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')) {
+		backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')+";";
+		textColor = "color: #111;";
+	}
 	console.log(this.style.getPropertyValue('--yt-live-chat-sponsor-color'));
 	if(this.style.getPropertyValue('--yt-live-chat-sponsor-color')) {
 		backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-sponsor-color')+";";
