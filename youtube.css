@@ -11,10 +11,12 @@ We use the CSS3 feature "custom properties" so we can easily configure the overa
     --comment-color: #fff;
     --comment-bg-color: #222; /* needs to be slightly above black to not get keyed out */
     --comment-border-radius: 0px;
+    --comment-font-size: 45px;
     --author-color: #080808;
     --author-bg-color: #ffa500;
     --author-avatar-border-color: #ffa500;
     --author-border-radius: 0px;
+    --author-font-size: 30px;
     /* donation/superchat specific */
     --donation-color: #5a4211;
     --donation-bg-color: #fff;
@@ -30,14 +32,14 @@ We use the CSS3 feature "custom properties" so we can easily configure the overa
     LAYOUT 
     */
     --comment-width: auto; /* go 100% for a full screen lower third style*/
-
+    --comment-padding: 20px 40px 20px 70px;
     /* 
     STYLE 
     */
     --font-family: Avenir Next;
     --highlight-chat-font-weight: 600;
     --author-font-weight: 700;
-    --message-font-weight: 600;
+    --comment-font-weight: 600;
 }
 
 body {
@@ -97,16 +99,17 @@ highlight-chat {
     transform: rotate(-0deg);
     z-index: 1;
     border-radius: var(--author-border-radius);
+    font-size: var(--author-font-size);
 }
 .hl-message {
     position: absolute;
     width: var(--comment-width);
-    font-size: 45px;
-    font-weight: var(--message-font-weight);
-    padding: 20px 40px 20px 70px;
+    font-weight: var(--comment-font-weight);
+    padding: var(--comment-padding);
     color: var(--comment-color);
     background-color: var(--comment-bg-color); 
-    border-radius: var(--author-border-radius);
+    border-radius: var(--comment-border-radius);
+    font-size: var(--comment-font-size);
 }
 .hl-message img {
     width: 50px;
