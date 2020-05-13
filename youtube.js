@@ -33,6 +33,8 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 		backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')+";";
 		textColor = "color: #111;";
 	}
+
+	// This doesn't work yet
 	if(this.style.getPropertyValue('--yt-live-chat-sponsor-color')) {
 		backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-sponsor-color')+";";
 		textColor = "color: #111;";
