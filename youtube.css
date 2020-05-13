@@ -1,169 +1,215 @@
+/*
+Configure your stream identity in this CSS. 
+We use the CSS3 feature "custom properties" so we can easily configure the overall app to suit your needs.
+*/
+:root {
+    /* 
+    COLORS 
+    */
+    /* basic config */
+    --keyer-bg-color: #000; /* change for a chroma key if you want, beware profile avatars may key out */
+    --comment-color: #fff;
+    --comment-bg-color: #222; /* needs to be slightly above black to not get keyed out */
+    --comment-border-radius: 0px;
+    --author-color: #080808;
+    --author-bg-color: #ffa500;
+    --author-avatar-border-color: #ffa500;
+    --author-border-radius: 0px;
+    /* donation/superchat specific */
+    --donation-color: #5a4211;
+    --donation-bg-color: #fff;
+    --donation-gradient-stop0: #BF953F;
+    --donation-gradient-stop1: #ede599;
+    --donation-gradient-stop2: #B38728;
+    --donation-label-color: #fff;
+    --donation-label-text: 'SUPERCHAT';
+    --donation-shadow-color: #fff;
+    --shown-comment-bg-color: #55de55;
+
+    /* 
+    LAYOUT 
+    */
+    --comment-width: auto; /* go 100% for a full screen lower third style*/
+
+    /* 
+    STYLE 
+    */
+    --font-family: Avenir Next;
+    --highlight-chat-font-weight: 600;
+    --author-font-weight: 700;
+    --message-font-weight: 600;
+}
+
 body {
-    background-color: #000;
+    background-color: var(--keyer-bg-color);
 }
 yt-live-chat-app {
-	margin-top: 400px;
-	height: calc(100vh - 400px) !important;
+    margin-top: 400px;
+    height: calc(100vh - 400px) !important;
 }
 .btn-clear {
-	position: absolute;
-	z-index: 99999;
-	bottom: 70px;
-	right: 20px;
-	font-size: 30px;
+    position: absolute;
+    z-index: 99999;
+    bottom: 70px;
+    right: 20px;
+    font-size: 30px;
 }
 .show-comment {
-    background-color: #55de55 !important;
+    background-color: var(--shown-comment-bg-color) !important;
 }
 highlight-chat {
-	font-family: Avenir Next;
-	font-weight: 600;
-	box-sizing: border-box;
-	display: block;
-	position: absolute;
-	top:10px;
-	left:0;
-	width: 100%;
-	height: 400px;
-	z-index:99999999999;
-	overflow: hidden;
-	margin: 0px;
-	padding: 40px 50px 40px 220px;
-	background-color: #000; /* black background for Luma key */
-	color: #fff;
-	font-size: 30px;
+    font-family: var(--font-family);
+    font-weight: var(--highlight-chat-font-weight);
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    top:10px;
+    left:0;
+    width: 100%;
+    height: 400px;
+    z-index:99999999999;
+    overflow: hidden;
+    margin: 0px;
+    padding: 40px 50px 40px 220px;
+    background-color: var(--keyer-bg-color); /* black background for Luma key */
+    color: #fff;
+    font-size: 30px;
 }
 .hl-c-cont {
-	position: relative;
-	padding: 20px;
-	width: 100%;
-	margin: 0 auto;
-	transition: .5s all cubic-bezier(0.250, 0.250, 0.105, 1.2);
+    position: relative;
+    padding: 20px;
+    width: 100%;
+    margin: 0 auto;
+    transition: .5s all cubic-bezier(0.250, 0.250, 0.105, 1.2);
 }
 .hl-c-cont.fadeout {
-	transform: translateY(600px);
+    transform: translateY(600px);
 }
 
 .hl-name {
-	position: absolute;
-	top: -20px;
-	left: 50px;
-	font-weight: 700;
-	background: #ffa500;
-	color: #080808;
-	padding: 10px;
-	transform: rotate(-0deg);
-	z-index: 1;
+    position: absolute;
+    top: -20px;
+    left: 50px;
+    font-weight: var(--author-font-weight);
+    background: var(--author-bg-color);
+    color: var(--author-color);
+    padding: 10px;
+    transform: rotate(-0deg);
+    z-index: 1;
+    border-radius: var(--author-border-radius);
 }
 .hl-message {
-	position: absolute;
-	font-size: 45px;
-	font-weight: 600;
-	padding: 20px 40px 20px 70px;
-	background-color: #222; /* needs to be slightly above black to not get keyed out */
+    position: absolute;
+    width: var(--comment-width);
+    font-size: 45px;
+    font-weight: var(--message-font-weight);
+    padding: 20px 40px 20px 70px;
+    color: var(--comment-color);
+    background-color: var(--comment-bg-color); 
+    border-radius: var(--author-border-radius);
 }
 .hl-message img {
-	width: 50px;
-	vertical-align: middle;
+    width: 50px;
+    vertical-align: middle;
 }
 .hl-img {
-	position: absolute;
-	top: 0;
-	z-index: 1;
-	left: -60px;
-	width: 128px;
-	height: 128px;
-	background-color: orange;
-	border-radius: 50%;
-	border: 0;
-	padding: 3px;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    left: -60px;
+    width: 128px;
+    height: 128px;
+    background-color: var(--author-avatar-border-color);
+    border-radius: 50%;
+    border: 0;
+    padding: 3px;
 }
 .hl-img img {
-	display: block;
-	width: 100%;
-	border-radius: 50%;
-	z-index: 1;
+    display: block;
+    width: 100%;
+    border-radius: 50%;
+    z-index: 1;
 }
 /* overlay a very faint white layer to bump the blacks above the luma key cutoff */
 .hl-img:after {
-	content: '';
-	display: block;
-	height: 100%;
-	width: 100%;
-	top: 0;
-	left: 0;
-	border-radius: 50%;
-	position:absolute;
-	pointer-events: none;
-	z-index: 3;
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    position:absolute;
+    pointer-events: none;
+    z-index: 3;
 }
 .hl-img::after {
-	background: rgba(255,255,255,.04);
-	mix-blend-mode: lighten;
+    background: rgba(255,255,255,.04);
+    mix-blend-mode: lighten;
 }
 
 
 .donation {
-	position: absolute;
-	display: block;
-	text-align: center;
-	left: 10px;
-	top: 108px;
-	z-index: 3;
-	min-width: 128px;
-	border-radius: 10px;
-	padding: 30px 5px 0;
-	overflow: hidden;
-	background: linear-gradient(to right, #BF953F, #ede599, #B38728);
-	color: #5a4211;
-	transform: rotate(-5deg) translateX(-50%);
+    position: absolute;
+    display: block;
+    text-align: center;
+    left: 10px;
+    top: 108px;
+    z-index: 3;
+    min-width: 128px;
+    border-radius: 10px;
+    padding: 30px 5px 0;
+    overflow: hidden;
+    background: linear-gradient(to right, var(--donation-gradient-stop0), var(--donation-gradient-stop1), var(--donation-gradient-stop2));
+    color: var(--donation-color);
+    transform: rotate(-5deg) translateX(-50%);
 }
 .membership {
-	padding: 10px 10px 5px 10px;
+    padding: 10px 10px 5px 10px;
 }
 .donation::before {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	font-size: 18px;
-	text-align: center;
-	background-color: rgba(0, 0, 0, 0.23);
-	border-radius: 10px 10px 0 0;
-	padding: 5px 0 0;
-	display: block;
-	content: 'SUPERCHAT';
-	color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.23);
+    border-radius: 10px 10px 0 0;
+    padding: 5px 0 0;
+    display: block;
+    content: var(--donation-label-text);
+    color: var(--donation-label-color);
 }
 .membership::before {
-	content: '';
+    content: '';
 }
 .donation::after {
-	content: '';
-	position: absolute;
-	top: -50%;
-	left: 0;
-	height: 200%;
-	width: 1px;
-	background-color: #fff;
-	box-shadow: 0 0 20px 20px #fff;
-	opacity: 0.7;
-	transform: rotate(9deg) translate3D(250px, 0, 0);
-	animation: superchat 3s ease-in-out infinite;
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 0;
+    height: 200%;
+    width: 1px;
+    background-color: var(--donation-bg-color);
+    box-shadow: 0 0 20px 20px var(--donation-shadow-color);
+    opacity: 0.7;
+    transform: rotate(9deg) translate3D(250px, 0, 0);
+    animation: superchat 3s ease-in-out infinite;
 }
 @keyframes superchat {
-	from {
-		transform: rotate(9deg) translate3D(-250px, 0, 0);
-	}
+    from {
+        transform: rotate(9deg) translate3D(-250px, 0, 0);
+    }
 }
 
 
 
 yt-live-chat-text-message-renderer {
-	font-size: 24px !important;
-	line-height: 32px;
+    font-size: 24px !important;
+    line-height: 32px;
 }
 
 yt-live-chat-viewer-engagement-message-renderer {
-	display: none !important;
+    display: none !important;
 }
