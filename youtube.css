@@ -16,6 +16,7 @@ We use the CSS3 feature "custom properties" so we can easily configure the overa
     --author-bg-color: #ffa500;
     --author-avatar-border-color: #ffa500;
     --author-border-radius: 0px;
+    --author-avatar-border-size: 3px;
     --author-font-size: 30px;
     /* donation/superchat specific */
     --donation-color: #5a4211;
@@ -125,7 +126,7 @@ highlight-chat {
     background-color: var(--author-avatar-border-color);
     border-radius: 50%;
     border: 0;
-    padding: 3px;
+    padding: var(--author-avatar-border-size);
 }
 .hl-img img {
     display: block;
