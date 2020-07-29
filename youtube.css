@@ -1,17 +1,10 @@
-/*
-Configure your stream identity in this CSS. 
-We use the CSS3 feature "custom properties" so we can easily configure the overall app to suit your needs.
-*/
 :root {
-    /* 
-    COLORS 
-    */
-    /* basic config */
+    /* basic colors */
     --keyer-bg-color: #000; /* change for a chroma key if you want, beware profile avatars may key out */
     --comment-color: #fff;
     --comment-bg-color: #222; /* needs to be slightly above black to not get keyed out */
     --comment-border-radius: 0px;
-    --comment-font-size: 45px;
+    --comment-font-size: 40px;
     --author-color: #080808;
     --author-bg-color: #ffa500;
     --author-avatar-border-color: #ffa500;
@@ -34,6 +27,7 @@ We use the CSS3 feature "custom properties" so we can easily configure the overa
     */
     --comment-width: auto; /* go 100% for a full screen lower third style*/
     --comment-padding: 20px 40px 20px 70px;
+    --comment-area-height: 300px;
     /* 
     STYLE 
     */
@@ -47,8 +41,8 @@ body {
     background-color: var(--keyer-bg-color);
 }
 yt-live-chat-app {
-    margin-top: 400px;
-    height: calc(100vh - 400px) !important;
+    margin-bottom: var(--comment-area-height);
+    height: calc(100vh - var(--comment-area-height)) !important;
 }
 .btn-clear {
     position: absolute;
@@ -66,10 +60,10 @@ highlight-chat {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    top:10px;
+    bottom:10px;
     left:0;
     width: 100%;
-    height: 400px;
+    height: var(--comment-area-height);
     z-index:99999999999;
     overflow: hidden;
     margin: 0px;
@@ -207,13 +201,16 @@ highlight-chat {
     }
 }
 
+/* hide chat input to give more space to the chat */
+#input-panel, yt-live-chat-viewer-engagement-message-renderer {
+	display: none !important;
+}
 
+yt-live-chat-item-list-renderer {
+	margin-bottom: 20px;
+}
 
 yt-live-chat-text-message-renderer {
     font-size: 24px !important;
     line-height: 32px;
-}
-
-yt-live-chat-viewer-engagement-message-renderer {
-    display: none !important;
 }
