@@ -47,7 +47,7 @@ yt-live-chat-app {
 .btn-clear {
     position: absolute;
     z-index: 99999;
-    bottom: 70px;
+    bottom: 370px;
     right: 20px;
     font-size: 30px;
 }

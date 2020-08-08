@@ -17,14 +17,21 @@ Click the "S" icon to open the browser extension, and copy the CSS and JS from t
 
 Click "Run" and now you should be able to click messages from the chat and they will show up in the green space up top.
 
-You'll next need to bring that into your video stream and key it out, which will depend on what software or hardware you are using. In the ATEM Mini, you can use these settings: 
+You'll next need to bring that into your video stream and key it out, which will depend on what software or hardware you are using. In the ATEM Mini, you can use these settings in the upstream keyer: 
 
 * Luma key
 * not premultiplied
 * clip: 7%
 * gain: 100%
-* Flying key
-* x: 0, y: -11.1
+
+Or you can use the downstream keyer:
+
+* not premultiplied
+* mask: 
+  * top: X
+  * bottom: -9
+  * left: -16
+  * right: 16
 
 
 ## Credits
