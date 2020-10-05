@@ -11,8 +11,8 @@
     "https://youtube.com/*", "https://www.youtube.com/*"
   ],
   "content_scripts": [{
-    "css": ["styles.css"],
-    "js": ["jquery.js", "chat.js"],
+    "css": ["youtube.css"],
+    "js": ["jquery.js", "youtube.js"],
     "matches": ["https://youtube.com/live_chat*", "https://www.youtube.com/live_chat*"]
   }],
   "browser_action": {
