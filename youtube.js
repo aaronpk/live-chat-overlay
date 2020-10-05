@@ -1,4 +1,11 @@
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer", function () {
+
+	// Don't show deleted messages
+	if($(this)[0].hasAttribute("is-deleted")) {
+		console.log("Not showing deleted message");
+		return;
+	}
+
 	$(".hl-c-cont").remove();
 	var chatname = $(this).find("#author-name").text();
 	

@@ -214,3 +214,16 @@ yt-live-chat-text-message-renderer {
     font-size: 24px !important;
     line-height: 32px;
 }
+
+
+yt-live-chat-text-message-renderer,
+yt-live-chat-paid-message-renderer,
+yt-live-chat-membership-item-renderer {
+    cursor: pointer;
+}
+
+yt-live-chat-text-message-renderer[is-deleted],
+yt-live-chat-paid-message-renderer[is-deleted],
+yt-live-chat-membership-item-renderer[is-deleted] {
+    cursor: pointer;
+}
