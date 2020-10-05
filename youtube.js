@@ -78,3 +78,13 @@ chrome.storage.sync.get("color", function(item){
 });
 
 
+$("#primary-content").append('<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
+
+function displayAspectRatio() {
+	var ratio = Math.round(window.innerWidth / window.innerHeight * 100) / 100;
+	ratio += " (target 1.77)";
+	$("#aspect-ratio").text(ratio);
+}
+displayAspectRatio();
+window.onresize = displayAspectRatio;
+
