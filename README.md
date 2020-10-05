@@ -36,5 +36,5 @@ Or you can use the downstream keyer:
 
 ## Credits
 
-Most of this code came from a video by [ROJ BTS](https://www.youtube.com/watch?v=NHy9D4ClTvc), so huge thanks to him for the CSS and JS!
+Most of this CSS and JavaScript came from a video by [ROJ BTS](https://www.youtube.com/watch?v=NHy9D4ClTvc), so huge thanks to him!
 

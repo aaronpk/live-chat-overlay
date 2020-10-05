@@ -225,5 +225,5 @@ yt-live-chat-membership-item-renderer {
 yt-live-chat-text-message-renderer[is-deleted],
 yt-live-chat-paid-message-renderer[is-deleted],
 yt-live-chat-membership-item-renderer[is-deleted] {
-    cursor: pointer;
+    cursor: default;
 }
