@@ -8,21 +8,14 @@
     "128": "icons/icon-128.png"
   },
   "permissions": [
-    "https://youtube.com/*", "https://www.youtube.com/*"
+    "https://youtube.com/*", "https://www.youtube.com/*", "storage"
   ],
   "content_scripts": [{
     "css": ["youtube.css"],
     "js": ["jquery.js", "youtube.js"],
     "matches": ["https://youtube.com/live_chat*", "https://www.youtube.com/live_chat*"]
   }],
-  "browser_action": {
-    "default_icon": "icons/icon-128.png",
-    "theme_icons": [{
-        "light": "icons/icon-128.png",
-        "dark": "icons/icon-128.png",
-        "size": 128
-    }],
-    "default_title": "YouTube Chat Overlay",
-    "default_popup": "popup/youtube_chat.html"
+  "options_ui": {
+    "page": "settings/options.html"
   }
 }

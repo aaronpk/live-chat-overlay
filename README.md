@@ -7,15 +7,17 @@ This CSS and JS turns the popout YouTube chat window into something that can be 
 
 ## Installation
 
-Install the [Styler Pro](https://chrome.google.com/webstore/detail/styler-pro/hbhkfnpodhdcaophahpkiflechaoddoi?hl=en) browser extension.
+You can install this as an "unpacked" extension. In Chrome, launch the Extensions page
 
-Open up the YouTube live chat, and click popout chat to open it in a new window. Or replace the `VIDEOID` in the URL below with your video's ID.
+* [chrome://extensions/](chrome://extensions/)
+
+Then choose "Load unpacked", and navigate to this folder.
+
+## Usage
+
+Open up the YouTube live chat for a video, and click popout chat to open it in a new window. Or replace the `VIDEOID` in the URL below with your video's ID.
 
 `https://www.youtube.com/live_chat?is_popout=1&v=VIDEOID`
-
-Click the "S" icon to open the browser extension, and copy the CSS and JS from the files in this repository into the window.
-
-Click "Run" and now you should be able to click messages from the chat and they will show up in the green space up top.
 
 You'll next need to bring that into your video stream and key it out, which will depend on what software or hardware you are using. In the ATEM Mini, you can use these settings in the upstream keyer: 
 
@@ -32,6 +34,16 @@ Or you can use the downstream keyer:
   * bottom: -9
   * left: -16
   * right: 16
+
+
+## See this in action!
+
+You can see this in action on many of [Aaron Parecki's livestreams](https://www.youtube.com/watch?v=CHQITWm5wDQ&list=PLRyLn6THA5wPracMVE74IHovBT3ebcsJV)!
+
+
+## TODO
+
+See https://github.com/aaronpk/youtube-chat-overlay/issues
 
 
 ## Credits

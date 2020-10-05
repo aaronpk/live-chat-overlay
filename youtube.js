@@ -63,3 +63,18 @@ $("body").on("click", ".btn-clear", function () {
 });
 
 $( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' );
+
+
+// Restore settings
+
+chrome.storage.sync.get("color", function(item){
+	var color = "#000";
+	if(item.color) {
+		color = item.color;
+	}
+
+	let root = document.documentElement;
+	root.style.setProperty("--keyer-bg-color", color);
+});
+
+
