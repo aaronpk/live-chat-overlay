@@ -7,7 +7,11 @@ This CSS and JS turns the popout YouTube chat window into something that can be 
 
 ## Installation
 
-You can install this as an "unpacked" extension. In Chrome, launch the Extensions page
+Install from the Chrome extension store:
+
+* https://chrome.google.com/webstore/detail/live-chat-overlay/aplaefbnohemkmngdogmbkpompjlijia
+
+Or you can install this as an "unpacked" extension. In Chrome, launch the Extensions page
 
 * [chrome://extensions/](chrome://extensions/)
 
