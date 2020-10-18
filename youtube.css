@@ -5,7 +5,7 @@
     --comment-bg-color: #222; /* needs to be slightly above black to not get keyed out */
     --comment-border-radius: 0px;
     --comment-font-size: 40px;
-    --author-color: #080808;
+    --author-color: #222;
     --author-bg-color: #ffa500;
     --author-avatar-border-color: #ffa500;
     --author-border-radius: 0px;
@@ -31,7 +31,7 @@
     /* 
     STYLE 
     */
-    --font-family: Avenir Next;
+    --font-family: Avenir Next, Helvetica, Geneva, Verdana, Arial sans-serif;
     --highlight-chat-font-weight: 600;
     --author-font-weight: 700;
     --comment-font-weight: 600;
