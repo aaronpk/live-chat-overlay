@@ -8,12 +8,12 @@
     "128": "icons/icon-128.png"
   },
   "permissions": [
-    "https://youtube.com/*", "https://www.youtube.com/*", "storage"
+    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "storage"
   ],
   "content_scripts": [{
     "css": ["youtube.css"],
     "js": ["jquery.js", "youtube.js"],
-    "matches": ["https://youtube.com/live_chat*", "https://www.youtube.com/live_chat*"]
+    "matches": ["https://youtube.com/live_chat*", "https://www.youtube.com/live_chat*", "https://studio.youtube.com/live_chat*"]
   }],
   "options_ui": {
     "page": "settings/options.html"
