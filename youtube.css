@@ -110,6 +110,9 @@ highlight-chat {
     width: 50px;
     vertical-align: middle;
 }
+.hl-message a {
+    color: white;
+}
 .hl-img {
     position: absolute;
     top: 0;
