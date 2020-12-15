@@ -68,22 +68,22 @@ $( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class=
 // Restore settings
 
 chrome.storage.sync.get("color", function(item){
-	var color = "#000";
-	if(item.color) {
-		color = item.color;
-	}
+  var color = "#000";
+  if(item.color) {
+    color = item.color;
+  }
 
-	let root = document.documentElement;
-	root.style.setProperty("--keyer-bg-color", color);
+  let root = document.documentElement;
+  root.style.setProperty("--keyer-bg-color", color);
 });
 
 
 $("#primary-content").append('<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
 
 function displayAspectRatio() {
-	var ratio = Math.round(window.innerWidth / window.innerHeight * 100) / 100;
-	ratio += " (target 1.77)";
-	$("#aspect-ratio").text(ratio);
+  var ratio = Math.round(window.innerWidth / window.innerHeight * 100) / 100;
+  ratio += " (target 1.77)";
+  $("#aspect-ratio").text(ratio);
 }
 displayAspectRatio();
 window.onresize = displayAspectRatio;
