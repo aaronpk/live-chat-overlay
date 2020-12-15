@@ -22,14 +22,14 @@
     --donation-shadow-color: #fff;
     --shown-comment-bg-color: #55de55;
 
-    /* 
-    LAYOUT 
+    /*
+    LAYOUT
     */
     --comment-width: auto; /* go 100% for a full screen lower third style*/
     --comment-padding: 20px 40px 20px 70px;
     --comment-area-height: 300px;
-    /* 
-    STYLE 
+    /*
+    STYLE
     */
     --font-family: Avenir Next, Helvetica, Geneva, Verdana, Arial sans-serif;
     --highlight-chat-font-weight: 600;
@@ -102,7 +102,7 @@ highlight-chat {
     font-weight: var(--comment-font-weight);
     padding: var(--comment-padding);
     color: var(--comment-color);
-    background-color: var(--comment-bg-color); 
+    background-color: var(--comment-bg-color);
     border-radius: var(--comment-border-radius);
     font-size: var(--comment-font-size);
 }
@@ -146,6 +146,14 @@ highlight-chat {
     mix-blend-mode: lighten;
 }
 
+.hl-badges {
+  display: inline-block;
+  margin-left: 10px;
+}
+.hl-badges img.yt-live-chat-author-badge-renderer {
+  width: 24px;
+  height: 24px;
+}
 
 .donation {
     position: absolute;

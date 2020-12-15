@@ -17,6 +17,10 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   chatimg = chatimg.replace("32", "128");
   var chatdonation = $(this).find("#purchase-amount").html();
   var chatmembership = $(this).find(".yt-live-chat-membership-item-renderer #header-subtext").html();
+  var chatbadges = "";
+  if($(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").length > 0) {
+    chatbadges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
+  }
   $(this).addClass("show-comment");
 
   var hasDonation;
@@ -48,7 +52,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   }
 
 
-  $( "highlight-chat" ).append('<div class="hl-c-cont fadeout"><div class="hl-name">' + chatname + '</div><div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div>'+hasDonation+hasMembership+'</div>')
+  $( "highlight-chat" ).append('<div class="hl-c-cont fadeout"><div class="hl-name">' + chatname + '<div class="hl-badges">' + chatbadges + '</div></div><div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div>'+hasDonation+hasMembership+'</div>')
   .delay(10).queue(function(next){
     $( ".hl-c-cont" ).removeClass("fadeout");
     next();
