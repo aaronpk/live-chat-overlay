@@ -5,6 +5,8 @@ This CSS and JS turns the popout YouTube chat window into something that can be 
 
 ![chat-screenshot](chat-screenshot.jpg)
 
+[Setup Tutorial](https://youtu.be/HwctGtdsHZI)
+
 ## Installation
 
 Install from the Chrome extension store:
