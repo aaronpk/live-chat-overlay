@@ -3,7 +3,7 @@ Live Chat Overlay
 
 This CSS and JS turns the popout YouTube chat window into something that can be used to show chat comments keyed over a video.
 
-![chat-screenshot](chat-screenshot.jpg)
+![chat-screenshot](chat-screenshot.png)
 
 [Setup Tutorial](https://youtu.be/HwctGtdsHZI)
 
@@ -25,7 +25,7 @@ Open up the YouTube live chat for a video, and click popout chat to open it in a
 
 `https://www.youtube.com/live_chat?is_popout=1&v=VIDEOID`
 
-You'll next need to bring that into your video stream and key it out, which will depend on what software or hardware you are using. In the ATEM Mini, you can use these settings in the upstream keyer: 
+You'll next need to bring that into your video stream and key it out, which will depend on what software or hardware you are using. In the ATEM Mini, you can use these settings in the upstream keyer:
 
 * Luma key
 * not premultiplied
@@ -35,7 +35,7 @@ You'll next need to bring that into your video stream and key it out, which will
 Or you can use the downstream keyer:
 
 * not premultiplied
-* mask: 
+* mask:
   * top: X
   * bottom: -9
   * left: -16
