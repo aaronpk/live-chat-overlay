@@ -27,7 +27,7 @@
     */
     --comment-width: auto; /* go 100% for a full screen lower third style*/
     --comment-padding: 20px 40px 20px 70px;
-    --comment-area-height: 300px;
+    --comment-area-height: 30vh;
     /*
     STYLE
     */
@@ -47,9 +47,13 @@ yt-live-chat-app {
 .btn-clear {
     position: absolute;
     z-index: 99999;
-    bottom: 370px;
+    bottom: calc(30vh + 60px);
     right: 20px;
     font-size: 30px;
+    border: 1px #bbb solid;
+    border-radius: 4px;
+    color: #fff;
+    background: #444;
 }
 .show-comment {
     background-color: var(--shown-comment-bg-color) !important;
