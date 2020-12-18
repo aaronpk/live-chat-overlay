@@ -81,7 +81,8 @@ $(function(){
 
 // Restore settings
 
-chrome.storage.sync.get(["color","authorBackgroundColor","authorColor","commentBackgroundColor","commentColor"], function(item){
+var properties = ["color","authorBackgroundColor","authorColor","commentBackgroundColor","commentColor","fontFamily"];
+chrome.storage.sync.get(properties, function(item){
   var color = "#000";
   if(item.color) {
     color = item.color;
@@ -102,6 +103,9 @@ chrome.storage.sync.get(["color","authorBackgroundColor","authorColor","commentB
   }
   if(item.commentColor) {
     root.style.setProperty("--comment-color", item.commentColor);
+  }
+  if(item.fontFamily) {
+    root.style.setProperty("--font-family", item.fontFamily);
   }
 });
 
