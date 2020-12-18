@@ -213,9 +213,11 @@ highlight-chat {
 }
 
 /* hide chat input to give more space to the chat */
+/*
 #input-panel, yt-live-chat-viewer-engagement-message-renderer {
 	display: none !important;
 }
+*/
 
 yt-live-chat-item-list-renderer {
 	margin-bottom: 20px;
