@@ -81,7 +81,7 @@ $(function(){
 
 // Restore settings
 
-chrome.storage.sync.get("color", function(item){
+chrome.storage.sync.get(["color","authorBackgroundColor","authorColor","commentBackgroundColor","commentColor"], function(item){
   var color = "#000";
   if(item.color) {
     color = item.color;
@@ -89,6 +89,20 @@ chrome.storage.sync.get("color", function(item){
 
   let root = document.documentElement;
   root.style.setProperty("--keyer-bg-color", color);
+
+  if(item.authorBackgroundColor) {
+    root.style.setProperty("--author-bg-color", item.authorBackgroundColor);
+    root.style.setProperty("--author-avatar-border-color", item.authorBackgroundColor);
+  }
+  if(item.commentBackgroundColor) {
+    root.style.setProperty("--comment-bg-color", item.commentBackgroundColor);
+  }
+  if(item.authorColor) {
+    root.style.setProperty("--author-color", item.authorColor);
+  }
+  if(item.commentColor) {
+    root.style.setProperty("--comment-color", item.commentColor);
+  }
 });
 
 

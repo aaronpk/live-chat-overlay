@@ -1,19 +1,69 @@
 <!DOCTYPE html>
-
 <html>
-  <head>
-    <meta charset="utf-8">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <style>
+    .setting {
+      margin-bottom: 4px;
+    }
+    label {
+      display: block;
+    }
+    input {
+      display: block;
+      padding: 4px;
+      border: 1px #ccc solid;
+      border-radius: 4px;
+    }
+    button {
+      padding: 6px;
+      border: 1px #ccc solid;
+      border-radius: 4px;
+    }
+    hr {
+      border: 0;
+      border-top: 1px #ccc solid;
+    }
+  </style>
+</head>
+<body>
 
-  <body>
+  <p>Customize the colors of the live chat overlay. Enter the <a href="https://www.google.com/search?q=hex+color+picker">hex codes</a> of the colors you'd like to use. Remember that full black #000 will be keyed out.</p>
+  <ul>
+    <li>Black: #000</li>
+    <li>Dark Grey: #222</li>
+    <li>White: #fff</li>
+  </ul>
 
-    <form>
-        <label>Background Color <input type="text" id="color" ></label>
-        <button type="submit">Save</button>
-    </form>
+  <form>
+    <div class="setting">
+      <label>Background Color</label>
+      <input type="text" id="color">
+    </div>
+    <hr>
+    <div class="setting">
+      <label>Author Background Color</label>
+      <input type="text" id="author-bg-color">
+    </div>
+    <div class="setting">
+      <label>Author Text Color</label>
+      <input type="text" id="author-color">
+    </div>
+    <hr>
+    <div class="setting">
+      <label>Chat Message Background Color</label>
+      <input type="text" id="comment-bg-color">
+    </div>
+    <div class="setting">
+      <label>Chat Message Text Color</label>
+      <input type="text" id="comment-color">
+    </div>
 
-    <script src="options.js"></script>
+    <button type="submit">Save</button>
+  </form>
 
-  </body>
+  <script src="options.js"></script>
+
+</body>
 
 </html>
