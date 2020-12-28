@@ -1,7 +1,9 @@
-Live Chat Overlay
+Live Chat Overlay: Zoom Editon
 =================
 
-This CSS and JS turns the popout YouTube chat window into something that can be used to show chat comments keyed over a video.
+This CSS and JS turns the popout Zoom chat window into something that can be used to show chat comments keyed over a video.
+
+## todo: this needs updating.
 
 ![chat-screenshot](chat-screenshot.png)
 
@@ -55,4 +57,3 @@ See https://github.com/aaronpk/youtube-chat-overlay/issues
 ## Credits
 
 Most of this CSS and JavaScript came from a video by [ROJ BTS](https://www.youtube.com/watch?v=NHy9D4ClTvc), so huge thanks to him for the initial work!
-

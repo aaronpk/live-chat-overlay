@@ -1,4 +1,4 @@
-$("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer", function () {
+window.location.href.indexOf('youtube') > 0 && $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer", function () {
 
   // Don't show deleted messages
   if($(this)[0].hasAttribute("is-deleted")) {
@@ -119,4 +119,3 @@ function displayAspectRatio() {
 }
 displayAspectRatio();
 window.onresize = displayAspectRatio;
-

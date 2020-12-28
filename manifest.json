@@ -1,6 +1,6 @@
 {
   "name": "Live Chat Overlay",
-  "description": "Restyle the YouTube popout chat so you can overlay it for livestreams",
+  "description": "Restyle the YouTube or Zoom popout chat so you can overlay it for livestreams",
   "manifest_version": 2,
   "version": "0.1.4",
   "homepage_url": "https://github.com/aaronpk/YouTube-Chat-Overlay",
@@ -8,13 +8,31 @@
     "128": "icons/icon-128.png"
   },
   "permissions": [
-    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "storage"
+    "https://youtube.com/*",
+    "https://www.youtube.com/*",
+    "https://studio.youtube.com/*",
+    "https://zoom.us/*",
+    "https://*.zoom.us/*",
+    "storage"
   ],
-  "content_scripts": [{
-    "css": ["youtube.css"],
-    "js": ["jquery.js", "youtube.js"],
-    "matches": ["https://youtube.com/live_chat*", "https://www.youtube.com/live_chat*", "https://studio.youtube.com/live_chat*"]
-  }],
+  "content_scripts": [
+    {
+      "css": [
+        "youtube.css"
+      ],
+      "js": [
+        "jquery.js",
+        "youtube.js",
+        "zoom.js"
+      ],
+      "matches": [
+        "https://youtube.com/live_chat*",
+        "https://www.youtube.com/live_chat*",
+        "https://studio.youtube.com/live_chat*",
+        "https://*.zoom.us/wc/*"
+      ]
+    }
+  ],
   "options_ui": {
     "page": "settings/options.html"
   }
