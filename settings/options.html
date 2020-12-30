@@ -9,7 +9,7 @@
     label {
       display: block;
     }
-    input {
+    input[type="text"] {
       display: block;
       padding: 4px;
       border: 1px #ccc solid;
@@ -38,30 +38,39 @@
 
   <form>
     <div class="setting">
-      <label>Background Color</label>
+      <label for="border-radius">Border Radius (pixels)</label>
+      <input type="number" id="border-radius">
+    </div>
+    <div class="setting">
+      <label for="color">Background Color</label>
       <input type="text" id="color">
     </div>
     <hr>
     <div class="setting">
-      <label>Author Background Color</label>
+      <label for="author-bg-color">Author Background Color</label>
       <input type="text" id="author-bg-color">
     </div>
     <div class="setting">
-      <label>Author Text Color</label>
-      <input type="text" id="author-color">
+      <label for="author-color">Author Text Color</label>
+      <!-- checked is the default state to be overridden by settings. -->
+      <input type="text" id="author-color" checked="true">
+    </div>
+    <div class="setting">
+      <label for="show-author" style="display: inline-block">Show Author Name?</label>
+      <input type="checkbox" id="show-author">
     </div>
     <hr>
     <div class="setting">
-      <label>Chat Message Background Color</label>
+      <label for="comment-bg-color">Chat Message Background Color</label>
       <input type="text" id="comment-bg-color">
     </div>
     <div class="setting">
-      <label>Chat Message Text Color</label>
+      <label for="comment-color">Chat Message Text Color</label>
       <input type="text" id="comment-color">
     </div>
     <hr>
     <div class="setting">
-      <label>Font</label>
+      <label for="font-family">Font</label>
       <input type="text" id="font-family">
     </div>
     <button type="submit">Save</button>

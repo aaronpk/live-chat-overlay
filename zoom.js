@@ -44,6 +44,9 @@ function setupWindow() {
       '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>'
     );
     $('#wc-container-left').css('max-height', window.innerHeight/2);
+    $(".main").append(
+      '<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>'
+    );
   }, 2000)
 }
 
@@ -57,29 +60,18 @@ window.location.href.indexOf('zoom') > 0 && $("body")
     "click",
     ZOOM_CHAT_MESSAGE_SELECTOR,
     function () {
-      // Private messages have a class with the text "to Everyone"
-      // TODO: Not sure if messages to panelists should be shown.
-      if($(this).find('.chat-item__chat-info-header--everyone').lenght == 0) {
-        console.log("Not showing private message");
-        return;
-      }
+      // Public messages have a class with the text "to Everyone"
+      // $(this).find('.chat-item__chat-info-header--everyone').lenght == 0
 
-      // $(".hl-c-cont").remove();
+      $(".hl-c-cont").remove();
       var chatname = $(this).find(".chat-item__sender").text();
 
       // Show just the first name. Comment this out to show the full name.
       chatname = chatname.replace(/ .*/, "");
-      console.log('CHAT Message: ', chatname)
       var chatmessage = $(this).find(".chat-item__chat-info-msg").html();
-      console.log(chatmessage)
-      // var chatimg = $(this).find("#img").attr("src");
-      // chatimg = chatimg.replace("32", "128");
-      var chatimg = null;
-      var chatdonation = null; // $(this).find("#purchase-amount").html();
       // var chatmembership = $(this)
       //   .find(".yt-live-chat-membership-item-renderer #header-subtext")
       //   .html();
-      var chatmembership = null;
       var chatbadges = "";
       // if (
       //   $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img")
@@ -93,21 +85,7 @@ window.location.href.indexOf('zoom') > 0 && $("body")
 
       $(this).addClass("show-comment");
 
-      var hasDonation;
-      if (chatdonation) {
-        hasDonation = '<div class="donation">' + chatdonation + "</div>";
-      } else {
-        hasDonation = "";
-      }
-
-      var hasMembership;
-      if (chatmembership) {
-        hasMembership = '<div class="donation membership">NEW MEMBER!</div>';
-        chatmessage = chatmembership;
-      } else {
-        hasMembership = "";
-      }
-
+      // TODO: Extract this.
       var backgroundColor = "";
       var textColor = "";
       if (
@@ -132,24 +110,12 @@ window.location.href.indexOf('zoom') > 0 && $("body")
       }
 
       $("highlight-chat")
-        .append(
-          '<div class="hl-c-cont fadeout"><div class="hl-name">' +
-            chatname +
-            '<div class="hl-badges">' +
-            chatbadges +
-            '</div></div><div class="hl-message" style="' +
-            backgroundColor +
-            " " +
-            textColor +
-            '">' +
-            chatmessage +
-            '</div><div class="hl-img" style="display: none"><img src="' +
-            chatimg +
-            '"></div>' +
-            hasDonation +
-            hasMembership +
-            "</div>"
-        )
+        .append(renderChatMessage(chatmessage, chatname, null, {
+          hasDonation: '',
+          hasMembership: '',
+          chatbadges: '',
+          style: `${backgroundColor} ${textColor}`
+        }))
         .delay(10)
         .queue(function (next) {
           $(".hl-c-cont").removeClass("fadeout");
@@ -167,6 +133,22 @@ $("body").on("click", ".btn-clear", function () {
     });
 });
 
+
+function renderChatMessage(message, name, image, opts ) {
+  let imageHTML = image ? `<div class="hl-img"><img src="${image}"></div>` : '';
+  let nameHTML = name ? `<div class="hl-name">${name}<div class="hl-badges">
+  ${opts.chatbadges}</div></div>` : '';
+  // TODO: Cleanup
+  let classes = opts.chatbadges || image ? '' : 'no-badges';
+  return `
+  <div class="hl-c-cont fadeout">
+    ${nameHTML}
+    <div class="hl-message ${classes}" style="${opts.style || ''}">
+      ${message}
+    </div>
+  ${imageHTML}${opts.hasDonation}${opts.hasMembership}
+  </div>`;
+}
 
 // Show a placeholder message so you can position the window before the chat is live
 $(function () {
@@ -196,6 +178,8 @@ var properties = [
   "commentBackgroundColor",
   "commentColor",
   "fontFamily",
+  "showAuthor",
+  "borderRadius"
 ];
 chrome.storage.sync.get(properties, function (item) {
   var color = "#000";
@@ -225,11 +209,13 @@ chrome.storage.sync.get(properties, function (item) {
   if (item.fontFamily) {
     root.style.setProperty("--font-family", item.fontFamily);
   }
+  if (item.showAuthor != undefined) {
+    root.style.setProperty("--comment-name-display", item.showAuthor ? 'block' : 'none');
+  }
+  if (item.borderRadius) {
+    root.style.setProperty("--comment-border-radius", `${item.borderRadius}px`);
+  }
 });
-
-$("#primary-content").append(
-  '<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>'
-);
 
 function displayAspectRatio() {
   var ratio = Math.round((window.innerWidth / window.innerHeight) * 100) / 100;

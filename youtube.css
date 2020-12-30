@@ -27,7 +27,9 @@
     */
     --comment-width: auto; /* go 100% for a full screen lower third style*/
     --comment-padding: 20px 40px 20px 70px;
+    --comment-padding-no-badges: 20px;
     --comment-area-height: 30vh;
+    --comment-name-display: block; /* can be overridden to hide names. */
     /*
     STYLE
     */
@@ -40,10 +42,13 @@
 body {
     background-color: var(--keyer-bg-color);
 }
+
+#wc-container-left, #wc-container-right,
 yt-live-chat-app {
     margin-bottom: var(--comment-area-height);
     height: calc(100vh - var(--comment-area-height)) !important;
 }
+
 .btn-clear {
     position: absolute;
     z-index: 99999;
@@ -58,6 +63,7 @@ yt-live-chat-app {
 .show-comment {
     background-color: var(--shown-comment-bg-color) !important;
 }
+
 highlight-chat {
     font-family: var(--font-family);
     font-weight: var(--highlight-chat-font-weight);
@@ -88,6 +94,7 @@ highlight-chat {
 }
 
 .hl-name {
+    display: var(--comment-name-display);
     position: absolute;
     top: -20px;
     left: 50px;
@@ -110,6 +117,12 @@ highlight-chat {
     border-radius: var(--comment-border-radius);
     font-size: var(--comment-font-size);
 }
+
+/* No images, donations, etc. */
+.hl-message.no-badges {
+    padding: var(--comment-padding-no-badges);
+}
+
 .hl-message img {
     width: 50px;
     vertical-align: middle;
