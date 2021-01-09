@@ -1,3 +1,5 @@
+var showOnlyFirstName;
+
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer", function () {
 
   // Don't show deleted messages
@@ -9,8 +11,9 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   $(".hl-c-cont").remove();
   var chatname = $(this).find("#author-name").text();
 
-  // Show just the first name. Comment this out to show the full name.
-  chatname = chatname.replace(/ .*/,'');
+  if(showOnlyFirstName) {
+    chatname = chatname.replace(/ .*/,'');
+  }
 
   var chatmessage = $(this).find("#message").html();
   var chatimg = $(this).find("#img").attr('src');
@@ -81,7 +84,7 @@ $(function(){
 
 // Restore settings
 
-var properties = ["color","authorBackgroundColor","authorColor","commentBackgroundColor","commentColor","fontFamily"];
+var properties = ["color","authorBackgroundColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName"];
 chrome.storage.sync.get(properties, function(item){
   var color = "#000";
   if(item.color) {
@@ -107,6 +110,7 @@ chrome.storage.sync.get(properties, function(item){
   if(item.fontFamily) {
     root.style.setProperty("--font-family", item.fontFamily);
   }
+  showOnlyFirstName = item.showOnlyFirstName;
 });
 
 

@@ -9,12 +9,15 @@
     label {
       display: block;
     }
-    input {
+    input.text {
       display: block;
       padding: 4px;
       border: 1px #ccc solid;
       border-radius: 4px;
       width: 90%;
+    }
+    input.checkbox {
+      float: left;
     }
     button {
       padding: 6px;
@@ -38,31 +41,36 @@
 
   <form>
     <div class="setting">
+      <input type="checkbox" class="checkbox" id="firstname">
+      <label>Show only first name</label>
+    </div>
+    <hr>
+    <div class="setting">
       <label>Background Color</label>
-      <input type="text" id="color">
+      <input type="text" class="text" id="color">
     </div>
     <hr>
     <div class="setting">
       <label>Author Background Color</label>
-      <input type="text" id="author-bg-color">
+      <input type="text" class="text" id="author-bg-color">
     </div>
     <div class="setting">
       <label>Author Text Color</label>
-      <input type="text" id="author-color">
+      <input type="text" class="text" id="author-color">
     </div>
     <hr>
     <div class="setting">
       <label>Chat Message Background Color</label>
-      <input type="text" id="comment-bg-color">
+      <input type="text" class="text" id="comment-bg-color">
     </div>
     <div class="setting">
       <label>Chat Message Text Color</label>
-      <input type="text" id="comment-color">
+      <input type="text" class="text" id="comment-color">
     </div>
     <hr>
     <div class="setting">
       <label>Font</label>
-      <input type="text" id="font-family">
+      <input type="text" class="text" id="font-family">
     </div>
     <button type="submit">Save</button>
   </form>
