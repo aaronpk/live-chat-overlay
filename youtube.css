@@ -29,7 +29,8 @@
     --comment-width: auto; /* go 100% for a full screen lower third style*/
     --comment-padding: 20px 40px 20px 70px;
     --comment-area-height: 30vh;
-    --comment-scale: 1.0;
+    --comment-scale: 0.5;
+    --comment-area-size-offset: 0;
     /*
     STYLE
     */
@@ -66,9 +67,10 @@ highlight-chat {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    bottom:10px;
-    left:0;
-    width: 100%;
+    bottom: 10px;
+    left: calc(var(--comment-area-size-offset) * -1px);
+    right: calc(var(--comment-area-size-offset) * -1px);
+    width: auto;
     height: var(--comment-area-height);
     z-index:99999999999;
     overflow: hidden;
@@ -78,6 +80,9 @@ highlight-chat {
     color: #fff;
     font-size: 30px;
     transform: scale(var(--comment-scale));
+}
+highlight-chat.preview {
+    border: 1px #ccc solid;
 }
 .hl-c-cont {
     position: relative;

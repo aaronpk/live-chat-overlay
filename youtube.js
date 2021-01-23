@@ -63,7 +63,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   }
 
 
-  $( "highlight-chat" ).append('<div class="hl-c-cont fadeout">'
+  $( "highlight-chat" ).removeClass("preview").append('<div class="hl-c-cont fadeout">'
      + '<div class="hl-name">' + chatname
        + '<div class="hl-badges">' + chatbadges + '</div>'
      + '</div>'
@@ -90,7 +90,7 @@ $( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class=
 $(function(){
   var chatmessage = "this livestream is the best!";
   var chatimg = "https://pin13.net/youtube-live-chat-sample-avatar.png";
-  $( "highlight-chat" ).append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div></div>')
+  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div></div>')
   .delay(10).queue(function(next){
     $( ".hl-c-cont" ).removeClass("fadeout");
     next();
@@ -99,7 +99,7 @@ $(function(){
 
 // Restore settings
 
-var properties = ["color","scale","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName"];
+var properties = ["color","scale","sizeOffset","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName"];
 chrome.storage.sync.get(properties, function(item){
   var color = "#000";
   if(item.color) {
@@ -130,6 +130,9 @@ chrome.storage.sync.get(properties, function(item){
   }
   if(item.scale) {
     root.style.setProperty("--comment-scale", item.scale);
+  }
+  if(item.sizeOffset) {
+    root.style.setProperty("--comment-area-size-offset", item.sizeOffset);
   }
   showOnlyFirstName = item.showOnlyFirstName;
 });
