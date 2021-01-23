@@ -29,8 +29,9 @@
     --comment-width: auto; /* go 100% for a full screen lower third style*/
     --comment-padding: 20px 40px 20px 70px;
     --comment-area-height: 30vh;
-    --comment-scale: 0.5;
+    --comment-scale: 1;
     --comment-area-size-offset: 0;
+    --comment-area-bottom: 10px;
     /*
     STYLE
     */
@@ -50,7 +51,7 @@ yt-live-chat-app {
 .btn-clear {
     position: absolute;
     z-index: 99999;
-    bottom: calc(30vh + 60px);
+    bottom: calc(var(--comment-area-height) + 60px);
     right: 20px;
     font-size: 30px;
     border: 1px #bbb solid;
@@ -67,7 +68,7 @@ highlight-chat {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    bottom: 10px;
+    bottom: var(--comment-area-bottom);
     left: calc(var(--comment-area-size-offset) * -1px);
     right: calc(var(--comment-area-size-offset) * -1px);
     width: auto;

@@ -99,7 +99,7 @@ $(function(){
 
 // Restore settings
 
-var properties = ["color","scale","sizeOffset","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName"];
+var properties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName"];
 chrome.storage.sync.get(properties, function(item){
   var color = "#000";
   if(item.color) {
@@ -130,6 +130,12 @@ chrome.storage.sync.get(properties, function(item){
   }
   if(item.scale) {
     root.style.setProperty("--comment-scale", item.scale);
+  }
+  if(item.commentBottom) {
+    root.style.setProperty("--comment-area-bottom", item.commentBottom);
+  }
+  if(item.commentHeight) {
+    root.style.setProperty("--comment-area-height", item.commentHeight);
   }
   if(item.sizeOffset) {
     root.style.setProperty("--comment-area-size-offset", item.sizeOffset);

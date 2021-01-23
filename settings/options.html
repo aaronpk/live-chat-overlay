@@ -76,7 +76,7 @@
       </div>
     </div>
     <div class="section">
-      <div class="setting">
+      <div class="setting" style="margin-bottom: 10px;">
         <input type="checkbox" class="checkbox" id="firstname">
         <label>Show only first name</label>
       </div>
@@ -84,12 +84,25 @@
         <label>Font</label>
         <input type="text" class="text" id="font-family">
       </div>
+    </div>
+    <div class="section">
+      <p><i>Adjust these to make the comment text smaller or fit more lines of text. Sorry it's kind of hard to use.</i></p>
       <div class="setting">
-        <label>Scale</label>
+        <label>Active Comment Scale (e.g. 0.8)</label>
         <input type="text" class="text" id="scale">
       </div>
       <div class="setting">
+        <label>Active Comment Bottom Position</label>
+        <div>(set negative to move lower when scaled down, e.g. -2vh)</div>
+        <input type="text" class="text" id="comment-bottom">
+      </div>
+      <div class="setting">
+        <label>Active Comment Height (default 30vh)</label>
+        <input type="text" class="text" id="comment-height">
+      </div>
+      <div class="setting">
         <label>Width Offset</label>
+        <div>(make text area wider when scaled down, e.g. 100)</div>
         <input type="text" class="text" id="size-offset">
       </div>
     </div>
