@@ -1,5 +1,7 @@
 var showOnlyFirstName;
 
+var highlightWords = [];
+
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer", function () {
 
   // Don't show deleted messages
@@ -31,8 +33,9 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   if($(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").length > 0) {
     chatbadges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
   }
-  $(this).addClass("show-comment");
 
+  // Mark this comment as shown
+  $(this).addClass("shown-comment");
 
   var hasDonation = '';
   if(chatdonation) {
@@ -99,7 +102,7 @@ $(function(){
 
 // Restore settings
 
-var properties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName"];
+var properties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
 chrome.storage.sync.get(properties, function(item){
   var color = "#000";
   if(item.color) {
@@ -141,6 +144,7 @@ chrome.storage.sync.get(properties, function(item){
     root.style.setProperty("--comment-area-size-offset", item.sizeOffset);
   }
   showOnlyFirstName = item.showOnlyFirstName;
+  highlightWords = item.highlightWords;
 });
 
 
@@ -153,4 +157,41 @@ function displayAspectRatio() {
 }
 displayAspectRatio();
 window.onresize = displayAspectRatio;
+
+
+
+function onElementInserted(containerSelector, tagName, callback) {
+
+    var onMutationsObserved = function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length) {
+                for (var i = 0, len = mutation.addedNodes.length; i < len; i++) {
+                    if(mutation.addedNodes[i].tagName == tagName.toUpperCase()) {
+                        callback(mutation.addedNodes[i]);
+                    }
+                }
+            }
+        });
+    };
+
+    var target = document.querySelectorAll(containerSelector)[0];
+    var config = { childList: true, subtree: true };
+    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+    var observer = new MutationObserver(onMutationsObserved);
+    observer.observe(target, config);
+
+}
+
+
+onElementInserted(".yt-live-chat-item-list-renderer#items", "yt-live-chat-text-message-renderer", function(element){
+  console.log("New dom element inserted", element.tagName);
+  // Check for highlight words
+  var chattext = $(element).find("#message").text();
+  var chatWords = chattext.split(" ");
+  var highlights = chatWords.filter(value => highlightWords.includes(value.toLowerCase().replace(/[^a-z0-9]/gi, '')));
+  $(element).removeClass("shown-comment");
+  if(highlights.length > 0) {
+    $(element).addClass("highlighted-comment");
+  }
+});
 

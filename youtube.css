@@ -21,7 +21,9 @@
     --donation-label-color: #fff;
     --donation-label-text: 'SUPERCHAT';
     --donation-shadow-color: #fff;
-    --shown-comment-bg-color: #55de55;
+
+    --shown-comment-bg-color: #555555;
+    --highlighted-comment-bg-color: #f0f07d;
 
     /*
     LAYOUT
@@ -59,8 +61,18 @@ yt-live-chat-app {
     color: #fff;
     background: #444;
 }
-.show-comment {
+.highlighted-comment {
+    background-color: var(--highlighted-comment-bg-color) !important;
+}
+yt-live-chat-text-message-renderer:hover {
+    background-color: #eee !important;
+}
+yt-live-chat-text-message-renderer.shown-comment {
     background-color: var(--shown-comment-bg-color) !important;
+    opacity: 0.4;
+}
+.shown-comment:hover {
+    opacity: 0.5;
 }
 highlight-chat {
     font-family: var(--font-family);
