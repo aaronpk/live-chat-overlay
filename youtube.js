@@ -99,7 +99,7 @@ $(function(){
 
 // Restore settings
 
-var properties = ["color","authorBackgroundColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName"];
+var properties = ["color","scale","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName"];
 chrome.storage.sync.get(properties, function(item){
   var color = "#000";
   if(item.color) {
@@ -113,6 +113,9 @@ chrome.storage.sync.get(properties, function(item){
     root.style.setProperty("--author-bg-color", item.authorBackgroundColor);
     root.style.setProperty("--author-avatar-border-color", item.authorBackgroundColor);
   }
+  if(item.authorAvatarBorderColor) {
+    root.style.setProperty("--author-avatar-border-color", item.authorAvatarBorderColor);
+  }
   if(item.commentBackgroundColor) {
     root.style.setProperty("--comment-bg-color", item.commentBackgroundColor);
   }
@@ -124,6 +127,9 @@ chrome.storage.sync.get(properties, function(item){
   }
   if(item.fontFamily) {
     root.style.setProperty("--font-family", item.fontFamily);
+  }
+  if(item.scale) {
+    root.style.setProperty("--comment-scale", item.scale);
   }
   showOnlyFirstName = item.showOnlyFirstName;
 });

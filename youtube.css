@@ -10,6 +10,7 @@
     --author-avatar-border-color: #ffa500;
     --author-border-radius: 0px;
     --author-avatar-border-size: 3px;
+    --author-avatar-size: 128px;
     --author-font-size: 30px;
     /* donation/superchat specific */
     --donation-color: #5a4211;
@@ -28,6 +29,7 @@
     --comment-width: auto; /* go 100% for a full screen lower third style*/
     --comment-padding: 20px 40px 20px 70px;
     --comment-area-height: 30vh;
+    --comment-scale: 1.0;
     /*
     STYLE
     */
@@ -72,9 +74,10 @@ highlight-chat {
     overflow: hidden;
     margin: 0px;
     padding: 40px 50px 40px 220px;
-    background-color: var(--keyer-bg-color); /* black background for Luma key */
+    background-color: var(--keyer-bg-color);
     color: #fff;
     font-size: 30px;
+    transform: scale(var(--comment-scale));
 }
 .hl-c-cont {
     position: relative;
@@ -122,8 +125,8 @@ highlight-chat {
     top: 0;
     z-index: 1;
     left: -60px;
-    width: 128px;
-    height: 128px;
+    width: var(--author-avatar-size);
+    height: var(--author-avatar-size);
     background-color: var(--author-avatar-border-color);
     border-radius: 50%;
     border: 0;

@@ -3,6 +3,11 @@
 <head>
   <meta charset="utf-8">
   <style>
+    .section {
+      border-top: 1px #ddd solid;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
     .setting {
       margin-bottom: 4px;
     }
@@ -40,37 +45,49 @@
   </ul>
 
   <form>
-    <div class="setting">
-      <input type="checkbox" class="checkbox" id="firstname">
-      <label>Show only first name</label>
+    <div class="section">
+      <div class="setting">
+        <label>Background Color</label>
+        <input type="text" class="text" id="color">
+      </div>
     </div>
-    <hr>
-    <div class="setting">
-      <label>Background Color</label>
-      <input type="text" class="text" id="color">
+    <div class="section">
+      <div class="setting">
+        <label>Author Name Color</label>
+        <input type="text" class="text" id="author-color">
+      </div>
+      <div class="setting">
+        <label>Author Background Color</label>
+        <input type="text" class="text" id="author-bg-color">
+      </div>
+      <div class="setting">
+        <label>Author Avatar Border Color</label>
+        <input type="text" class="text" id="author-avatar-border-color">
+      </div>
     </div>
-    <hr>
-    <div class="setting">
-      <label>Author Background Color</label>
-      <input type="text" class="text" id="author-bg-color">
+    <div class="section">
+      <div class="setting">
+        <label>Chat Message Background Color</label>
+        <input type="text" class="text" id="comment-bg-color">
+      </div>
+      <div class="setting">
+        <label>Chat Message Text Color</label>
+        <input type="text" class="text" id="comment-color">
+      </div>
     </div>
-    <div class="setting">
-      <label>Author Text Color</label>
-      <input type="text" class="text" id="author-color">
-    </div>
-    <hr>
-    <div class="setting">
-      <label>Chat Message Background Color</label>
-      <input type="text" class="text" id="comment-bg-color">
-    </div>
-    <div class="setting">
-      <label>Chat Message Text Color</label>
-      <input type="text" class="text" id="comment-color">
-    </div>
-    <hr>
-    <div class="setting">
-      <label>Font</label>
-      <input type="text" class="text" id="font-family">
+    <div class="section">
+      <div class="setting">
+        <input type="checkbox" class="checkbox" id="firstname">
+        <label>Show only first name</label>
+      </div>
+      <div class="setting">
+        <label>Font</label>
+        <input type="text" class="text" id="font-family">
+      </div>
+      <div class="setting">
+        <label>Scale</label>
+        <input type="text" class="text" id="scale">
+      </div>
     </div>
     <button type="submit">Save</button>
   </form>
