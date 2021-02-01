@@ -64,8 +64,23 @@ yt-live-chat-app {
 .highlighted-comment {
     background-color: var(--highlighted-comment-bg-color) !important;
 }
+html[dark] .highlighted-comment #message.yt-live-chat-text-message-renderer {
+    color: black;
+}
+html[dark] .highlighted-comment:hover #message.yt-live-chat-text-message-renderer {
+    color: white;
+}
+html[dark] .highlighted-comment #author-name.yt-live-chat-author-chip {
+    color: #444;
+}
+html[dark] .highlighted-comment:hover #author-name.yt-live-chat-author-chip {
+    color: #DDD;
+}
 yt-live-chat-text-message-renderer:hover {
     background-color: #eee !important;
+}
+html[dark] yt-live-chat-text-message-renderer:hover {
+    background-color: #444 !important;
 }
 yt-live-chat-text-message-renderer.shown-comment {
     background-color: var(--shown-comment-bg-color) !important;
