@@ -175,6 +175,7 @@ function onElementInserted(containerSelector, tagName, callback) {
     };
 
     var target = document.querySelectorAll(containerSelector)[0];
+    if (!target) { return; }
     var config = { childList: true, subtree: true };
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
     var observer = new MutationObserver(onMutationsObserved);

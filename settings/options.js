@@ -33,7 +33,7 @@ function restoreOptions() {
     document.querySelector("#comment-bg-color").value = result.commentBackgroundColor || "#222";
     document.querySelector("#comment-color").value = result.commentColor || "#fff";
     document.querySelector("#font-family").value = result.fontFamily || "Avenir Next, Helvetica, Geneva, Verdana, Arial, sans-serif";
-    document.querySelector("#show-author").checked = result.showAuthor;
+    document.querySelector("#show-author").checked = result.showAuthor || true;
     document.querySelector("#border-radius").value = result.borderRadius || '0';
     document.querySelector("#firstname").checked = result.showOnlyFirstName || false;
     document.querySelector("#highlight-words").value = result.highlightWords.join(", ") || "question";

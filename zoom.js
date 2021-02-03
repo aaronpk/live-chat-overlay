@@ -37,22 +37,34 @@
 </div>
 */
 
-function setupWindow() {
+function popOutChat() {
+  // Open Chat Action
   $('button.footer-button__button[aria-label="open the chat pane"]').click();
+  // Open the chat options menu:
+  $('#chatSectionMenu').click();
+  // "Pop Out Chat" action. Currently doesn't actually popout the chat...
+  // $('#wc-container-right > div > div.chat-header__header > div.dropdown.open.btn-group > ul > li:nth-child(2) > a').click();
+}
+
+function setupWindow() {
   // This is a bit of a hack, but works better once Zoom is fully loaded.
   setTimeout(() => {
-    $("#wc-container-right").css('max-height', window.innerHeight/2).after(
-
-    );
-    $('#wc-container-left').css('max-height', window.innerHeight/2);
+    // $('body').wrap(`<div class="zoom-wrapper" style="max-height: ${window.innerHeight/2}; overflow: none">`)
+    $("#wc-container-right").css('max-height', "clac(100% - var(--comment-area-height) - 30px)");
+    $('#wc-container-left').css('max-height', "clac(300% - var(--comment-area-height) - 30px)");
     $(".main").append(
       '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' +
       '<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>'
     );
+    popOutChat();
   }, 2000)
 }
 
-const ZOOM_CHAT_MESSAGE_SELECTOR = '.chat-item__chat-info';
+// This is an individual message.
+const ZOOM_CHAT_MESSAGE_SELECTOR = '.chat-message-text-content';
+// Each user's message is within a container, which has their name and avatar.
+// Multiple messages can be in one container.
+const ZOOM_CHAT_USER_CONTAINER = 'chat-item__chat-info';
 
 // TODO: This is a hack.
 window.location.href.indexOf('zoom') > 0 && setupWindow();
@@ -62,30 +74,23 @@ window.location.href.indexOf('zoom') > 0 && $("body")
     "click",
     ZOOM_CHAT_MESSAGE_SELECTOR,
     function () {
-      // Public messages have a class with the text "to Everyone"
-      // $(this).find('.chat-item__chat-info-header--everyone').lenght == 0
+      let $this = $(this);
+      let container = $this.parentsUntil(ZOOM_CHAT_USER_CONTAINER);
 
       $(".hl-c-cont").remove();
-      var chatname = $(this).find(".chat-item__sender").text();
+      var chatname = container.find(".chat-item__sender").text();
 
-      // Show just the first name. Comment this out to show the full name.
-      chatname = chatname.replace(/ .*/, "");
-      var chatmessage = $(this).find(".chat-item__chat-info-msg").html();
-      // var chatmembership = $(this)
+      var chatmessage = $this.html();
+      // var chatmembership = $this
       //   .find(".yt-live-chat-membership-item-renderer #header-subtext")
       //   .html();
-      var chatbadges = "";
-      // if (
-      //   $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img")
-      //     .length > 0
-      // ) {
-      //   chatbadges = $(this)
-      //     .find("#chat-badges .yt-live-chat-author-badge-renderer img")
-      //     .parent()
-      //     .html();
-      // }
+      var useravatar = null;
+      let avatar = container.find(".chat-item__chat-info-msg-avatar");
+      if (avatar.length > 0) {
+        useravatar = avatar.attr('src');
+      }
 
-      $(this).addClass("show-comment");
+      $this.addClass("show-comment");
 
       // TODO: Extract this.
       var backgroundColor = "";
@@ -102,7 +107,7 @@ window.location.href.indexOf('zoom') > 0 && $("body")
         textColor = "color: #111;";
       }
 
-      // This doesn't work yet
+      // TODO: Sponsors don't apply in Zoom?
       if (this.style.getPropertyValue("--yt-live-chat-sponsor-color")) {
         backgroundColor =
           "background-color: " +
@@ -112,7 +117,7 @@ window.location.href.indexOf('zoom') > 0 && $("body")
       }
 
       $("highlight-chat")
-        .append(renderChatMessage(chatmessage, chatname, null, {
+        .append(renderChatMessage(chatmessage, chatname, useravatar, {
           hasDonation: '',
           hasMembership: '',
           chatbadges: '',
@@ -126,6 +131,7 @@ window.location.href.indexOf('zoom') > 0 && $("body")
     }
   );
 
+// TODO: These two chunks can be extracted.
 $("body").on("click", ".btn-clear", function () {
   $(".hl-c-cont")
     .addClass("fadeout")
@@ -172,6 +178,7 @@ $(function () {
 });
 
 // Restore settings
+// TODO: This should be extracted.
 
 var properties = [
   "color",
@@ -211,7 +218,7 @@ chrome.storage.sync.get(properties, function (item) {
   if (item.fontFamily) {
     root.style.setProperty("--font-family", item.fontFamily);
   }
-  if (item.showAuthor != undefined) {
+  if (item.showAuthor) {
     root.style.setProperty("--comment-name-display", item.showAuthor ? 'block' : 'none');
   }
   if (item.borderRadius) {
