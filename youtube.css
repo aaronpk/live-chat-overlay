@@ -43,7 +43,7 @@ body {
     background-color: var(--keyer-bg-color);
 }
 
-#wc-container-left, #wc-container-right,
+#wc-container-left, #wc-container-right, div.main, /* zoom */
 yt-live-chat-app {
     margin-bottom: var(--comment-area-height);
     height: calc(100vh - var(--comment-area-height)) !important;

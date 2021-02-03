@@ -39,12 +39,14 @@
 
 function setupWindow() {
   $('button.footer-button__button[aria-label="open the chat pane"]').click();
+  // This is a bit of a hack, but works better once Zoom is fully loaded.
   setTimeout(() => {
     $("#wc-container-right").css('max-height', window.innerHeight/2).after(
-      '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>'
+
     );
     $('#wc-container-left').css('max-height', window.innerHeight/2);
     $(".main").append(
+      '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' +
       '<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>'
     );
   }, 2000)
