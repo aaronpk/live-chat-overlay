@@ -81,24 +81,9 @@ window.location.href.indexOf('youtube') > 0 && $("body").unbind("click").on("cli
 
 });
 
-$("body").on("click", ".btn-clear", function () {
-  $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
-    $(".hl-c-cont").remove().dequeue();
-  });
-});
 
 $( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' );
 
-// Show a placeholder message so you can position the window before the chat is live
-$(function(){
-  var chatmessage = "this livestream is the best!";
-  var chatimg = "https://pin13.net/youtube-live-chat-sample-avatar.png";
-  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div></div>')
-  .delay(10).queue(function(next){
-    $( ".hl-c-cont" ).removeClass("fadeout");
-    next();
-  });
-});
 
 // Restore settings
 
