@@ -1,4 +1,8 @@
-window.location.href.indexOf('youtube') > 0 && $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer", function () {
+var showOnlyFirstName;
+
+var highlightWords = [];
+
+window.location.href.indexOf('youtube') > 0 && $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer", function () {
 
   // Don't show deleted messages
   if($(this)[0].hasAttribute("is-deleted")) {
@@ -9,33 +13,43 @@ window.location.href.indexOf('youtube') > 0 && $("body").unbind("click").on("cli
   $(".hl-c-cont").remove();
   var chatname = $(this).find("#author-name").text();
 
-  // Show just the first name. Comment this out to show the full name.
-  chatname = chatname.replace(/ .*/,'');
+  if(showOnlyFirstName) {
+    chatname = chatname.replace(/ .*/,'');
+  }
 
   var chatmessage = $(this).find("#message").html();
   var chatimg = $(this).find("#img").attr('src');
   chatimg = chatimg.replace("32", "128");
   var chatdonation = $(this).find("#purchase-amount").html();
   var chatmembership = $(this).find(".yt-live-chat-membership-item-renderer #header-subtext").html();
+  var chatsticker = $(this).find(".yt-live-chat-paid-sticker-renderer #img").attr("src");
+
+  // Donation amounts for stickers use a differnet id than regular superchats
+  if(chatsticker) {
+    chatdonation = $(this).find("#purchase-amount-chip").html();
+  }
+
   var chatbadges = "";
   if($(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").length > 0) {
     chatbadges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
   }
-  $(this).addClass("show-comment");
 
-  var hasDonation;
+  // Mark this comment as shown
+  $(this).addClass("shown-comment");
+
+  var hasDonation = '';
   if(chatdonation) {
     hasDonation = '<div class="donation">' + chatdonation + '</div>';
-  } else {
-    hasDonation = '';
   }
 
-  var hasMembership;
+  var hasMembership = '';
   if(chatmembership) {
     hasMembership = '<div class="donation membership">NEW MEMBER!</div>';
     chatmessage = chatmembership;
-  } else {
-    hasMembership = '';
+  }
+
+  if(chatsticker) {
+    chatmessage = '<img src="'+chatsticker+'">';
   }
 
   var backgroundColor = "";
@@ -52,7 +66,14 @@ window.location.href.indexOf('youtube') > 0 && $("body").unbind("click").on("cli
   }
 
 
-  $( "highlight-chat" ).append('<div class="hl-c-cont fadeout"><div class="hl-name">' + chatname + '<div class="hl-badges">' + chatbadges + '</div></div><div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div>'+hasDonation+hasMembership+'</div>')
+  $( "highlight-chat" ).removeClass("preview").append('<div class="hl-c-cont fadeout">'
+     + '<div class="hl-name">' + chatname
+       + '<div class="hl-badges">' + chatbadges + '</div>'
+     + '</div>'
+     + '<div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div>'
+     + '<div class="hl-img"><img src="' + chatimg + '"></div>'
+     +hasDonation+hasMembership
+   +'</div>')
   .delay(10).queue(function(next){
     $( ".hl-c-cont" ).removeClass("fadeout");
     next();
@@ -72,7 +93,7 @@ $( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class=
 $(function(){
   var chatmessage = "this livestream is the best!";
   var chatimg = "https://pin13.net/youtube-live-chat-sample-avatar.png";
-  $( "highlight-chat" ).append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div></div>')
+  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div></div>')
   .delay(10).queue(function(next){
     $( ".hl-c-cont" ).removeClass("fadeout");
     next();
@@ -81,7 +102,7 @@ $(function(){
 
 // Restore settings
 
-var properties = ["color","authorBackgroundColor","authorColor","commentBackgroundColor","commentColor","fontFamily"];
+var properties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
 chrome.storage.sync.get(properties, function(item){
   var color = "#000";
   if(item.color) {
@@ -95,6 +116,9 @@ chrome.storage.sync.get(properties, function(item){
     root.style.setProperty("--author-bg-color", item.authorBackgroundColor);
     root.style.setProperty("--author-avatar-border-color", item.authorBackgroundColor);
   }
+  if(item.authorAvatarBorderColor) {
+    root.style.setProperty("--author-avatar-border-color", item.authorAvatarBorderColor);
+  }
   if(item.commentBackgroundColor) {
     root.style.setProperty("--comment-bg-color", item.commentBackgroundColor);
   }
@@ -107,6 +131,20 @@ chrome.storage.sync.get(properties, function(item){
   if(item.fontFamily) {
     root.style.setProperty("--font-family", item.fontFamily);
   }
+  if(item.scale) {
+    root.style.setProperty("--comment-scale", item.scale);
+  }
+  if(item.commentBottom) {
+    root.style.setProperty("--comment-area-bottom", item.commentBottom);
+  }
+  if(item.commentHeight) {
+    root.style.setProperty("--comment-area-height", item.commentHeight);
+  }
+  if(item.sizeOffset) {
+    root.style.setProperty("--comment-area-size-offset", item.sizeOffset);
+  }
+  showOnlyFirstName = item.showOnlyFirstName;
+  highlightWords = item.highlightWords;
 });
 
 
@@ -119,3 +157,40 @@ function displayAspectRatio() {
 }
 displayAspectRatio();
 window.onresize = displayAspectRatio;
+
+
+
+function onElementInserted(containerSelector, tagName, callback) {
+
+    var onMutationsObserved = function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length) {
+                for (var i = 0, len = mutation.addedNodes.length; i < len; i++) {
+                    if(mutation.addedNodes[i].tagName == tagName.toUpperCase()) {
+                        callback(mutation.addedNodes[i]);
+                    }
+                }
+            }
+        });
+    };
+
+    var target = document.querySelectorAll(containerSelector)[0];
+    var config = { childList: true, subtree: true };
+    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+    var observer = new MutationObserver(onMutationsObserved);
+    observer.observe(target, config);
+
+}
+
+
+onElementInserted(".yt-live-chat-item-list-renderer#items", "yt-live-chat-text-message-renderer", function(element){
+  console.log("New dom element inserted", element.tagName);
+  // Check for highlight words
+  var chattext = $(element).find("#message").text();
+  var chatWords = chattext.split(" ");
+  var highlights = chatWords.filter(value => highlightWords.includes(value.toLowerCase().replace(/[^a-z0-9]/gi, '')));
+  $(element).removeClass("shown-comment");
+  if(highlights.length > 0) {
+    $(element).addClass("highlighted-comment");
+  }
+});

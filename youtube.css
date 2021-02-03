@@ -10,6 +10,7 @@
     --author-avatar-border-color: #ffa500;
     --author-border-radius: 0px;
     --author-avatar-border-size: 3px;
+    --author-avatar-size: 128px;
     --author-font-size: 30px;
     /* donation/superchat specific */
     --donation-color: #5a4211;
@@ -20,7 +21,9 @@
     --donation-label-color: #fff;
     --donation-label-text: 'SUPERCHAT';
     --donation-shadow-color: #fff;
-    --shown-comment-bg-color: #55de55;
+
+    --shown-comment-bg-color: #555555;
+    --highlighted-comment-bg-color: #f0f07d;
 
     /*
     LAYOUT
@@ -30,6 +33,9 @@
     --comment-padding-no-badges: 20px;
     --comment-area-height: 30vh;
     --comment-name-display: block; /* can be overridden to hide names. */
+    --comment-scale: 1;
+    --comment-area-size-offset: 0;
+    --comment-area-bottom: 10px;
     /*
     STYLE
     */
@@ -52,7 +58,7 @@ yt-live-chat-app {
 .btn-clear {
     position: absolute;
     z-index: 99999;
-    bottom: calc(30vh + 60px);
+    bottom: calc(var(--comment-area-height) + 60px);
     right: 20px;
     font-size: 30px;
     border: 1px #bbb solid;
@@ -60,8 +66,33 @@ yt-live-chat-app {
     color: #fff;
     background: #444;
 }
-.show-comment {
+.highlighted-comment {
+    background-color: var(--highlighted-comment-bg-color) !important;
+}
+html[dark] .highlighted-comment #message.yt-live-chat-text-message-renderer {
+    color: black;
+}
+html[dark] .highlighted-comment:hover #message.yt-live-chat-text-message-renderer {
+    color: white;
+}
+html[dark] .highlighted-comment #author-name.yt-live-chat-author-chip {
+    color: #444;
+}
+html[dark] .highlighted-comment:hover #author-name.yt-live-chat-author-chip {
+    color: #DDD;
+}
+yt-live-chat-text-message-renderer:hover {
+    background-color: #eee !important;
+}
+html[dark] yt-live-chat-text-message-renderer:hover {
+    background-color: #444 !important;
+}
+yt-live-chat-text-message-renderer.shown-comment {
     background-color: var(--shown-comment-bg-color) !important;
+    opacity: 0.4;
+}
+.shown-comment:hover {
+    opacity: 0.5;
 }
 
 highlight-chat {
@@ -70,17 +101,22 @@ highlight-chat {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    bottom:10px;
-    left:0;
-    width: 100%;
+    bottom: var(--comment-area-bottom);
+    left: calc(var(--comment-area-size-offset) * -1px);
+    right: calc(var(--comment-area-size-offset) * -1px);
+    width: auto;
     height: var(--comment-area-height);
     z-index:99999999999;
     overflow: hidden;
     margin: 0px;
     padding: 40px 50px 40px 220px;
-    background-color: var(--keyer-bg-color); /* black background for Luma key */
+    background-color: var(--keyer-bg-color);
     color: #fff;
     font-size: 30px;
+    transform: scale(var(--comment-scale));
+}
+highlight-chat.preview {
+    border: 1px #ccc solid;
 }
 .hl-c-cont {
     position: relative;
@@ -135,8 +171,8 @@ highlight-chat {
     top: 0;
     z-index: 1;
     left: -60px;
-    width: 128px;
-    height: 128px;
+    width: var(--author-avatar-size);
+    height: var(--author-avatar-size);
     background-color: var(--author-avatar-border-color);
     border-radius: 50%;
     border: 0;
