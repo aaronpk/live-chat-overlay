@@ -3,7 +3,7 @@
   "description": "Restyle the YouTube or Zoom popout chat so you can overlay it for livestreams",
   "manifest_version": 2,
   "version": "0.1.9",
-  "homepage_url": "https://github.com/aaronpk/YouTube-Chat-Overlay",
+  "homepage_url": "https://github.com/aaronpk/live-chat-overlay",
   "icons": {
     "128": "icons/icon-128.png"
   },
@@ -22,6 +22,7 @@
       ],
       "js": [
         "jquery.js",
+        "base.js",
         "youtube.js",
         "zoom.js"
       ],
