@@ -64,7 +64,7 @@ function setupWindow() {
 const ZOOM_CHAT_MESSAGE_SELECTOR = '.chat-message-text-content';
 // Each user's message is within a container, which has their name and avatar.
 // Multiple messages can be in one container.
-const ZOOM_CHAT_USER_CONTAINER = 'chat-item__chat-info';
+const ZOOM_CHAT_USER_CONTAINER = '.chat-item__chat-info';
 
 // TODO: This is a hack.
 window.location.href.indexOf('zoom') > 0 && setupWindow();
