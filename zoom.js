@@ -8,7 +8,9 @@ function popOutChat() {
   // Open the chat options menu:
   $("#chatSectionMenu").click();
   // "Pop Out Chat" action. Currently doesn't actually popout the chat...
-  // $('#wc-container-right > div > div.chat-header__header > div.dropdown.open.btn-group > ul > li:nth-child(2) > a').click();
+  setTimeout(() => {
+    $('#wc-container-right > div > div.chat-header__header > div.dropdown.open.btn-group > ul > li:nth-child(2) > a').click();
+  }, 200)
 }
 
 function setupWindow() {
@@ -27,20 +29,21 @@ function setupWindow() {
       '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' +
         '<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>'
     );
-    popOutChat();
+    $(".root").append(
+      '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' +
+        '<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>'
+    );
+
+    setTimeout(() => { popOutChat() }, 300)
     LiveChatOverlay.afterInstall();
-  }, 2000);
+  }, 2500);
 }
 
 // This is an individual message.
 const ZOOM_CHAT_MESSAGE_SELECTOR = ".chat-message-text-content";
 // Each user's message is within a container, which has their name and avatar.
 // Multiple messages can be in one container.
-<<<<<<< HEAD
-const ZOOM_CHAT_USER_CONTAINER = "chat-item__chat-info";
-=======
 const ZOOM_CHAT_USER_CONTAINER = '.chat-item__chat-info';
->>>>>>> zoom
 
 // TODO: This is a hack.
 window.location.href.indexOf("zoom") > 0 && setupWindow();
