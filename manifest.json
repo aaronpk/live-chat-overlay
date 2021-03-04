@@ -13,6 +13,7 @@
     "https://studio.youtube.com/*",
     "https://zoom.us/*",
     "https://*.zoom.us/*",
+    "https://*pathable*",
     "storage"
   ],
   "content_scripts": [
@@ -23,6 +24,7 @@
       "js": [
         "jquery.js",
         "base.js",
+        "pathable.js",
         "youtube.js",
         "zoom.js"
       ],
@@ -30,7 +32,8 @@
         "https://youtube.com/live_chat*",
         "https://www.youtube.com/live_chat*",
         "https://studio.youtube.com/live_chat*",
-        "https://*.zoom.us/wc/*"
+        "https://*.zoom.us/wc/*",
+        "https://pathable.sigcse2021.org/*"
       ]
     }
   ],
