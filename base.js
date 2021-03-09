@@ -19,9 +19,35 @@ LiveChatOverlay.afterInstall = function() {
   // displayAspectRatio();
 }
 
+LiveChatOverlay.setStyle = () => {
+  let body = document.body;
+  var backgroundColor = "";
+  var textColor = "";
+  if (
+    body.style.getPropertyValue("--yt-live-chat-paid-message-primary-color")
+  ) {
+    backgroundColor =
+      "background-color: " +
+      body.style.getPropertyValue(
+        "--yt-live-chat-paid-message-primary-color"
+      ) +
+      ";";
+    textColor = "color: #111;";
+  }
+
+  if (body.style.getPropertyValue("--yt-live-chat-sponsor-color")) {
+    backgroundColor =
+      "background-color: " +
+      body.style.getPropertyValue("--yt-live-chat-sponsor-color") +
+      ";";
+    textColor = "color: #111;";
+  }
+  return `${backgroundColor} ${textColor}`;
+}
+
 LiveChatOverlay.renderName = (name, chatbadges) => {
   if (LiveChatOverlay.settings.displayName === 'hidden-name') {
-    return;
+    return '';
   }
   if (LiveChatOverlay.settings.displayName === 'first-name') {
     name = name.split(' ')[0];
@@ -41,7 +67,7 @@ LiveChatOverlay.renderChatMessage = (message, name, image, opts) => {
   let rendered = `
   <div class="hl-c-cont fadeout">
     ${LiveChatOverlay.renderName(name, opts.chatbadges)}
-    <div class="hl-message ${classes}" style="${opts.style || ''}">
+    <div class="hl-message ${classes}" style="${LiveChatOverlay.setStyle()}">
       ${message}
     </div>
   ${imageHTML}${opts.hasDonation}${opts.hasMembership}
@@ -66,7 +92,7 @@ function createPlaceholderMessage() {
   var chatmessage = "this livestream is the best!";
   var chatimg = "https://pin13.net/youtube-live-chat-sample-avatar.png";
   $("highlight-chat")
-    .append(LiveChatOverlay.renderChatMessage(chatmessage, 'Test Message', chatimg))
+    .append(LiveChatOverlay.renderChatMessage(chatmessage, 'Test Message', chatimg, {}))
     .delay(10)
     .queue(function (next) {
       $(".hl-c-cont").removeClass("fadeout");
@@ -82,7 +108,8 @@ var properties = [
   "commentColor",
   "fontFamily",
   "displayName",
-  "borderRadius"
+  "borderRadius",
+  "highlightWords"
 ];
 chrome.storage.sync.get(properties, function (item) {
   var color = "#000";

@@ -32,7 +32,6 @@
     --comment-padding: 20px 40px 20px 70px;
     --comment-padding-no-badges: 20px;
     --comment-area-height: 30vh;
-    --comment-name-display: block; /* can be overridden to hide names. */
     --comment-scale: 1;
     --comment-area-size-offset: 0;
     --comment-area-bottom: 10px;
@@ -130,7 +129,6 @@ highlight-chat.preview {
 }
 
 .hl-name {
-    display: var(--comment-name-display);
     position: absolute;
     top: -20px;
     left: 50px;
