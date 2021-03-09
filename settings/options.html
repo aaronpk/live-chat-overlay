@@ -21,8 +21,8 @@
       border-radius: 4px;
       width: 90%;
     }
-    input.checkbox {
-      float: left;
+    input.radio {
+      line-height: 120%;
     }
     button {
       padding: 6px;
@@ -84,12 +84,21 @@
     </div>
     <div class="section">
       <div class="setting" style="margin-bottom: 10px;">
-        <input type="checkbox" class="checkbox" id="show-author">
-        <label for="show-author">Show Author Full Name</label>
-      </div>
-      <div class="setting" style="margin-bottom: 10px;">
-        <input type="checkbox" class="checkbox" id="firstname">
-        <label for="firstname">Show only first name</label>
+        <div>Author Name</div>
+        <!-- The id and the value should be identical to simplify the settings code. -->
+
+        <label for="full-name">
+          <input type="radio" class="radio" name="display-name" value="full-name" id="full-name">
+          Show Author Full Name
+        </label>
+        <label for="first-name">
+          <input type="radio" class="radio" name="display-name" value="first-name" id="first-name">
+          Show only first name
+        </label>
+        <label for="hidden-name">
+          <input type="radio" class="radio" name="display-name" value="hidden-name" id="hidden-name">
+          Hide Author Name
+        </label>
       </div>
       <div class="setting">
         <label for="font-family">Font</label>
@@ -106,6 +115,10 @@
         <label for="comment-bottom">Active Comment Bottom Position</label>
         <div>(set negative to move lower when scaled down, e.g. -2vh)</div>
         <input type="text" class="text" id="comment-bottom">
+      </div>
+      <div class="setting">
+        <label for="border-radius">Comment Border Radius in pixels (default 4)</label>
+        <input type="number" class="text" id="border-radius">
       </div>
       <div class="setting">
         <label for="comment-height">Active Comment Height (default 30vh)</label>

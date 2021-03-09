@@ -1,7 +1,8 @@
 let LiveChatOverlay = {
   settings: {},
   youtube: {},
-  zoom: {}
+  zoom: {},
+  pathable: {}
 };
 
 
@@ -15,18 +16,31 @@ LiveChatOverlay.afterInstall = function() {
       });
   });
   createPlaceholderMessage();
-  displayAspectRatio();
+  // displayAspectRatio();
+}
+
+LiveChatOverlay.renderName = (name, chatbadges) => {
+  if (LiveChatOverlay.settings.displayName === 'hidden-name') {
+    return;
+  }
+  if (LiveChatOverlay.settings.displayName === 'first-name') {
+    name = name.split(' ')[0];
+  }
+  let badges = '';
+  if (chatbadges) {
+    badges = `<div class="hl-badges">${chatbadges}</div>`
+  }
+  return `<div class="hl-name">${name}${badges}</div>`
 }
 
 LiveChatOverlay.renderChatMessage = (message, name, image, opts) => {
+  opts ||= {};
   let imageHTML = image ? `<div class="hl-img"><img src="${image}"></div>` : '';
-  let nameHTML = name ? `<div class="hl-name">${name}<div class="hl-badges">
-  ${opts.chatbadges}</div></div>` : '';
   // TODO: Cleanup
   let classes = opts.chatbadges || image ? '' : 'no-badges';
   let rendered = `
   <div class="hl-c-cont fadeout">
-    ${nameHTML}
+    ${LiveChatOverlay.renderName(name, opts.chatbadges)}
     <div class="hl-message ${classes}" style="${opts.style || ''}">
       ${message}
     </div>
@@ -67,7 +81,7 @@ var properties = [
   "commentBackgroundColor",
   "commentColor",
   "fontFamily",
-  "showAuthor",
+  "displayName",
   "borderRadius"
 ];
 chrome.storage.sync.get(properties, function (item) {
@@ -98,15 +112,13 @@ chrome.storage.sync.get(properties, function (item) {
   if (item.fontFamily) {
     root.style.setProperty("--font-family", item.fontFamily);
   }
-  // TODO: Make this a radio button.
-  // TODO: Merge with youtube.js
-  if (item.showAuthor) {
-    root.style.setProperty("--comment-name-display", item.showAuthor ? 'block' : 'none');
+  if (item.displayName) {
+    root.style.setProperty("--comment-name-display", item.displayName === 'hidden-name' ? 'block' : 'none');
   }
   if (item.borderRadius) {
     root.style.setProperty("--comment-border-radius", `${item.borderRadius}px`);
   }
-  LiveChatOverlay.settings.showOnlyFirstName = item.showOnlyFirstName;
+  LiveChatOverlay.settings.displayName = item.displayName;
   LiveChatOverlay.settings.highlightWords = item.highlightWords;
 });
 
