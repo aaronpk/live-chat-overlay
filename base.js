@@ -2,7 +2,10 @@ let LiveChatOverlay = {
   settings: {},
   youtube: {},
   zoom: {},
-  pathable: {}
+  pathable: {},
+
+  outputHTML:'<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>',
+  aspectRatio: ''
 };
 
 
@@ -70,7 +73,9 @@ LiveChatOverlay.renderChatMessage = (message, name, image, opts) => {
     <div class="hl-message ${classes}" style="${LiveChatOverlay.setStyle()}">
       ${message}
     </div>
-  ${imageHTML}${opts.hasDonation}${opts.hasMembership}
+  ${imageHTML}
+  ${opts.hasDonation || ''}
+  ${opts.hasMembership || ''}
   </div>`;
 
   displayChatMessage(rendered);
@@ -105,49 +110,60 @@ var properties = [
   "authorBackgroundColor",
   "authorColor",
   "commentBackgroundColor",
+  "commentBottom",
   "commentColor",
   "fontFamily",
   "displayName",
   "borderRadius",
   "highlightWords"
 ];
-chrome.storage.sync.get(properties, function (item) {
-  var color = "#000";
-  if (item.color) {
-    color = item.color;
-  }
 
-  let root = document.documentElement;
-  root.style.setProperty("--keyer-bg-color", color);
+function restorSettings() {
+  chrome.storage.sync.get(properties, function (item) {
+    var color = "#000";
+    if (item.color) {
+      color = item.color;
+    }
 
-  if (item.authorBackgroundColor) {
-    root.style.setProperty("--author-bg-color", item.authorBackgroundColor);
-    root.style.setProperty(
-      "--author-avatar-border-color",
-      item.authorBackgroundColor
-    );
-  }
-  if (item.commentBackgroundColor) {
-    root.style.setProperty("--comment-bg-color", item.commentBackgroundColor);
-  }
-  if (item.authorColor) {
-    root.style.setProperty("--author-color", item.authorColor);
-  }
-  if (item.commentColor) {
-    root.style.setProperty("--comment-color", item.commentColor);
-  }
-  if (item.fontFamily) {
-    root.style.setProperty("--font-family", item.fontFamily);
-  }
-  if (item.displayName) {
-    root.style.setProperty("--comment-name-display", item.displayName === 'hidden-name' ? 'block' : 'none');
-  }
-  if (item.borderRadius) {
-    root.style.setProperty("--comment-border-radius", `${item.borderRadius}px`);
-  }
-  LiveChatOverlay.settings.displayName = item.displayName;
-  LiveChatOverlay.settings.highlightWords = item.highlightWords;
-});
+    let root = document.documentElement;
+    root.style.setProperty("--keyer-bg-color", color);
+
+    if (item.authorBackgroundColor) {
+      root.style.setProperty("--author-bg-color", item.authorBackgroundColor);
+      root.style.setProperty(
+        "--author-avatar-border-color",
+        item.authorBackgroundColor
+      );
+    }
+    if (item.commentBackgroundColor) {
+      root.style.setProperty("--comment-bg-color", item.commentBackgroundColor);
+    }
+    if (item.authorColor) {
+      root.style.setProperty("--author-color", item.authorColor);
+    }
+    if (item.commentColor) {
+      root.style.setProperty("--comment-color", item.commentColor);
+    }
+    if (item.fontFamily) {
+      root.style.setProperty("--font-family", item.fontFamily);
+    }
+    if (item.displayName) {
+      root.style.setProperty("--comment-name-display", item.displayName === 'hidden-name' ? 'block' : 'none');
+    }
+    if (item.borderRadius) {
+      root.style.setProperty("--comment-border-radius", `${item.borderRadius}px`);
+    }
+    if (item.commentBottom) {
+      root.style.setProperty("--comment-area-bottom", item.commentBottom);
+    }
+    LiveChatOverlay.settings.displayName = item.displayName;
+    LiveChatOverlay.settings.highlightWords = item.highlightWords;
+  });
+}
+
+restorSettings();
+
+setInterval(restorSettings, 3000);
 
 function displayAspectRatio() {
   var ratio = Math.round((window.innerWidth / window.innerHeight) * 100) / 100;

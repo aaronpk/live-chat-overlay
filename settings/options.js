@@ -21,7 +21,6 @@ function saveOptions(e) {
 function restoreOptions() {
   var properties = ["color","scale","commentBottom","commentHeight","sizeOffset","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","highlightWords", "displayName", "borderRadius"];
   chrome.storage.sync.get(properties, function(result) {
-    console.log('GET RESULTS', result)
     document.querySelector("#color").value = result.color || "#000";
     document.querySelector("#scale").value = result.scale || "1.0";
     document.querySelector("#size-offset").value = result.sizeOffset || "0";

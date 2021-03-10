@@ -10,7 +10,7 @@ function popOutChat() {
   // "Pop Out Chat" action. Currently doesn't actually popout the chat...
   setTimeout(() => {
     $('#wc-container-right > div > div.chat-header__header > div.dropdown.open.btn-group > ul > li:nth-child(2) > a').click();
-  }, 200)
+  }, 2000)
 }
 
 function setupWindow() {
@@ -19,11 +19,11 @@ function setupWindow() {
     // $('body').wrap(`<div class="zoom-wrapper" style="max-height: ${window.innerHeight/2}; overflow: none">`)
     $("#wc-container-right").css(
       "max-height",
-      "clac(100% - var(--comment-area-height) - 30px)"
+      "calc(100% - var(--comment-area-height) - 30px)"
     );
     $("#wc-container-left").css(
       "max-height",
-      "clac(300% - var(--comment-area-height) - 30px)"
+      "calc(100% - var(--comment-area-height) - 30px)"
     );
     $(".main").append(
       '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' +
@@ -54,12 +54,7 @@ window.location.href.indexOf("zoom") > 0 &&
       let $this = $(this);
       let container = $this.parentsUntil(ZOOM_CHAT_USER_CONTAINER).parent();
 
-      $(".hl-c-cont").remove();
       var chatname = container.find(".chat-item__sender").attr('title');
-      console.log('CHATNAME', chatname);
-      console.log(container.find(".chat-item__sender"))
-      console.log(container)
-
       var chatmessage = $this.html();
       var useravatar = null;
       let avatar = container.find(".chat-item__chat-info-msg-avatar");
@@ -67,7 +62,7 @@ window.location.href.indexOf("zoom") > 0 &&
         useravatar = avatar.attr("src");
       }
 
+      $(".hl-c-cont").remove();
       $this.addClass("show-comment");
-
       LiveChatOverlay.renderChatMessage(chatmessage, chatname, useravatar);
 });

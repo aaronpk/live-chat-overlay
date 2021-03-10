@@ -4,15 +4,14 @@
 
 function setupWindow() {
   // This is a bit of a hack, but works better once Zoom is fully loaded.
+  let base = '.layouts-widget-wrap'
   setTimeout(() => {
-    $("#app").css(
-      "max-height",
-      "clac(100% - var(--comment-area-height) - 30px)"
-    );
-    $("body").append(
-      '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' +
-        '<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>'
-    );
+    $(base).css(
+      "height",
+      `calc(${window.innerHeight}px - var(--comment-area-height) - 10px)`
+    ).css('overflow-y', 'scroll').css('padding', 0);
+    $('body').css('overflow', 'hidden')
+    $(base).append(LiveChatOverlay.outputHTML);
 
     LiveChatOverlay.afterInstall();
   }, 2500);
@@ -45,9 +44,5 @@ window.location.href.indexOf("pathable") > 0 &&
 
       $this.addClass("show-comment");
 
-      LiveChatOverlay.renderChatMessage(chatmessage, chatname, useravatar, {
-        hasDonation: "",
-        hasMembership: "",
-        chatbadges: ""
-      })
+      LiveChatOverlay.renderChatMessage(chatmessage, chatname, useravatar)
 });
