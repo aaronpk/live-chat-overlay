@@ -52,15 +52,15 @@ window.location.href.indexOf("zoom") > 0 &&
     .unbind("click")
     .on("click", ZOOM_CHAT_MESSAGE_SELECTOR, function () {
       let $this = $(this);
-      let container = $this.parentsUntil(ZOOM_CHAT_USER_CONTAINER);
+      let container = $this.parentsUntil(ZOOM_CHAT_USER_CONTAINER).parent();
 
       $(".hl-c-cont").remove();
-      var chatname = container.find(".chat-item__sender").text();
+      var chatname = container.find(".chat-item__sender").attr('title');
+      console.log('CHATNAME', chatname);
+      console.log(container.find(".chat-item__sender"))
+      console.log(container)
 
       var chatmessage = $this.html();
-      // var chatmembership = $this
-      //   .find(".yt-live-chat-membership-item-renderer #header-subtext")
-      //   .html();
       var useravatar = null;
       let avatar = container.find(".chat-item__chat-info-msg-avatar");
       if (avatar.length > 0) {
@@ -69,34 +69,5 @@ window.location.href.indexOf("zoom") > 0 &&
 
       $this.addClass("show-comment");
 
-      // TODO: Extract this.
-      var backgroundColor = "";
-      var textColor = "";
-      if (
-        this.style.getPropertyValue("--yt-live-chat-paid-message-primary-color")
-      ) {
-        backgroundColor =
-          "background-color: " +
-          this.style.getPropertyValue(
-            "--yt-live-chat-paid-message-primary-color"
-          ) +
-          ";";
-        textColor = "color: #111;";
-      }
-
-      // TODO: Sponsors don't apply in Zoom?
-      if (this.style.getPropertyValue("--yt-live-chat-sponsor-color")) {
-        backgroundColor =
-          "background-color: " +
-          this.style.getPropertyValue("--yt-live-chat-sponsor-color") +
-          ";";
-        textColor = "color: #111;";
-      }
-
-      LiveChatOverlay.renderChatMessage(chatmessage, chatname, useravatar, {
-        hasDonation: "",
-        hasMembership: "",
-        chatbadges: "",
-        style: `${backgroundColor} ${textColor}`,
-      })
+      LiveChatOverlay.renderChatMessage(chatmessage, chatname, useravatar);
 });
