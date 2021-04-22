@@ -1,5 +1,5 @@
-Live Chat Overlay
-=================
+YouTube Chat Overlay
+====================
 
 This CSS and JS turns the popout YouTube chat window into something that can be used to show chat comments keyed over a video.
 
