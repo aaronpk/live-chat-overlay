@@ -1,22 +1,21 @@
 YouTube Chat Overlay
 ====================
 
-This Chrome browser extention turns the popout YouTube Live chat window into something that can be used to show chat comments in OBS Studio or other studio production software.
+This Chrome browser extension turns the  YouTube Live chat pop-out window into something that can be used to show chat comments in OBS Studio or other studio production software.
 
-Unlike other YouTube Chat overlay extensions for Chrome, this version will foward the chat message over a websocket connection to a secondary webpage, which can be used in OBS-Studio as a browser source. This makes capturing the Chat messages for a Youtube Live video stream very easy -- no Chroma keying needed.
-
+Unlike other YouTube Chat overlay extensions out there, this version will foward the chat message over a websocket connection to a secondary webpage, which can be used in OBS-Studio as a simple browser source. This makes capturing the chat messages from a Youtube Live video stream very easy -- no Chroma keying or window-capturing needed.  It also makes customizing the style pretty easy, with no Chrome extension development needed.
 
 <img src="https://github.com/steveseguin/live-chat-overlay/raw/main/chat-screenshot.png" width="300">
 
 ## Installation
 
-Until the app is accepted by the Chrome extension store, you will need to install this package manually.
+Until the app is accepted by the Chrome extension store, you will need to install this as a package manually.
 
-You can install this as an "unpacked" extension to do so. In Chrome, launch the Extensions page
+You just need to install this as an "unpacked" extension. To do so, in Chrome, launch the Extensions page:
 
 * [chrome://extensions/](chrome://extensions/)
 
-Then choose "Load unpacked", and navigate to this folder.
+Then, choose "Load unpacked", and navigate to this folder, selecting it.  All installed.  :)
 
 ## Usage
 
