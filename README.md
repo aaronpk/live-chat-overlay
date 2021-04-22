@@ -7,7 +7,7 @@ Unlike other YouTube Chat overlay extensions for Chrome, this version will fowar
 
 
 
-![chat-screenshot](chat-screenshot.png)
+![chat-screenshot](chat-screenshot.png | width=300)
 
 ## Installation
 
