@@ -11,11 +11,13 @@ Unlike other YouTube Chat overlay extensions out there, this version will foward
 
 Until the app is accepted by the Chrome extension store, you will need to install this as a package manually.
 
-You just need to install this as an "unpacked" extension. To do so, in Chrome, launch the Extensions page:
+You just need to download and install this repositoary an "unpacked" extension in Chrome.
 
-* [chrome://extensions/](chrome://extensions/)
+The download link is here: https://github.com/steveseguin/live-chat-overlay/archive/refs/heads/main.zip  Just extract the files to a folder once downloaded.
 
-Then, choose "Load unpacked", and navigate to this folder, selecting it.  All installed.  :)
+Next, in Chrome, launch the Extensions page:  * [chrome://extensions/](chrome://extensions/)
+
+On that page, choose "Load unpacked", and navigate to the newly unpacked folder we downloaded, selecting it.  That's it! All installed.  :)
 
 ## Usage
 
