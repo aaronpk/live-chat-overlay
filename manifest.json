@@ -1,9 +1,9 @@
 {
-  "name": "Live Chat Overlay",
-  "description": "Restyle the YouTube popout chat so you can overlay it for livestreams",
+  "name": "YouTube Chat Overlay",
+  "description": "Restyle the YouTube popout chat and overlay it for a livestream",
   "manifest_version": 2,
-  "version": "0.1.9",
-  "homepage_url": "https://github.com/aaronpk/YouTube-Chat-Overlay",
+  "version": "0.0.1",
+  "homepage_url": "https://caption.ninja/youtube/",
   "icons": {
     "128": "icons/icon-128.png"
   },
@@ -17,11 +17,5 @@
   }],
   "options_ui": {
     "page": "settings/options.html"
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "live-chat-overlay@aaronpk.tv",
-      "strict_min_version": "80.0"
-    }
   }
 }

@@ -1,3 +1,41 @@
+var soca=false;
+function generateStreamID(){
+	var text = "";
+	var possible = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
+	for (var i = 0; i < 10; i++){
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	}
+	return text;
+};
+var channel = generateStreamID();
+var outputCounter = 0; // used to avoid doubling up on old messages if lag or whatever
+
+
+function actionwtf(){ // steves personal socket server service
+	if (soca){return;}
+	
+	prompt("Overlay Link: https://steveseguin.github.io/live-chat-overlay/?session="+channel+"\nAdd as a browser source; set height to 250px", "https://steveseguin.github.io/live-chat-overlay/?session="+channel);
+	
+	soca = new WebSocket("wss://api.action.wtf:666");
+	soca.onclose = function (){
+		setTimeout(function(){soca=false;actionwtf(); },2000);
+	};
+	soca.onopen = function (){
+		soca.send(JSON.stringify({"join":channel}));
+	}
+}
+
+setTimeout(function(){actionwtf();},100);
+
+function pushMessage(data){
+	outputCounter+=1;
+	var message = {};
+	message.id = outputCounter;
+	message.msg = true;
+	message.contents = data;
+	soca.send(JSON.stringify(message));
+}
+
 var showOnlyFirstName;
 
 var highlightWords = [];
@@ -65,6 +103,16 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     textColor = "color: #111;";
   }
 
+  var data = {};
+  data.chatname = chatname;
+  data.chatbadges = chatbadges;
+  data.backgroundColor = backgroundColor;
+  data.textColor = textColor;
+  data.chatmessage = chatmessage;
+  data.chatimg = chatimg;
+  data.hasDonation = hasDonation;
+  data.hasMembership = hasMembership;
+  pushMessage(data);
 
   $( "highlight-chat" ).removeClass("preview").append('<div class="hl-c-cont fadeout">'
      + '<div class="hl-name">' + chatname
