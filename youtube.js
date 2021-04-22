@@ -36,6 +36,8 @@ function pushMessage(data){
 	soca.send(JSON.stringify(message));
 }
 
+
+
 var showOnlyFirstName;
 
 var highlightWords = [];
@@ -130,6 +132,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 });
 
 $("body").on("click", ".btn-clear", function () {
+  pushMessage(false);
   $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
     $(".hl-c-cont").remove().dequeue();
   });

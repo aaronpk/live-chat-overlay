@@ -356,20 +356,22 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 			var data = JSON.parse(event.data);
 			if (data.contents){
 				data = data.contents;
+				document.getElementById("output").classList.add("fadeout");
+				clearInterval(nextComment);
+				nextComment = setTimeout(function(){
+					document.getElementById("output").innerHTML = '<div class="hl-c-cont">'
+						 + '<div class="hl-name">' + data.chatname
+						 + '<div class="hl-badges">' + data.chatbadges + '</div>'
+						 + '</div>'
+						 + '<div class="hl-message" style="'+ data.backgroundColor +' '+ data.textColor +'">' + data.chatmessage + '</div>'
+						 + '<div class="hl-img"><img src="' + data.chatimg + '" onerror="this.style.display=\'none\'"></div>'
+						 + data.hasDonation + data.hasMembership +'</div>';
+					document.getElementById("output").classList.remove("fadeout");
+				},500);
+			} else {
+				document.getElementById("output").classList.add("fadeout");
+				clearInterval(nextComment);
 			}
-			document.getElementById("output").classList.add("fadeout");
-			clearInterval(nextComment);
-			nextComment = setTimeout(function(){
-				document.getElementById("output").innerHTML = '<div class="hl-c-cont">'
-					 + '<div class="hl-name">' + data.chatname
-					 + '<div class="hl-badges">' + data.chatbadges + '</div>'
-					 + '</div>'
-					 + '<div class="hl-message" style="'+ data.backgroundColor +' '+ data.textColor +'">' + data.chatmessage + '</div>'
-					 + '<div class="hl-img"><img src="' + data.chatimg + '" onerror="this.style.display=\'none\'"></div>'
-					 + data.hasDonation + data.hasMembership +'</div>';
-				document.getElementById("output").classList.remove("fadeout");
-			},500);
-			
 		}
 	});
 	
