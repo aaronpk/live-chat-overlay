@@ -1,19 +1,15 @@
 YouTube Chat Overlay
 ====================
 
-This CSS and JS turns the popout YouTube chat window into something that can be used to show chat comments keyed over a video.
+This CSS and JS turns the popout YouTube chat window into something that can be used to show chat comments keyed over a video.  Unlike other YouTube Chat overlay extensions for Chrome, this one will foward the chat message over a websocket connection to a secondary webpage, which can be used in OBS-Studio as a browser source. This makes capturing the Chat messages for a Youtube Live video stream very easy -- no Chroma keying needed.
 
 ![chat-screenshot](chat-screenshot.png)
 
-[Setup Tutorial](https://youtu.be/HwctGtdsHZI)
-
 ## Installation
 
-Install from the Chrome extension store:
+Until the app is accepted by the Chrome extension store, you will need to install this package manually.
 
-* https://chrome.google.com/webstore/detail/live-chat-overlay/aplaefbnohemkmngdogmbkpompjlijia
-
-Or you can install this as an "unpacked" extension. In Chrome, launch the Extensions page
+You can install this as an "unpacked" extension to do so. In Chrome, launch the Extensions page
 
 * [chrome://extensions/](chrome://extensions/)
 
@@ -25,34 +21,15 @@ Open up the YouTube live chat for a video, and click popout chat to open it in a
 
 `https://www.youtube.com/live_chat?is_popout=1&v=VIDEOID`
 
-You'll next need to bring that into your video stream and key it out, which will depend on what software or hardware you are using. In the ATEM Mini, you can use these settings in the upstream keyer:
+After the page loads, if the extension is loaded correctly, you will see a POP UP that contains a github-domain-based URL; COPY that URL and past it into your OBS as a browser source.  Make the browser source 1280x250 or 1920x250 in resolution.
 
-* Luma key
-* not premultiplied
-* clip: 7%
-* gain: 100%
-
-Or you can use the downstream keyer:
-
-* not premultiplied
-* mask:
-  * top: X
-  * bottom: -9
-  * left: -16
-  * right: 16
-
-
-## See this in action!
-
-You can see this in action on many of [Aaron Parecki's livestreams](https://www.youtube.com/watch?v=CHQITWm5wDQ&list=PLRyLn6THA5wPracMVE74IHovBT3ebcsJV)!
-
-
-## TODO
-
-See https://github.com/aaronpk/youtube-chat-overlay/issues
-
+To make a Youtube Chat message now appear in OBS, simply click on a chat message in the Youtube POP OUT window.
 
 ## Credits
 
 Most of this CSS and JavaScript came from a video by [ROJ BTS](https://www.youtube.com/watch?v=NHy9D4ClTvc), so huge thanks to him for the initial work!
+
+Also thank you to https://github.com/aaronpk/live-chat-overlay for improving on the work, for which this code is based on.
+
+
 
