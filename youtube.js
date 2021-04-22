@@ -236,6 +236,9 @@ onElementInserted(".yt-live-chat-item-list-renderer#items", "yt-live-chat-text-m
   // Check for highlight words
   var chattext = $(element).find("#message").text();
   var chatWords = chattext.split(" ");
+  if (!highlightWords){
+	  highlightWords=[];
+  }
   var highlights = chatWords.filter(value => highlightWords.includes(value.toLowerCase().replace(/[^a-z0-9]/gi, '')));
   $(element).removeClass("shown-comment");
   if(highlights.length > 0) {
