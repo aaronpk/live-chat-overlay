@@ -6,8 +6,7 @@ This Chrome browser extention turns the popout YouTube Live chat window into som
 Unlike other YouTube Chat overlay extensions for Chrome, this version will foward the chat message over a websocket connection to a secondary webpage, which can be used in OBS-Studio as a browser source. This makes capturing the Chat messages for a Youtube Live video stream very easy -- no Chroma keying needed.
 
 
-
-![chat-screenshot](chat-screenshot.png | width=300)
+<img src="chat-screenshot.pn" width="300">
 
 ## Installation
 
