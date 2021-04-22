@@ -45,7 +45,7 @@ to
 
 Most of this CSS and JavaScript came from a video by [ROJ BTS](https://www.youtube.com/watch?v=NHy9D4ClTvc), so huge thanks to him for the initial work!
 
-Also thank you to https://github.com/aaronpk/live-chat-overlay for improving on the work, for which this code is based on.
+Also thank you to aaronpk @ https://github.com/aaronpk/live-chat-overlay, as their work is what this code builds upon.
 
-
+-steve
 
