@@ -19,6 +19,8 @@ Next, in Chrome, launch the Extensions page:  * [chrome://extensions/](chrome://
 
 On that page, choose "Load unpacked", and navigate to the newly unpacked folder we downloaded, selecting it.  That's it! All installed.  :)
 
+Video demoing how to install and use here: https://www.youtube.com/watch?v=goqm8Bo21do
+
 ## Usage
 
 Open up the YouTube live chat for a video, and click popout chat to open it in a new window. Or replace the `VIDEOID` in the URL below with your video's ID.
