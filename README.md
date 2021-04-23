@@ -19,7 +19,7 @@ Next, in Chrome, launch the Extensions page:  * [chrome://extensions/](chrome://
 
 On that page, choose "Load unpacked", and navigate to the newly unpacked folder we downloaded, selecting it.  That's it! All installed.  :)
 
-Video demoing how to install and use here: https://www.youtube.com/watch?v=goqm8Bo21do
+📺 Video demoing how to install and use here: https://www.youtube.com/watch?v=goqm8Bo21do
 
 ## Usage
 
