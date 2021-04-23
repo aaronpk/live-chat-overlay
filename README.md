@@ -35,7 +35,7 @@ If you wish to Stylize the YouTube Chat message overlay in OBS, you can edit thi
 
 You can download it to your local drive and open it directly in OBS. To link the file to the correct websocket connection, you will also need to add ?session=XXXXXX to the end of the browser source local file link in OBS, where XXXXXX is the session value given to you by the Chrome extension when the chat starts and the popup is displayed.
 
-`https://steveseguin.github.io/live-chat-overlay/?session=nMQiALjD3f` 
+`https://chat.overlay.ninja?session=sBtMwWrkhZ` 
 to 
 `C:\Users\Steve\Desktop\index.html?session=sBtMwWrkhZ`
 
