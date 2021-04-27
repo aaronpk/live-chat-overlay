@@ -57,12 +57,15 @@ body {
     background-color: #0000;
 	position: relative;
     left: 0px;
-    overflow: hidden;
+	background-color: rgba(0, 0, 0, 0); 
+	margin: 0px auto; 
+	overflow: hidden; 
 }
 
 #output {
-	transform: translateY(35px);
+	transform: translateY(30px);
     transition: .5s all cubic-bezier(0.250, 0.250, 0.105, 1.2);
+	margin: 0 0 0 8px;
 }
 .fadeout {
 	transform: translateY(340px) !important;
@@ -110,27 +113,13 @@ yt-live-chat-text-message-renderer.shown-comment {
 .shown-comment:hover {
     opacity: 0.5;
 }
-highlight-chat {
+.highlight-chat {
     font-family: var(--font-family);
     font-weight: var(--highlight-chat-font-weight);
     box-sizing: border-box;
-    display: block;
-    position: absolute;
-    bottom: var(--comment-area-bottom);
-    left: calc(var(--comment-area-size-offset) * -1px);
-    right: calc(var(--comment-area-size-offset) * -1px);
-    width: auto;
-    height: var(--comment-area-height);
-    z-index:99999999999;
-    overflow: hidden;
-    margin: 0px;
-    padding: 40px 50px 40px 220px;
-    background-color: var(--keyer-bg-color);
-    color: #fff;
     font-size: 30px;
-    transform: scale(var(--comment-scale));
 }
-highlight-chat.preview {
+.highlight-chat.preview {
     border: 1px #ccc solid;
 }
 .hl-c-cont {
@@ -220,7 +209,7 @@ highlight-chat.preview {
     position: absolute;
     display: block;
     text-align: center;
-    left: 10px;
+    left: 70px;
     top: 108px;
     z-index: 3;
     min-width: 128px;
@@ -349,8 +338,6 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 		socket.send(JSON.stringify({"join":roomID}));
 	}
 	
-	
-
 	socket.addEventListener('message', function (event) {
 		if (event.data){
 			var data = JSON.parse(event.data);
@@ -359,7 +346,7 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 				document.getElementById("output").classList.add("fadeout");
 				clearInterval(nextComment);
 				nextComment = setTimeout(function(){
-					document.getElementById("output").innerHTML = '<div class="hl-c-cont">'
+					document.getElementById("output").innerHTML = '<div class="hl-c-cont highlight-chat">'
 						 + '<div class="hl-name">' + data.chatname
 						 + '<div class="hl-badges">' + data.chatbadges + '</div>'
 						 + '</div>'
