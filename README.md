@@ -13,7 +13,7 @@ Unlike other YouTube Chat overlay extensions out there, this version will foward
 
 You can install this package manually, or install it from the Chrome Web Store. 
 
-### Manual Installation
+#### Manual Installation
 
 If manually installing, you just need to download and install this repositoary an "unpacked" extension in Chrome.
 
@@ -23,7 +23,7 @@ Next, in Chrome, launch the Extensions page:  * [chrome://extensions/](chrome://
 
 On that page, choose "Load unpacked", and navigate to the newly unpacked folder we downloaded, selecting it.  That's it! All installed.  :)
 
-### Chrome Web Store Installation
+#### Chrome Web Store Installation
 
 The extension can be found in the store here: https://chrome.google.com/webstore/detail/youtube-chat-overlay/bahhfoidnfogingiolidoidmlkogjlhp
 
