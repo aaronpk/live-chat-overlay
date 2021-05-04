@@ -98,7 +98,7 @@ highlight-chat {
     bottom: var(--comment-area-bottom);
     left: calc(var(--comment-area-size-offset) * -1px);
     right: calc(var(--comment-area-size-offset) * -1px);
-    width: auto;
+    width: 100%;
     height: var(--comment-area-height);
     z-index:99999999999;
     overflow: hidden;

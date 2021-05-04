@@ -1,8 +1,8 @@
 {
   "name": "YouTube Chat Overlay",
-  "description": "Restyle the YouTube popout chat and overlay it for a livestream",
+  "description": "Add Youtube Live Chat to your OBS as a browser overlay",
   "manifest_version": 2,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage_url": "https://steveseguin.github.io/live-chat-overlay/",
   "icons": {
     "128": "icons/icon-128.png"

@@ -37,12 +37,13 @@
 </head>
 <body>
 
-  <p>Customize the colors of the live chat overlay. Enter the <a href="https://www.google.com/search?q=hex+color+picker">hex codes</a> of the colors you'd like to use. Remember that full black #000 will be keyed out. You can delete a value to reset it to the default.</p>
+  <p>Customize the colors of the live chat pop-up. Enter the <a href="https://www.google.com/search?q=hex+color+picker">hex codes</a> of the colors you'd like to use. Remember that full black #000 will be keyed out. You can delete a value to reset it to the default.</p>
   <ul>
     <li>Black: #000</li>
     <li>Dark Grey: #222</li>
     <li>White: #fff</li>
   </ul>
+  <p> These settings do not impact the OBS Browser source overlay </p>
 
   <form>
     <div class="section">
@@ -113,7 +114,7 @@
         <input type="text" class="text" id="size-offset">
       </div>
     </div>
-    <button type="submit">Save</button>
+    <button id="savedButton" style="cursor:pointer" type="submit">Save</button>
   </form>
 
   <script src="options.js"></script>
