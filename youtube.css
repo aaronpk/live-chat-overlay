@@ -280,3 +280,19 @@ yt-live-chat-paid-message-renderer[is-deleted],
 yt-live-chat-membership-item-renderer[is-deleted] {
     cursor: default;
 }
+
+
+
+
+.button {
+  text-decoration: none;
+  padding: 6px;
+  border: 1px #bbb solid;
+  border-radius: 4px;
+  color: #fff;
+  background: #444;
+}
+#pop-out-button {
+  margin-left: 20px;
+}
+

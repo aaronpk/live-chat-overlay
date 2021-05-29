@@ -1,6 +1,11 @@
 var showOnlyFirstName;
 
 var highlightWords = [];
+var sessionID = "";
+var remoteServerURL = "https://aaronpk.tv/live-chat/pub";
+var remoteWindowURL = "https://aaronpk.tv/live-chat/";
+var version = "0.2.0";
+var config = {};
 
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer", function () {
 
@@ -67,22 +72,40 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     data.textColor = "color: #111;";
   }
 
-  $( "highlight-chat" ).removeClass("preview").append('<div class="hl-c-cont fadeout">'
+  var html = '<div class="hl-c-cont fadeout">'
      + '<div class="hl-name">' + data.authorname
        + '<div class="hl-badges">' + data.badges + '</div>'
      + '</div>'
      + '<div class="hl-message" style="'+data.backgroundColor+' '+data.textColor+'">' + data.message + '</div>'
      + '<div class="hl-img"><img src="' + data.authorimg + '"></div>'
      +data.donationHTML+data.membershipHTML
-   +'</div>')
+   +'</div>';
+
+  $( "highlight-chat" ).removeClass("preview").append(html)
   .delay(10).queue(function(next){
     $( ".hl-c-cont" ).removeClass("fadeout");
     next();
   });
 
+  if(sessionID) {
+    var remote = {
+      version: version,
+      command: "show",
+      html: html,
+      config: config
+    }
+    $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
+  }
+
 });
 
 $("body").on("click", ".btn-clear", function () {
+  var remote = {
+    version: version,
+    command: "hide"
+  };
+  $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
+
   $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
     $(".hl-c-cont").remove().dequeue();
   });
@@ -94,7 +117,7 @@ $( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class=
 $(function(){
   var data = {};
   data.message = "this livestream is the best!";
-  data.authorimg = "https://pin13.net/youtube-live-chat-sample-avatar.png";
+  data.authorimg = remoteWindowURL+"/youtube-live-chat-sample-avatar.png";
   $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + data.message + '</div><div class="hl-img"><img src="' + data.authorimg + '"></div></div>')
   .delay(10).queue(function(next){
     $( ".hl-c-cont" ).removeClass("fadeout");
@@ -103,9 +126,8 @@ $(function(){
 });
 
 // Restore settings
-
-var properties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
-chrome.storage.sync.get(properties, function(item){
+var configProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
+chrome.storage.sync.get(configProperties, function(item){
   var color = "#000";
   if(item.color) {
     color = item.color;
@@ -147,10 +169,13 @@ chrome.storage.sync.get(properties, function(item){
   }
   showOnlyFirstName = item.showOnlyFirstName;
   highlightWords = item.highlightWords;
+
+  config = item;
 });
 
 
 $("#primary-content").append('<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
+$("#primary-content").append('<span style=""><a href="#" id="pop-out-button" class="button">Pop Out</a></span>');
 
 function displayAspectRatio() {
   var ratio = Math.round(window.innerWidth / window.innerHeight * 100) / 100;
@@ -160,7 +185,50 @@ function displayAspectRatio() {
 displayAspectRatio();
 window.onresize = displayAspectRatio;
 
+$("#pop-out-button").click(function(e){
+  if(!sessionID) {
 
+    if(window.location.hash) {
+      sessionID = window.location.hash.replace("#", "");
+    } else {
+      sessionID = generateSessionID();
+      window.location.hash = sessionID;
+    }
+  }
+
+  window.open(remoteWindowURL+"#"+sessionID, "popout-overlay", {
+    width: 1920,
+    height: 1080,
+    menubar: "off",
+    toolbar: "on",
+    status: "off",
+    resizable: "on",
+    scrollbars: "off"
+  });
+  e.preventDefault();
+
+  setTimeout(function(){
+    pushRemoteConfig();
+  }, 2000);
+});
+
+function pushRemoteConfig() {
+  var remote = {
+    version: version,
+    command: "config",
+    config: config
+  };
+  $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
+}
+
+function generateSessionID(){
+  var text = "";
+  var chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+  for (var i = 0; i < 10; i++){
+    text += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return text;
+};
 
 function onElementInserted(containerSelector, tagName, callback) {
 
