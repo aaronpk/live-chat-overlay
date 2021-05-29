@@ -10,69 +10,70 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     return;
   }
 
+  var data = {};
+
   $(".hl-c-cont").remove();
-  var chatname = $(this).find("#author-name").text();
+  data.authorname = $(this).find("#author-name").text();
 
   if(showOnlyFirstName) {
-    chatname = chatname.replace(/ .*/,'');
+    data.authorname = data.authorname.replace(/ .*/,'');
   }
 
-  var chatmessage = $(this).find("#message").html();
-  var chatimg = $(this).find("#img").attr('src');
-  chatimg = chatimg.replace("32", "128");
-  var chatdonation = $(this).find("#purchase-amount").html();
-  var chatmembership = $(this).find(".yt-live-chat-membership-item-renderer #header-subtext").html();
-  var chatsticker = $(this).find(".yt-live-chat-paid-sticker-renderer #img").attr("src");
+  data.message = $(this).find("#message").html();
+  data.authorimg = $(this).find("#img").attr('src');
+  data.authorimg = data.authorimg.replace("32", "128");
+  data.donation = $(this).find("#purchase-amount").html();
+  data.membership = $(this).find(".yt-live-chat-membership-item-renderer #header-subtext").html();
+  data.sticker = $(this).find(".yt-live-chat-paid-sticker-renderer #img").attr("src");
 
   // Donation amounts for stickers use a differnet id than regular superchats
-  if(chatsticker) {
-    chatdonation = $(this).find("#purchase-amount-chip").html();
+  if(data.sticker) {
+    data.donation = $(this).find("#purchase-amount-chip").html();
   }
 
-  var chatbadges = "";
+  data.badges = "";
   if($(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").length > 0) {
-    chatbadges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
+    data.badges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
   }
 
   // Mark this comment as shown
   $(this).addClass("shown-comment");
 
-  var hasDonation = '';
-  if(chatdonation) {
-    hasDonation = '<div class="donation">' + chatdonation + '</div>';
+  data.donationHTML = '';
+  if(data.donation) {
+    data.donationHTML = '<div class="donation">' + data.donation + '</div>';
   }
 
-  var hasMembership = '';
-  if(chatmembership) {
-    hasMembership = '<div class="donation membership">NEW MEMBER!</div>';
-    chatmessage = chatmembership;
+  data.membershipHTML = '';
+  if(data.membership) {
+    data.membershipHTML = '<div class="donation membership">NEW MEMBER!</div>';
+    data.message = data.membership;
   }
 
-  if(chatsticker) {
-    chatmessage = '<img src="'+chatsticker+'">';
+  if(data.sticker) {
+    data.message = '<img src="'+data.sticker+'">';
   }
 
-  var backgroundColor = "";
-  var textColor = "";
+  data.backgroundColor = "";
+  data.textColor = "";
   if(this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')) {
-    backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')+";";
-    textColor = "color: #111;";
+    data.backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')+";";
+    data.textColor = "color: #111;";
   }
 
   // This doesn't work yet
   if(this.style.getPropertyValue('--yt-live-chat-sponsor-color')) {
-    backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-sponsor-color')+";";
-    textColor = "color: #111;";
+    data.backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-sponsor-color')+";";
+    data.textColor = "color: #111;";
   }
 
-
   $( "highlight-chat" ).removeClass("preview").append('<div class="hl-c-cont fadeout">'
-     + '<div class="hl-name">' + chatname
-       + '<div class="hl-badges">' + chatbadges + '</div>'
+     + '<div class="hl-name">' + data.authorname
+       + '<div class="hl-badges">' + data.badges + '</div>'
      + '</div>'
-     + '<div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div>'
-     + '<div class="hl-img"><img src="' + chatimg + '"></div>'
-     +hasDonation+hasMembership
+     + '<div class="hl-message" style="'+data.backgroundColor+' '+data.textColor+'">' + data.message + '</div>'
+     + '<div class="hl-img"><img src="' + data.authorimg + '"></div>'
+     +data.donationHTML+data.membershipHTML
    +'</div>')
   .delay(10).queue(function(next){
     $( ".hl-c-cont" ).removeClass("fadeout");
@@ -91,9 +92,10 @@ $( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class=
 
 // Show a placeholder message so you can position the window before the chat is live
 $(function(){
-  var chatmessage = "this livestream is the best!";
-  var chatimg = "https://pin13.net/youtube-live-chat-sample-avatar.png";
-  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div></div>')
+  var data = {};
+  data.message = "this livestream is the best!";
+  data.authorimg = "https://pin13.net/youtube-live-chat-sample-avatar.png";
+  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + data.message + '</div><div class="hl-img"><img src="' + data.authorimg + '"></div></div>')
   .delay(10).queue(function(next){
     $( ".hl-c-cont" ).removeClass("fadeout");
     next();
