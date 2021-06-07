@@ -36,8 +36,6 @@ function pushMessage(data){
 	soca.send(JSON.stringify(message));
 }
 
-
-
 var showOnlyFirstName;
 
 var highlightWords = [];

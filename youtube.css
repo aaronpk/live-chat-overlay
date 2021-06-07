@@ -43,6 +43,10 @@
     --comment-font-weight: 600;
 }
 
+tp-yt-paper-tooltip {
+	display:none;
+}
+
 body {
     background-color: var(--keyer-bg-color);
 }
