@@ -39,7 +39,7 @@
     LAYOUT
     */
     --comment-width: auto; /* go 100% for a full screen lower third style*/
-    --comment-padding: 20px 40px 20px 145px;
+    --comment-padding: 20px 20px 20px 145px;
     --comment-area-height: 30vh;
     --comment-scale: 1;
     --comment-area-size-offset: 0;
@@ -65,7 +65,7 @@ body {
 #output {
 	transform: translateY(30px);
     transition: .5s all cubic-bezier(0.250, 0.250, 0.105, 1.2);
-	margin: 0 0 0 8px;
+	margin: 0 0 0 15px;
 }
 .fadeout {
 	transform: translateY(340px) !important;
@@ -149,6 +149,7 @@ yt-live-chat-text-message-renderer.shown-comment {
     z-index: 1;
     border-radius: var(--author-border-radius);
     font-size: var(--author-font-size);
+	white-space: nowrap;
 }
 .hl-message {
     position: absolute;
@@ -159,6 +160,7 @@ yt-live-chat-text-message-renderer.shown-comment {
     background-color: var(--comment-bg-color);
     border-radius: var(--comment-border-radius);
     font-size: var(--comment-font-size);
+	word-break: break-word;
 }
 .hl-message img {
     width: 50px;
@@ -229,6 +231,7 @@ yt-live-chat-text-message-renderer.shown-comment {
 }
 .membership {
     padding: 10px 10px 5px 10px;
+	font-size: 20px !important;
 }
 .donation::before {
     position: absolute;
