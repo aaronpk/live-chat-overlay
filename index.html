@@ -363,6 +363,16 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 						 + '<div class="hl-message" style="'+ data.backgroundColor +' '+ data.textColor +'">' + data.chatmessage + '</div>'
 						 + '<div class="hl-img"><img src="' + data.chatimg + '" onerror="this.style.display=\'none\'"></div>'
 						 + data.hasDonation + data.hasMembership +'</div>';
+						 
+					for (i = 0; i < document.getElementsByTagName("img").length; i++) {
+						document.getElementsByTagName("img")[i].onerror = function(){
+							if (this.alt.length!==2){
+								this.style.display='none';
+							} else {
+								this.outerHTML = this.alt;
+							}
+						}
+					}
 					document.getElementById("output").classList.remove("fadeout");
 				},500);
 			} else {
