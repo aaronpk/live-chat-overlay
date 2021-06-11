@@ -2,8 +2,8 @@
   "name": "Youtube & Twitch chat overlay",
   "description": "Add Youtube/Twitch Live Chat to your OBS as a browser overla. Feature requests accepted!",
   "manifest_version": 2,
-  "version": "0.2.1",
-  "homepage_url": "https://steveseguin.github.io/live-chat-overlay/",
+  "version": "0.2.2",
+  "homepage_url": "http://chat.overlay.ninja/",
   "icons": {
     "128": "icons/icon-128.png"
   },
