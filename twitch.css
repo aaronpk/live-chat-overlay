@@ -49,7 +49,9 @@ tp-yt-paper-tooltip {
 .chat-line__message--emote-button{
 	display:inline-block;
 }
-
+.chat-line__message{
+	cursor: pointer;
+}
 body {
     background-color: var(--keyer-bg-color);
 }
@@ -68,9 +70,7 @@ yt-live-chat-app {
     color: #fff;
     background: #444;
 }
-.chat-line__message{
-	cursor: pointer;
-}
+
 .highlighted-comment {
     background-color: var(--highlighted-comment-bg-color) !important;
 }

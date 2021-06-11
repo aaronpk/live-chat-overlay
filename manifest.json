@@ -13,12 +13,12 @@
   "content_scripts": [
 	  {
 		"css": ["youtube.css"],
-		"js": ["jquery.js", "youtube.js"],
+		"js": ["jquery.js", "main.js"],
 		"matches": ["https://youtube.com/live_chat*", "https://www.youtube.com/live_chat*", "https://studio.youtube.com/live_chat*"]
 	  },
 	  {
 		"css": ["twitch.css"],
-		"js": ["jquery.js", "twitch.js"],
+		"js": ["jquery.js", "main.js"],
 		"matches": ["https://www.twitch.tv/popout/*"]
 	  }
   ],
