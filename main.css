@@ -71,8 +71,8 @@ yt-live-chat-app {
 .btn-clear {
     position: absolute;
     z-index: 99999;
-    bottom: calc(var(--comment-area-height) + 60px);
-    right: 20px;
+    bottom: calc(var(--comment-area-height) + 12px);
+    right: 120px;
     font-size: 30px;
     border: 1px #bbb solid;
     border-radius: 4px;
@@ -83,15 +83,14 @@ yt-live-chat-app {
 .btn-getoverlay {
 	position: absolute;
     z-index: 99999;
-    bottom: calc(var(--comment-area-height) + 60px);
-    right: 20px;
+    bottom: calc(var(--comment-area-height) + 12px);
     font-size: 30px;
     border: 1px #bbb solid;
     border-radius: 4px;
     color: #fff;
     background: #383;
 	cursor: pointer;
-    right: 140px;
+    right: 240px;
 }
 .btn-clear-twitch {
     position: absolute;

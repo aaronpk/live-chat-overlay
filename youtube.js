@@ -143,7 +143,7 @@ $("body").on("click", ".btn-getoverlay", function () {
   prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
 });
 
-$( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button><button class="btn-getoverlay">GET OVERLAY LINK</button>' );
+$( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button><button class="btn-getoverlay">LINK</button>' );
 
 // Show a placeholder message so you can position the window before the chat is live
 $(function(){
