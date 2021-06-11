@@ -1,20 +1,27 @@
 {
   "name": "YouTube Chat Overlay",
-  "description": "Add Youtube Live Chat to your OBS as a browser overlay",
+  "description": "Add Youtube/Twitch Live Chat to your OBS as a browser overlay",
   "manifest_version": 2,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage_url": "https://steveseguin.github.io/live-chat-overlay/",
   "icons": {
     "128": "icons/icon-128.png"
   },
   "permissions": [
-    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "storage"
+    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "https://www.twitch.tv/*", "storage"
   ],
-  "content_scripts": [{
-    "css": ["youtube.css"],
-    "js": ["jquery.js", "youtube.js"],
-    "matches": ["https://youtube.com/live_chat*", "https://www.youtube.com/live_chat*", "https://studio.youtube.com/live_chat*"]
-  }],
+  "content_scripts": [
+	  {
+		"css": ["youtube.css"],
+		"js": ["jquery.js", "youtube.js"],
+		"matches": ["https://youtube.com/live_chat*", "https://www.youtube.com/live_chat*", "https://studio.youtube.com/live_chat*"]
+	  },
+	  {
+		"css": ["twitch.css"],
+		"js": ["jquery.js", "twitch.js"],
+		"matches": ["https://www.twitch.tv/popout/*"]
+	  }
+  ],
   "options_ui": {
     "page": "settings/options.html"
   }
