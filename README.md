@@ -7,7 +7,7 @@ Unlike other Chat overlay extensions out there, this version will foward the cha
 
 📺 Video demoing how to install and use here: https://www.youtube.com/watch?v=UOg3RvHO-xk
 
-<img src="https://github.com/steveseguin/live-chat-overlay/raw/main/chat-screenshot.png" width="300">
+![image](https://user-images.githubusercontent.com/2575698/121636030-485cbc00-ca55-11eb-8416-4d7626653fa8.png)
 
 ## Installation
 
@@ -37,9 +37,9 @@ Open up the live chat for a video, and click popout chat to open it in a new win
 
 After the page loads, if the extension is loaded correctly, you will see a POP UP that contains a github-domain-based URL; COPY that URL and past it into your OBS as a browser source.  Make the browser source 1280x250 or 1920x250 in resolution.
 
-To make a Chat message now appear in OBS, simply click on a chat message in the Youtube/Twitch **POP OUT** window.
+<img src="https://github.com/steveseguin/live-chat-overlay/raw/main/chat-screenshot.png" width="300">
 
-![image](https://user-images.githubusercontent.com/2575698/121636030-485cbc00-ca55-11eb-8416-4d7626653fa8.png)
+To make a Chat message now appear in OBS, simply click on a chat message in the Youtube/Twitch **POP OUT** window.
 
 
 ## Customization
