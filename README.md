@@ -1,5 +1,5 @@
-YouTuber and Twitch Chat Overlay
-=================================
+YouTube and Twitch Chat Overlay
+===============================
 
 This Chrome browser extension turns the YouTube or Twitch Live chat pop-out window into something that can be used to show chat comments in OBS Studio or other studio production software.
 
