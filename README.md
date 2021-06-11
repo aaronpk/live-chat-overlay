@@ -41,6 +41,7 @@ After the page loads, if the extension is loaded correctly, you will see a POP U
 
 To make a Chat message now appear in OBS, simply click on a chat message in the Youtube/Twitch **POP OUT** window.
 
+The link should be resuable between streams, but you can also manually set it to something specific via the plugin's settings page.
 
 ## Customization
 
