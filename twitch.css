@@ -52,6 +52,9 @@ tp-yt-paper-tooltip {
 .chat-line__message{
 	cursor: pointer;
 }
+.tooltip{
+	display:none;
+}
 body {
     background-color: var(--keyer-bg-color);
 }

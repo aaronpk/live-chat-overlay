@@ -50,7 +50,9 @@
 .chat-line__message{
 	cursor: pointer;
 }
-
+.tooltip{
+	display:none;
+}
 tp-yt-paper-tooltip {
 	display:none;
 }
