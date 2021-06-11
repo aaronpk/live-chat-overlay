@@ -23,6 +23,10 @@ function actionwtf(){ // steves personal socket server service
 	soca.onopen = function (){
 		soca.send(JSON.stringify({"join":channel}));
 	}
+	
+	chrome.storage.sync.set({
+		streamID: channel
+	});
 }
 
 setTimeout(function(){actionwtf();},100);
@@ -131,31 +135,37 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
 
 });
 
-$("body").on("click", ".btn-clear", function () {
+$("body").on("click", ".btn-clear-twitch", function () {
   pushMessage(false);
   $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
     $(".hl-c-cont").remove().dequeue();
   });
 });
 
-$( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' );
+$("body").on("click", ".btn-getoverlay-twitch", function () {
+  prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
+});
+
+document.querySelectorAll(".chat-input__buttons-container")[0].innerHTML += '<highlight-chat style="transform: scale(0.2) translate(-199%, 200%);bottom: 2px;width:200%"></highlight-chat><button class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
 
 // Show a placeholder message so you can position the window before the chat is live
 $(function(){
   var chatmessage = "Sample chat message!";
   var chatimg = "https://pin13.net/youtube-live-chat-sample-avatar.png";
-  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div></div>')
-  .delay(10).queue(function(next){
+  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div></div>').delay(10).queue(function(next){
     $( ".hl-c-cont" ).removeClass("fadeout");
     next();
   });
 });
 
-var properties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
+var properties = ["color","scale","streamID","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
 chrome.storage.sync.get(properties, function(item){
   var color = "#000";
   if(item.color) {
     color = item.color;
+  }
+  if (item.streamID){
+    channel = item.streamID;
   }
 
   let root = document.documentElement;

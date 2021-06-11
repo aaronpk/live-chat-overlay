@@ -56,6 +56,7 @@
 .tw-tooltip{
 	display:none;
 }
+
 tp-yt-paper-tooltip {
 	display:none;
 }
@@ -77,6 +78,44 @@ yt-live-chat-app {
     border-radius: 4px;
     color: #fff;
     background: #444;
+	cursor: pointer;
+}
+.btn-getoverlay {
+	position: absolute;
+    z-index: 99999;
+    bottom: calc(var(--comment-area-height) + 60px);
+    right: 20px;
+    font-size: 30px;
+    border: 1px #bbb solid;
+    border-radius: 4px;
+    color: #fff;
+    background: #383;
+	cursor: pointer;
+    right: 140px;
+}
+.btn-clear-twitch {
+    position: absolute;
+    z-index: 99999;
+    bottom: 2px;
+    right: 130px;
+    font-size: 30px;
+    border: 1px #bbb solid;
+    border-radius: 4px;
+    color: #fff;
+    background: #444;
+	cursor: pointer;
+}
+.btn-getoverlay-twitch {
+	position: absolute;
+    z-index: 99999;
+    bottom: 2px;
+    font-size: 30px;
+    border: 1px #bbb solid;
+    border-radius: 4px;
+    color: #fff;
+    background: #383;
+	cursor: pointer;
+    right: 250px;
 }
 .highlighted-comment {
     background-color: var(--highlighted-comment-bg-color) !important;

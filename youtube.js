@@ -23,9 +23,12 @@ function actionwtf(){ // steves personal socket server service
 	soca.onopen = function (){
 		soca.send(JSON.stringify({"join":channel}));
 	}
+	
+	chrome.storage.sync.set({
+		streamID: channel
+	});
 }
 
-setTimeout(function(){actionwtf();},100);
 
 function pushMessage(data){
 	outputCounter+=1;
@@ -35,8 +38,6 @@ function pushMessage(data){
 	message.contents = data;
 	soca.send(JSON.stringify(message));
 }
-
-
 
 var showOnlyFirstName;
 
@@ -138,7 +139,11 @@ $("body").on("click", ".btn-clear", function () {
   });
 });
 
-$( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' );
+$("body").on("click", ".btn-getoverlay", function () {
+  prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
+});
+
+$( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button><button class="btn-getoverlay">GET OVERLAY LINK</button>' );
 
 // Show a placeholder message so you can position the window before the chat is live
 $(function(){
@@ -153,13 +158,17 @@ $(function(){
 
 // Restore settings
 
-var properties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
+var properties = ["color","scale","streamID","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
+
 chrome.storage.sync.get(properties, function(item){
   var color = "#000";
   if(item.color) {
     color = item.color;
   }
-
+  if (item.streamID){
+    channel = item.streamID;
+  }
+  
   let root = document.documentElement;
   root.style.setProperty("--keyer-bg-color", color);
 
@@ -198,6 +207,7 @@ chrome.storage.sync.get(properties, function(item){
   highlightWords = item.highlightWords;
 });
 
+setTimeout(function(){actionwtf();},200);
 
 $("#primary-content").append('<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
 

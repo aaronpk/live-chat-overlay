@@ -2,6 +2,7 @@ function saveOptions(e) {
   e.preventDefault();
   chrome.storage.sync.set({
     color: document.querySelector("#color").value,
+	streamID: document.querySelector("#streamID").value,
     scale: document.querySelector("#scale").value,
     sizeOffset: document.querySelector("#size-offset").value,
     commentBottom: document.querySelector("#comment-bottom").value,
@@ -17,13 +18,24 @@ function saveOptions(e) {
   });
   document.querySelector("#savedButton").innerHTML = "Saved";
 }
-
+function generateStreamID(){
+	var text = "";
+	var possible = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
+	for (var i = 0; i < 10; i++){
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	}
+	chrome.storage.sync.set({
+		streamID: text
+	});
+	return text;
+};
 function restoreOptions() {
-  var properties = ["color","scale","commentBottom","commentHeight","sizeOffset","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
+  var properties = ["color","scale","streamID","commentBottom","commentHeight","sizeOffset","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
   chrome.storage.sync.get(properties, function(result){
 	try{
 		document.querySelector("#color").value = result.color || "#000";
 		document.querySelector("#scale").value = result.scale || "1.0";
+		document.querySelector("#streamID").value = result.streamID || generateStreamID();
 		document.querySelector("#size-offset").value = result.sizeOffset || "0";
 		document.querySelector("#comment-bottom").value = result.commentBottom || "10px";
 		document.querySelector("#comment-height").value = result.commentHeight || "30vh";
