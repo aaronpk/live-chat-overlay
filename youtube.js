@@ -10,6 +10,7 @@ function generateStreamID(){
 var channel = generateStreamID();
 var outputCounter = 0; // used to avoid doubling up on old messages if lag or whatever
 
+var sendProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
 
 function actionwtf(){ // steves personal socket server service
 	if (soca){return;}
@@ -22,21 +23,32 @@ function actionwtf(){ // steves personal socket server service
 	};
 	soca.onopen = function (){
 		soca.send(JSON.stringify({"join":channel}));
-	}
+	};
 	
 	chrome.storage.sync.set({
 		streamID: channel
 	});
 }
 
+setTimeout(function(){actionwtf();},100);
 
 function pushMessage(data){
-	outputCounter+=1;
-	var message = {};
-	message.id = outputCounter;
+				  
+	var message = {};	
 	message.msg = true;
 	message.contents = data;
-	soca.send(JSON.stringify(message));
+	try {
+		chrome.storage.sync.get(sendProperties, function(item){
+			outputCounter+=1;
+			message.id = outputCounter;
+			message.settings = item;
+			soca.send(JSON.stringify(message));
+		});
+	} catch(e){
+		outputCounter+=1;
+		message.id = outputCounter;
+		soca.send(JSON.stringify(message));
+	}
 }
 
 var showOnlyFirstName;
@@ -206,8 +218,6 @@ chrome.storage.sync.get(properties, function(item){
   showOnlyFirstName = item.showOnlyFirstName;
   highlightWords = item.highlightWords;
 });
-
-setTimeout(function(){actionwtf();},200);
 
 $("#primary-content").append('<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
 
