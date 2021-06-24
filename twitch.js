@@ -11,11 +11,15 @@ var channel = generateStreamID();
 var outputCounter = 0; // used to avoid doubling up on old messages if lag or whatever
 
 var sendProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
+var alreadyPrompted = false;
 
 function actionwtf(){ // steves personal socket server service
 	if (soca){return;}
 	
-	prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
+	if (!alreadyPrompted){
+		alreadyPrompted=true;
+		prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
+	}
 	
 	soca = new WebSocket("wss://api.action.wtf:666");
 	soca.onclose = function (){
@@ -168,7 +172,8 @@ $("body").on("click", ".btn-clear-twitch", function () {
 });
 
 $("body").on("click", ".btn-getoverlay-twitch", function () {
-  prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
+    alreadyPrompted=true;
+    prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
 });
 
 document.querySelectorAll(".chat-input__buttons-container")[0].innerHTML += '<highlight-chat style="transform: scale(0.2) translate(-199%, 200%);bottom: 2px;width:200%"></highlight-chat><button class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
