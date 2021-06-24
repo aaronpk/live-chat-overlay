@@ -29,11 +29,9 @@ function actionwtf(){ // steves personal socket server service
 		if (event.data){
 			var data = JSON.parse(event.data);
 			if ("url" in data){
-				if ("tq" in data){
-					console.log("img_"+data["tq"]);
-					if (document.getElementById("img_"+data["tq"])){
-						document.getElementById("img_"+data["tq"]).src = data['url'];
-						console.log("good");
+				if ("twitch" in data){
+					if (document.getElementById("img_"+data["twitch"])){
+						document.getElementById("img_"+data["twitch"]).src = data['url'];
 					}
 				}
 			}
@@ -51,9 +49,6 @@ function pushMessage(data){
 	var message = {};
 	message.msg = true;
 	message.contents = data;
-	if (data.chatname){
-		message.tq = data.chatname;
-	}
 	try {
 		chrome.storage.sync.get(sendProperties, function(item){
 			outputCounter+=1;
@@ -146,6 +141,8 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
   data.chatimg = chatimg;
   data.hasDonation = hasDonation;
   data.hasMembership = hasMembership;
+  data.type = "twitch";
+  
   pushMessage(data);
 
   $( "highlight-chat" ).removeClass("preview").append('<div class="hl-c-cont fadeout">'

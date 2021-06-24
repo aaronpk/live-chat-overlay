@@ -418,22 +418,6 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 				settings = data.settings;
 			}
 			
-			if ("url" in data){
-				if ("tq" in data){
-					if (document.getElementById("img_"+data["tq"])){
-						document.getElementById("img_"+data["tq"]).src = data['url'];
-					}
-					
-					if (data.contents){
-						if (data.contents.chatimg){
-							data.contents.chatimg = data['url'];
-						}
-					}
-					
-					
-				}
-			}
-			
 			if (data.contents){
 				if (data.contents.chatimg){
 					var tmpImage = new Image();

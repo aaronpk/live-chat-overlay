@@ -34,8 +34,7 @@ setTimeout(function(){actionwtf();},100);
 
 function pushMessage(data){
 				  
-	var message = {};
-							
+	var message = {};	
 	message.msg = true;
 	message.contents = data;
 	try {
