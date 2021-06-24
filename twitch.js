@@ -10,6 +10,7 @@ function generateStreamID(){
 var channel = generateStreamID();
 var outputCounter = 0; // used to avoid doubling up on old messages if lag or whatever
 
+var sendProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
 
 function actionwtf(){ // steves personal socket server service
 	if (soca){return;}
@@ -22,7 +23,22 @@ function actionwtf(){ // steves personal socket server service
 	};
 	soca.onopen = function (){
 		soca.send(JSON.stringify({"join":channel}));
-	}
+	};
+	
+	soca.addEventListener('message', function (event) {
+		if (event.data){
+			var data = JSON.parse(event.data);
+			if ("url" in data){
+				if ("tq" in data){
+					console.log("img_"+data["tq"]);
+					if (document.getElementById("img_"+data["tq"])){
+						document.getElementById("img_"+data["tq"]).src = data['url'];
+						console.log("good");
+					}
+				}
+			}
+		}
+	});
 	
 	chrome.storage.sync.set({
 		streamID: channel
@@ -32,12 +48,24 @@ function actionwtf(){ // steves personal socket server service
 setTimeout(function(){actionwtf();},100);
 
 function pushMessage(data){
-	outputCounter+=1;
 	var message = {};
-	message.id = outputCounter;
 	message.msg = true;
 	message.contents = data;
-	soca.send(JSON.stringify(message));
+	if (data.chatname){
+		message.tq = data.chatname;
+	}
+	try {
+		chrome.storage.sync.get(sendProperties, function(item){
+			outputCounter+=1;
+			message.id = outputCounter;
+			message.settings = item;
+			soca.send(JSON.stringify(message));
+		});
+	} catch(e){
+		outputCounter+=1;
+		message.id = outputCounter;
+		soca.send(JSON.stringify(message));
+	}
 }
 
 var showOnlyFirstName;
@@ -51,10 +79,10 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
   $(".hl-c-cont").remove();
   var chatname = $(this).find(".chat-author__display-name").text();
 
-  if(showOnlyFirstName) {
+  if (showOnlyFirstName) {
     chatname = chatname.replace(/ .*/,'');
   }
-
+  
   var chatmessage = $(this).find('*[data-test-selector="chat-line-message-body"').html();
   
   if (!chatmessage){
@@ -125,7 +153,7 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
        + '<div class="hl-badges">' + chatbadges + '</div>'
      + '</div>'
      + '<div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div>'
-     + '<div class="hl-img"><img src="' + chatimg + '"></div>'
+     + '<div class="hl-img"><img id="img_'+chatname+'" src="' + chatimg + '"></div>'
      +hasDonation+hasMembership
    +'</div>')
   .delay(10).queue(function(next){
@@ -190,9 +218,9 @@ chrome.storage.sync.get(properties, function(item){
   if(item.fontFamily) {
     root.style.setProperty("--font-family", item.fontFamily);
   }
- // if(item.scale) {
- //   root.style.setProperty("--comment-scale", item.scale);
- // }
+  if(item.scale) {
+    root.style.setProperty("--comment-scale", item.scale);
+  }
   if(item.commentBottom) {
     root.style.setProperty("--comment-area-bottom", item.commentBottom);
   }
@@ -241,7 +269,6 @@ function onElementInsertedTwitch(containerSelector, className, callback) {
 onElementInsertedTwitch(".chat-scrollable-area__message-container", "chat-line__message", function(element){
   // Check for highlight words
   
-  console.log("NEW MESSAGE");
   var chattext = $(element).find("#message").text();
   var chatWords = chattext.split(" ");
   if (!highlightWords){
