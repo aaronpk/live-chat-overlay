@@ -116,6 +116,32 @@ yt-live-chat-app {
 	cursor: pointer;
     right: 250px;
 }
+.btn-getoverlay-glimesh {
+	position: absolute;
+    z-index: 99999;
+    bottom: 40px;
+    font-size: 30px;
+    border: 1px #bbb solid;
+    border-radius: 4px;
+    color: #fff;
+    background: #383;
+	cursor: pointer;
+    right: 150px;
+	opacity: 0.7;
+}
+.btn-clear-glimesh {
+    position: absolute;
+    z-index: 99999;
+    bottom: 40px;
+    right: 30px;
+    font-size: 30px;
+    border: 1px #bbb solid;
+    border-radius: 4px;
+    color: #fff;
+    background: #444;
+	cursor: pointer;
+	opacity: 0.7;
+}
 .highlighted-comment {
     background-color: var(--highlighted-comment-bg-color) !important;
 }
