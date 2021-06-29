@@ -13,6 +13,12 @@ This Chat overlay extensions will foward the selected chat message over a websoc
 
 You can install this package manually, or install it from the Chrome Web Store. 
 
+#### Chrome Web Store Installation
+
+The extension can be found in the store here: https://chrome.google.com/webstore/detail/youtube-chat-overlay/bahhfoidnfogingiolidoidmlkogjlhp
+
+The webstore has a review process, which can take a few days to complete, so new releases and bug fixes can take a few days to become available. It will however auto-update the extension for you though and it's pretty easy to install this way.
+
 #### Manual Installation
 
 If manually installing, you just need to download and install this repositoary an "unpacked" extension in Chrome.
@@ -22,12 +28,6 @@ The download link is here: https://github.com/steveseguin/live-chat-overlay/arch
 Next, in Chrome, launch the Extensions page:  * [chrome://extensions/](chrome://extensions/)
 
 On that page, choose "Load unpacked", and navigate to the newly unpacked folder we downloaded, selecting it.  That's it! All installed.  :)
-
-#### Chrome Web Store Installation
-
-The extension can be found in the store here: https://chrome.google.com/webstore/detail/youtube-chat-overlay/bahhfoidnfogingiolidoidmlkogjlhp
-
-The webstore has a review process, which can take a few days to complete, so new releases and bug fixes can take a few days to become available. It will however auto-update the extension for you though and it's pretty easy to install this way.
 
 ## Usage
 
