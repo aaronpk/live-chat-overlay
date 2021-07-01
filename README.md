@@ -1,5 +1,5 @@
-YouTube and Twitch Chat Overlay
-===============================
+YouTube/Twitch and More - Chat Overlay Ninja
+============================================
 
 This Chrome browser extension turns your live video chat into something that can be used to show chat comments in OBS Studio or other studio production software.
 
