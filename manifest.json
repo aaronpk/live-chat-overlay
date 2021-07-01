@@ -2,13 +2,13 @@
   "name": "Youtube & Twitch chat overlay",
   "description": "Add live chat from Youtube/Twitch and more to your OBS as a browser overlay. Feature requests accepted!",
   "manifest_version": 2,
-  "version": "0.3.0",
+  "version": "0.4.0"
   "homepage_url": "http://chat.overlay.ninja/",
   "icons": {
     "128": "icons/icon-128.png"
   },
   "permissions": [
-    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "https://www.twitch.tv/*", "https://glimesh.tv/*", "storage"
+    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "https://www.twitch.tv/*", "https://glimesh.tv/*", "https://chat.restream.io/*", "storage"
   ],
   "content_scripts": [
 	  {
@@ -25,6 +25,11 @@
 		"css": ["main.css"],
 		"js": ["jquery.js", "glimesh.js"],
 		"matches": ["https://glimesh.tv/*/chat"]
+	  },
+	  {
+		"css": ["main.css"],
+		"js": ["jquery.js", "restream.js"],
+		"matches": ["https://chat.restream.io/*"]
 	  }
   ],
   "options_ui": {
