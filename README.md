@@ -1,19 +1,21 @@
 YouTube and Twitch Chat Overlay
 ===============================
 
-This Chrome browser extension turns the the Live chat pop-out window of Youtube, Twitch, Restream, and more, into something that can be used to show chat comments in OBS Studio or other studio production software.
+This Chrome browser extension turns your live video chat into something that can be used to show chat comments in OBS Studio or other studio production software.
 
 This Chat overlay extensions will foward the selected chat message over a websocket connection to a secondary webpage, which can be used in OBS-Studio as a simple browser source. This makes capturing the chat messages from a Live video stream very easy and fast -- no Chroma keying or window-capturing needed.  It also makes customizing the style pretty easy, with no Chrome extension development needed. Twitch and Youtube live chat is supported, with more options coming.
+
+#### Supported sites (requests welcomed)
+- glimesh.tv
+- youtube.com
+- twitch.tv
+- restream.io
 
 📺 Video demoing how to install and use here: https://www.youtube.com/watch?v=UOg3RvHO-xk
 
 ![image](https://user-images.githubusercontent.com/2575698/121636030-485cbc00-ca55-11eb-8416-4d7626653fa8.png)
 
-#### Supports
-- glimesh.tv
-- youtube.com
-- twitch.tv
-- restream.io
+
 
 ## Installation
 
