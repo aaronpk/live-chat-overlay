@@ -6,10 +6,10 @@ This Chrome browser extension turns your live video chat into something that can
 This Chat overlay extensions will foward the selected chat message over a websocket connection to a secondary webpage, which can be used in OBS-Studio as a simple browser source. This makes capturing the chat messages from a Live video stream very easy and fast -- no Chroma keying or window-capturing needed.  It also makes customizing the style pretty easy, with no Chrome extension development needed. Twitch and Youtube live chat is supported, with more options coming.
 
 #### Supported sites (requests welcomed)
-- glimesh.tv
-- youtube.com
-- twitch.tv
-- restream.io
+- glimesh.tv (pop-out chat)
+- youtube.com (pop-out chat)
+- twitch.tv (pop-out chat)
+- restream.io (go here: https://chat.restream.io/chat)
 
 📺 Video demoing how to install and use here: https://www.youtube.com/watch?v=UOg3RvHO-xk
 
