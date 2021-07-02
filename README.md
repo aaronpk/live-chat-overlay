@@ -61,6 +61,11 @@ You can open the URL on your computer too if you want to full screen it on a sec
 You can see this in action on many of [Aaron Parecki's livestreams](https://www.youtube.com/watch?v=CHQITWm5wDQ&list=PLRyLn6THA5wPracMVE74IHovBT3ebcsJV)!
 
 
+## Running your own remote server
+
+The extension defaults to pushing the chat messages through a server managed by [Aaron Parecki](https://aaronpk.tv), and the remote window is loaded from that website. Nothing is stored, and there is very little resource usage for this, but if you are more comfortable running this on your own server, head over to the [overlay remote GitHub project](https://github.com/aaronpk/live-chat-overlay-remote) for instructions.
+
+
 ## TODO
 
 See https://github.com/aaronpk/youtube-chat-overlay/issues
