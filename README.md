@@ -15,6 +15,9 @@ This Chat overlay extensions will foward the selected chat message over a websoc
 
 ![image](https://user-images.githubusercontent.com/2575698/121636030-485cbc00-ca55-11eb-8416-4d7626653fa8.png)
 
+If using restream.io as a chat source, you can access all your social sites, including Facebook, from a single chat pop-out, as seen below:
+
+![image](https://user-images.githubusercontent.com/2575698/124319035-9726de80-db47-11eb-9b64-88e9cc2ca1d8.png)
 
 
 ## Installation
@@ -48,6 +51,10 @@ After the page loads, if the extension is loaded correctly, you will see a POP U
 <img src="https://github.com/steveseguin/live-chat-overlay/raw/main/chat-screenshot.png" width="300">
 
 To make a Chat message now appear in OBS, simply click on a chat message in the Youtube/Twitch **POP OUT** window.
+
+YOu can re-use the same overlay in OBS or Vmix or wherever for all your chat inputs.
+
+
 
 The link should be resuable between streams, but you can also manually set it to something specific via the plugin's settings page.
 
