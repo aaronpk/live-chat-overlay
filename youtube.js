@@ -2,8 +2,8 @@ var showOnlyFirstName;
 
 var highlightWords = [];
 var sessionID = "";
-var remoteServerURL = "https://aaronpk.tv/live-chat/pub";
-var remoteWindowURL = "https://aaronpk.tv/live-chat/";
+var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
+var remoteServerURL = remoteWindowURL + "pub";
 var version = "0.2.0";
 var config = {};
 
@@ -126,7 +126,7 @@ $(function(){
 });
 
 // Restore settings
-var configProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
+var configProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL"];
 chrome.storage.sync.get(configProperties, function(item){
   var color = "#000";
   if(item.color) {
@@ -169,6 +169,9 @@ chrome.storage.sync.get(configProperties, function(item){
   }
   showOnlyFirstName = item.showOnlyFirstName;
   highlightWords = item.highlightWords;
+
+  remoteWindowURL = item.popoutURL;
+  remoteServerURL = remoteWindowURL + "pub";
 
   config = item;
 });
