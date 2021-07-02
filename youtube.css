@@ -295,4 +295,13 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 #pop-out-button {
   margin-left: 20px;
 }
+#pop-out-url {
+  margin-left: 20px;
+  font-size: 1.2em;
+  width: 400px;
+  border-radius: 4px;
+}
 
+.hidden {
+  display: none;
+}

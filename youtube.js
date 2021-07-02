@@ -178,7 +178,8 @@ chrome.storage.sync.get(configProperties, function(item){
 
 
 $("#primary-content").append('<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
-$("#primary-content").append('<span style=""><a href="#" id="pop-out-button" class="button">Pop Out</a></span>');
+$("#primary-content").append('<span style=""><a href="#" id="pop-out-button" class="button">Get Overlay URL</a></span>');
+$("#primary-content").append('<span class="hidden"><input type="url" readonly id="pop-out-url"></span>');
 
 function displayAspectRatio() {
   var ratio = Math.round(window.innerWidth / window.innerHeight * 100) / 100;
@@ -189,8 +190,9 @@ displayAspectRatio();
 window.onresize = displayAspectRatio;
 
 $("#pop-out-button").click(function(e){
-  if(!sessionID) {
+  e.preventDefault();
 
+  if(!sessionID) {
     if(window.location.hash) {
       sessionID = window.location.hash.replace("#", "");
     } else {
@@ -199,30 +201,14 @@ $("#pop-out-button").click(function(e){
     }
   }
 
-  window.open(remoteWindowURL+"#"+sessionID, "popout-overlay", {
-    width: 1920,
-    height: 1080,
-    menubar: "off",
-    toolbar: "on",
-    status: "off",
-    resizable: "on",
-    scrollbars: "off"
-  });
-  e.preventDefault();
+  $("#pop-out-url").val(remoteWindowURL+"#"+sessionID);
+  $("#pop-out-url").parent().removeClass("hidden");
 
-  setTimeout(function(){
-    pushRemoteConfig();
-  }, 2000);
 });
 
-function pushRemoteConfig() {
-  var remote = {
-    version: version,
-    command: "config",
-    config: config
-  };
-  $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
-}
+$("#pop-out-url").click(function(){
+  $(this).select();
+});
 
 function generateSessionID(){
   var text = "";

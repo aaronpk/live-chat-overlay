@@ -1,7 +1,7 @@
 Live Chat Overlay
 =================
 
-This CSS and JS turns the popout YouTube chat window into something that can be used to show chat comments keyed over a video.
+This browser extension turns the YouTube popout chat window into something that can be used to show chat comments keyed over a video. You can also bring it in to software like OBS or Lightstream Studio as a browser source!
 
 ![chat-screenshot](chat-screenshot.png)
 
@@ -21,9 +21,11 @@ Then choose "Load unpacked", and navigate to this folder.
 
 ## Usage
 
-Open up the YouTube live chat for a video, and click popout chat to open it in a new window. Or replace the `VIDEOID` in the URL below with your video's ID.
+Open up the YouTube live chat for a video, and click YouTube's "popout chat" button to open it in a new window. Or replace the `VIDEOID` in the URL below with your video's ID.
 
 `https://www.youtube.com/live_chat?is_popout=1&v=VIDEOID`
+
+### Keying from a Computer
 
 You'll next need to bring that into your video stream and key it out, which will depend on what software or hardware you are using. In the ATEM Mini, you can use these settings in the upstream keyer:
 
@@ -41,6 +43,18 @@ Or you can use the downstream keyer:
   * left: -16
   * right: 16
 
+### Adding as a Browser Source
+
+In software such as [OBS](https://obsproject.com) or [Lightstream Studio](http://strea.mr/aaronparecki) you can pop out a remote window as a browser source, and remote control it from your main YouTube chat window.
+
+Before you start, you'll want to make sure you change the background color in the extension settings to the word "transparent" so that the browser window will have a transparent background.
+
+Once you've loaded the YouTube popout chat window described above, you will see a button in the YouTube chat window called "Get Overlay URL". Clicking that will reveal a URL you can copy and load into OBS or your favorite streaming platform that supports browser overlay sources.
+
+![get-overlay-url](get-overlay-url.png)
+
+You can open the URL on your computer too if you want to full screen it on a second monitor.
+
 
 ## See this in action!
 
@@ -54,5 +68,5 @@ See https://github.com/aaronpk/youtube-chat-overlay/issues
 
 ## Credits
 
-Most of this CSS and JavaScript came from a video by [ROJ BTS](https://www.youtube.com/watch?v=NHy9D4ClTvc), so huge thanks to him for the initial work!
+The CSS and JavaScript originally came from a video by [ROJ BTS](https://www.youtube.com/watch?v=NHy9D4ClTvc), so huge thanks to him for the initial work!
 
