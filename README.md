@@ -23,7 +23,7 @@ If using restream.io as a chat source, you can access all your social sites, inc
 
 ## Installation
 
-You can install this package manually, or install it from the Chrome Web Store. 
+You can install this package manually, or install it from the Chrome Web Store. If you install the extension manually, make sure to remove the store version to avoid conflicts and double-popup problems, etc.
 
 #### Chrome Web Store Installation
 
