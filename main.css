@@ -80,6 +80,37 @@ yt-live-chat-app {
     background: #444;
 	cursor: pointer;
 }
+.btn-clear-trovo {
+    display: block;
+    position: absolute;
+    left: 80px;
+    bottom: 0px;
+    z-index: 100;
+    background-color: #FDD;
+    margin: 5px;
+    padding: 10px;
+}
+.btn-getoverlay-trovo {
+    display: block;
+    position: absolute;
+    left: 160px;
+    bottom: 0px;
+    z-index: 100;
+    background-color: #CEF;
+    margin: 5px;
+    padding: 10px;
+}
+.highlight-trovo {
+	max-height: 220px;
+	transform: scale(0.2) translate(-199%, 200%);
+	opacity: 0.5;
+	width:200%;
+    position: absolute;
+    left: 220px;
+    bottom: 0px;
+    z-index: 100;
+	max-width: 780px;
+}
 .btn-getoverlay {
 	position: absolute;
     z-index: 99999;
