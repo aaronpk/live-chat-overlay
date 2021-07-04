@@ -46,21 +46,25 @@
 body {
     background-color: var(--keyer-bg-color);
 }
-yt-live-chat-app {
+body.inline-chat yt-live-chat-app {
     margin-bottom: var(--comment-area-height);
     height: calc(100vh - var(--comment-area-height)) !important;
 }
 .btn-clear {
     position: absolute;
     z-index: 99999;
-    bottom: calc(var(--comment-area-height) + 60px);
     right: 20px;
     font-size: 30px;
     border: 1px #bbb solid;
     border-radius: 4px;
     color: #fff;
     background: #444;
+    bottom: 60px;
 }
+body.inline-chat .btn-clear {
+    bottom: calc(var(--comment-area-height) + 60px);
+}
+
 .highlighted-comment {
     background-color: var(--highlighted-comment-bg-color) !important;
 }

@@ -4,7 +4,7 @@ var highlightWords = [];
 var sessionID = "";
 var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
 var remoteServerURL = remoteWindowURL + "pub";
-var version = "0.2.2";
+var version = "0.2.3";
 var config = {};
 
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer", function () {
@@ -81,13 +81,8 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
      +data.donationHTML+data.membershipHTML
    +'</div>';
 
-  $( "highlight-chat" ).removeClass("preview").append(html)
-  .delay(10).queue(function(next){
-    $( ".hl-c-cont" ).removeClass("fadeout");
-    next();
-  });
-
   if(sessionID) {
+
     var remote = {
       version: version,
       command: "show",
@@ -95,6 +90,15 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
       config: config
     }
     $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
+
+  } else {
+
+    $( "highlight-chat" ).removeClass("preview").append(html)
+    .delay(10).queue(function(next){
+      $( ".hl-c-cont" ).removeClass("fadeout");
+      next();
+    });
+
   }
 
 });
@@ -111,10 +115,12 @@ $("body").on("click", ".btn-clear", function () {
   });
 });
 
-$( "yt-live-chat-app" ).before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' );
+$("yt-live-chat-app").before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' );
+$("body").addClass("inline-chat");
 
-// Show a placeholder message so you can position the window before the chat is live
 $(function(){
+
+  // Show a placeholder message so you can position the window before the chat is live
   var data = {};
   data.message = "this livestream is the best!";
   data.authorimg = remoteWindowURL+"/youtube-live-chat-sample-avatar.png";
@@ -123,6 +129,12 @@ $(function(){
     $( ".hl-c-cont" ).removeClass("fadeout");
     next();
   });
+
+  // Restore the popout URL field if they refresh the page
+  if(window.location.hash) {
+    $("#pop-out-button").click();
+  }
+
 });
 
 // Restore settings
@@ -206,11 +218,17 @@ $("#pop-out-button").click(function(e){
   $("#pop-out-url").val(remoteWindowURL+"#"+sessionID);
   $("#pop-out-url").parent().removeClass("hidden");
 
+  $("highlight-chat").remove();
+  $("body").removeClass("inline-chat");
 });
 
 $("#pop-out-url").click(function(){
   $(this).select();
 });
+
+
+
+
 
 function generateSessionID(){
   var text = "";
@@ -245,7 +263,7 @@ function onElementInserted(containerSelector, tagName, callback) {
 
 
 onElementInserted(".yt-live-chat-item-list-renderer#items", "yt-live-chat-text-message-renderer", function(element){
-  console.log("New dom element inserted", element.tagName);
+  //console.log("New dom element inserted", element.tagName);
   // Check for highlight words
   var chattext = $(element).find("#message").text();
   var chatWords = chattext.split(" ");
