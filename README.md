@@ -56,7 +56,6 @@ To make a Chat message now appear in OBS, simply click on a chat message in the 
 YOu can re-use the same overlay in OBS or Vmix or wherever for all your chat inputs.
 
 
-
 The link should be resuable between streams, but you can also manually set it to something specific via the plugin's settings page.
 
 ## Customization
@@ -70,6 +69,10 @@ to
 `C:\Users\Steve\Desktop\index.html?session=sBtMwWrkhZ`
 
 ![image](https://user-images.githubusercontent.com/2575698/115710917-e929d780-a340-11eb-9bb8-15dd5e603904.png)
+
+## Support
+
+If you need support or have a bug to report, please feel free to join me at https://discord.vdo.ninja. 
 
 ## Credits
 
