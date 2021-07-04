@@ -4,7 +4,7 @@ var highlightWords = [];
 var sessionID = "";
 var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
 var remoteServerURL = remoteWindowURL + "pub";
-var version = "0.2.0";
+var version = "0.2.2";
 var config = {};
 
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer", function () {
@@ -170,8 +170,10 @@ chrome.storage.sync.get(configProperties, function(item){
   showOnlyFirstName = item.showOnlyFirstName;
   highlightWords = item.highlightWords;
 
-  remoteWindowURL = item.popoutURL;
-  remoteServerURL = remoteWindowURL + "pub";
+  if(item.popoutURL) {
+    remoteWindowURL = item.popoutURL;
+    remoteServerURL = remoteWindowURL + "pub";
+  }
 
   config = item;
 });
