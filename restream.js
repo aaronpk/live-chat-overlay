@@ -125,6 +125,12 @@ $("body").unbind("click").on("click", "section>div>div>div.MuiGrid-root.MuiGrid-
 		try{
 			chatmessage = content.parentNode.childNodes[3].innerHTML;
 		}catch(e){}
+		
+		if (!chatmessage){
+			try{
+				chatmessage = content.parentNode.childNodes[2].innerHTML;
+			} catch(e){}
+		}
 	} else {
 		var content = $(this)[0].childNodes[1];
 		var chatname="";
