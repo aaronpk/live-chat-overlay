@@ -184,6 +184,10 @@ chrome.storage.sync.get(properties, function(item){
   }
   if (item.streamID){
     channel = item.streamID;
+  } else {
+	chrome.storage.sync.set({
+		streamID: channel
+	});
   }
   
   let root = document.documentElement;
