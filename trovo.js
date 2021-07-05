@@ -90,7 +90,6 @@ $("body").unbind("click").on("click", ".message-user", function () { //  #chat .
   }
   var chatimg=false;
   try{
-	 console.log( $(this));
 	 chatimg = $(this).find('div.avatar.wrapper').find('img.img-face').attr("src");
   } catch(e){}
   if (!chatimg){

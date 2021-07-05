@@ -67,7 +67,7 @@ var showOnlyFirstName;
 var highlightWords = [];
 
 
-$("body").unbind("click").on("click", "div.MuiGrid-root.MuiGrid-container > div > section:first-child > div:first-child > div:first-child > div", function (event) {
+$("body").unbind("click").on("click", "section>div>div>div.MuiGrid-root.MuiGrid-item>div.MuiGrid-root.MuiGrid-container", function (event) {
 	console.log(event.target);
 
 	if (!$(this)[0].childNodes.length){return;}
@@ -98,27 +98,50 @@ $("body").unbind("click").on("click", "div.MuiGrid-root.MuiGrid-container > div 
 		return;
 	} else if (event.target.tagName.toLowerCase() == "button"){
 		return;
-	} else if (event.target.tagName.toLowerCase() == "img"){
-		var buttonlist = $(this)[0].parentNode.parentNode.querySelectorAll("button");
-		for (var i = 0; i< buttonlist.length;i++){
-			buttonlist[i].remove();
-		}
-		
-		$(this)[0].parentNode.parentNode.appendChild(button1);
-		$(this)[0].parentNode.parentNode.appendChild(button2);
-		$(this)[0].parentNode.parentNode.appendChild(button3);
 	} else {
-		var buttonlist = $(this)[0].parentNode.parentNode.querySelectorAll("button");
+		var buttonlist = $(this)[0].parentNode.querySelectorAll("button");
 		for (var i = 0; i< buttonlist.length;i++){
 			buttonlist[i].remove();
 		}
 		
-		$(this)[0].appendChild(button1);
-		$(this)[0].appendChild(button2);
-		$(this)[0].appendChild(button3);
+		$(this)[0].parentNode.appendChild(button1);
+		$(this)[0].parentNode.appendChild(button2);
+		$(this)[0].parentNode.appendChild(button3);
 	}
 	
-	var content = $(this)[0].childNodes[0].childNodes[1];
+	if ($(this)[0].childNodes[0].classList.contains("MuiTypography-root")){
+		var content = $(this)[0].childNodes[0].childNodes[1];
+		var chatname="";
+		try {
+			chatname = content.childNodes[0].childNodes[0].childNodes[0].childNodes[1].textContent;
+			chatname = chatname.replace(/ .*/,'');
+		} catch(e){
+			try {
+				chatname = content.childNodes[0].textContent;
+				chatname = chatname.replace(/ .*/,'');
+			} catch(e){}
+		}
+		var chatmessage="";
+		try{
+			chatmessage = content.parentNode.childNodes[3].innerHTML;
+		}catch(e){}
+	} else {
+		var content = $(this)[0].childNodes[1];
+		var chatname="";
+		try {
+			chatname = content.childNodes[0].childNodes[0].childNodes[0].childNodes[1].textContent;
+			chatname = chatname.replace(/ .*/,'');
+		} catch(e){
+			try {
+				chatname = content.childNodes[0].childNodes[0].childNodes[0].textContent;
+				chatname = chatname.replace(/ .*/,'');
+			} catch(e){}
+		}
+		var chatmessage="";
+		try{
+			chatmessage = content.childNodes[0].childNodes[1].innerHTML;
+		}catch(e){}
+	}
 	
 	var chatimg="";
 	try{
@@ -129,21 +152,6 @@ $("body").unbind("click").on("click", "div.MuiGrid-root.MuiGrid-container > div 
 		} catch(e){}
 	}
 	
-	var chatname="";
-	try {
-		chatname = content.childNodes[0].childNodes[0].childNodes[0].childNodes[1].textContent;
-		chatname = chatname.replace(/ .*/,'');
-	} catch(e){
-		try {
-			chatname = content.childNodes[0].childNodes[0].childNodes[0].textContent;
-			chatname = chatname.replace(/ .*/,'');
-		} catch(e){}
-	}
-	
-	var chatmessage="";
-	try{
-		chatmessage = content.childNodes[0].childNodes[1].innerHTML;
-	}catch(e){}
 	
   var data = {};
   data.chatname = chatname;
@@ -154,7 +162,11 @@ $("body").unbind("click").on("click", "div.MuiGrid-root.MuiGrid-container > div 
   data.chatimg = chatimg;
   data.hasDonation = "";
   data.hasMembership = "";
-  data.type = "restream";
+  if (chatimg==="https://restream.io/img/api/platforms/platform-1.png"){
+	data.type = "twitch";
+  } else {
+	data.type = "restream";
+  }
   
   button1.onclick = function(){
 	pushMessage(data);
