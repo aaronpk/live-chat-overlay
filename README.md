@@ -12,7 +12,8 @@ This Chat overlay extensions will foward the selected chat message over a websoc
 - youtube.com (pop-out chat)
 - twitch.tv (pop-out chat)
 - restream.io (go here: https://chat.restream.io/chat)
-- trovo.live (pop-out chat; just added, so not yet on Chrome webstore)
+- trovo.live (pop-out chat)
+- Instagram comments (shows up on indivdiual posts; https://instagram.com/p/*)
 
 ![image](https://user-images.githubusercontent.com/2575698/121636030-485cbc00-ca55-11eb-8416-4d7626653fa8.png)
 
