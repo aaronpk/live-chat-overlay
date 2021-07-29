@@ -1,3 +1,4 @@
+(function() {
 var soca=false;
 function generateStreamID(){
 	var text = "";
@@ -11,16 +12,10 @@ var channel = generateStreamID();
 var outputCounter = 0; // used to avoid doubling up on old messages if lag or whatever
 
 var sendProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
-var alreadyPrompted = false;
 
 function actionwtf(){ // steves personal socket server service
 	if (soca){return;}
-	
-	if (!alreadyPrompted){
-		alreadyPrompted=true;
-		prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
-	}
-	
+
 	soca = new WebSocket("wss://api.action.wtf:666");
 	soca.onclose = function (){
 		setTimeout(function(){soca=false;actionwtf(); },2000);
@@ -29,7 +24,7 @@ function actionwtf(){ // steves personal socket server service
 		soca.send(JSON.stringify({"join":channel}));
 	};
 	
-	soca.addEventListener('message', function (event) {
+	/* soca.addEventListener('message', function (event) {
 		if (event.data){
 			var data = JSON.parse(event.data);
 			if ("url" in data){
@@ -40,7 +35,7 @@ function actionwtf(){ // steves personal socket server service
 				}
 			}
 		}
-	});
+	}); */
 	
 	chrome.storage.sync.set({
 		streamID: channel
@@ -67,74 +62,96 @@ function pushMessage(data){
 	}
 }
 
-var showOnlyFirstName;
+function initMessage(ele){
+	try{
+		ele.addEventListener('click', prepMessage);
+		ele.style.cursor = "pointer";
+	} catch(e){}
+}
 
+var showOnlyFirstName;
 var highlightWords = [];
 
+function toDataURL(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      callback(reader.result);
+    }
+    reader.readAsDataURL(xhr.response);
+  };
+  xhr.open('GET', url);
+  xhr.responseType = 'blob';
+  xhr.send();
+}
 
-$("body").unbind("click").on("click", ".chat-line__message", function () { // twitch
-
- 
-  $(".hl-c-cont").remove();
-  var chatname = $(this).find(".chat-author__display-name").text();
-
-  if (showOnlyFirstName) {
-    chatname = chatname.replace(/ .*/,'');
+function prepMessage(ele){
+  if (ele == window){return;}
+  if (this){
+	  ele = this;
   }
   
-  var chatmessage = $(this).find('*[data-test-selector="chat-line-message-body"').html();
+  try {
+	document.querySelector(".hl-c-cont").parentNode.removeChild(document.querySelector(".hl-c-cont"));
+  } catch(e){}
   
+  if (ele.querySelector("h3")){
+	 var base = ele.querySelector("h3");
+  } else {
+	 var base = ele.querySelector("h2")
+  }
+  
+  try{
+	  var chatname = base.childNodes[0].innerText;
+	  if (showOnlyFirstName) {
+		chatname = chatname.replace(/ .*/,'');
+	  }
+  } catch(e){
+	  var chatname = base.innerText;
+	  if (showOnlyFirstName) {
+		chatname = chatname.replace(/ .*/,'');
+	  }
+  }
+  
+  var chatmessage = base.nextElementSibling.innerText;
   if (!chatmessage){
 	   console.log("Not message found");
 	   return;
   }
-  var chatimg = 'http://chat.overlay.ninja/twitch.png';
+  var chatimg=false;
+  try{
+	 chatimg = base.parentNode.previousElementSibling.querySelector("img").src
+  } catch(e){}
+  
   var chatdonation = false;
   var chatmembership = false;
   var chatsticker = false;
   
-  this.style.backgroundColor = "#666";
-
-  // Donation amounts for stickers use a differnet id than regular superchats
-  if(chatsticker) {
-    chatdonation = $(this).find("#purchase-amount-chip").html();
-  }
+  ele.style.backgroundColor = "#CCC";
 
   var chatbadges = "";
-  if($(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").length > 0) {
-    chatbadges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
-  }
-
+ 
   // Mark this comment as shown
-  $(this).addClass("shown-comment");
+  ele.classList.add("shown-comment");
 
   var hasDonation = '';
-  if(chatdonation) {
-    hasDonation = '<div class="donation">' + chatdonation + '</div>';
-  }
-
+ 
   var hasMembership = '';
-  if(chatmembership) {
-    hasMembership = '<div class="donation membership">NEW MEMBER!</div>';
-    chatmessage = chatmembership;
-  }
-
-  if(chatsticker) {
-    chatmessage = '<img src="'+chatsticker+'">';
-  }
-
+ 
   var backgroundColor = "";
   var textColor = "";
-  if(this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')) {
-    backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-paid-message-primary-color')+";";
-    textColor = "color: #111;";
+ 
+  /* var chattext = $(element).text(); // add this back in
+  var chatWords = chattext.split(" ");
+  if (!highlightWords){
+	  highlightWords=[];
   }
-
-  // This doesn't work yet
-  if(this.style.getPropertyValue('--yt-live-chat-sponsor-color')) {
-    backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-sponsor-color')+";";
-    textColor = "color: #111;";
-  }
+  var highlights = chatWords.filter(value => highlightWords.includes(value.toLowerCase().replace(/[^a-z0-9]/gi, '')));
+  $(element).removeClass("shown-comment");
+  if(highlights.length > 0) {
+	$(element).addClass("highlighted-comment");
+  } */
 
   var data = {};
   data.chatname = chatname;
@@ -145,9 +162,12 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
   data.chatimg = chatimg;
   data.hasDonation = hasDonation;
   data.hasMembership = hasMembership;
-  data.type = "twitch";
+  data.type = "instagram";
   
-  pushMessage(data);
+  toDataURL(chatimg, function(dataUrl) {
+	  data.chatimg = dataUrl;
+	  pushMessage(data);
+  });
 
   $( "highlight-chat" ).removeClass("preview").append('<div class="hl-c-cont fadeout">'
      + '<div class="hl-name">' + chatname
@@ -161,34 +181,26 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
     $( ".hl-c-cont" ).removeClass("fadeout");
     next();
   });
+};
 
-});
+document.querySelector("body").innerHTML += '<button class="btn-clear-instagram">CLEAR</button><button class="btn-getoverlay-instagram" >LINK</button><highlight-chat class="highlight-instagram"></highlight-chat>';
 
-$("body").on("click", ".btn-clear-twitch", function () {
+$("body").on("click", ".btn-clear-instagram", function () {
   pushMessage(false);
   $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
     $(".hl-c-cont").remove().dequeue();
   });
 });
 
-$("body").on("click", ".btn-getoverlay-twitch", function () {
-    alreadyPrompted=true;
+$("body").on("click", ".btn-getoverlay-instagram", function () {
     prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
 });
 
-document.querySelectorAll(".chat-input__buttons-container")[0].innerHTML += '<highlight-chat style="transform: scale(0.2) translate(-199%, 200%);bottom: 2px;width:200%;height:220px;"></highlight-chat><button class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
 
 // Show a placeholder message so you can position the window before the chat is live
-$(function(){
-  var chatmessage = "Sample chat message!";
-  var chatimg = "https://pin13.net/youtube-live-chat-sample-avatar.png";
-  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div></div>').delay(10).queue(function(next){
-    $( ".hl-c-cont" ).removeClass("fadeout");
-    next();
-  });
-});
 
 var properties = ["color","scale","streamID","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
+
 chrome.storage.sync.get(properties, function(item){
   var color = "#000";
   if(item.color) {
@@ -241,49 +253,52 @@ chrome.storage.sync.get(properties, function(item){
 });
 
 
-$("#primary-content").append('<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
+function startup(containerSelector, className, callback, role=false) {
+	var bases = document.querySelectorAll('li[role="menuitem"]');
+	for (var i=0;i<bases.length;i++) {
+	  initMessage(bases[i]);
+	}
 
-function displayAspectRatio() {
-  var ratio = Math.round(window.innerWidth / window.innerHeight * 100) / 100;
-  ratio += " (target 1.77)";
-  $("#aspect-ratio").text(ratio);
-}
-displayAspectRatio();
-window.onresize = displayAspectRatio;
+	try {
+		var chatmessage = "Sample chat message!";
+		$( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img">:)</div></div>').delay(10).queue(function(next){
+			$( ".hl-c-cont" ).removeClass("fadeout");
+			next();
+		});
+	} catch(e){};
 
 
-function onElementInsertedTwitch(containerSelector, className, callback) {
-	var onMutationsObserved = function(mutations) {
-		mutations.forEach(function(mutation) {
-			if (mutation.addedNodes.length) {
-				for (var i = 0, len = mutation.addedNodes.length; i < len; i++) {
-					if(mutation.addedNodes[i].className == className) {
-						callback(mutation.addedNodes[i]);
+	try{
+		var onMutationsObserved = function(mutations) {
+			mutations.forEach(function(mutation) {
+				if (mutation.addedNodes.length) {
+					for (var i = 0, len = mutation.addedNodes.length; i < len; i++) {
+						try{
+							if (className!==false){
+								console.warn(mutation.addedNodes[i]);
+								if(mutation.addedNodes[i].className == className) {
+									callback(mutation.addedNodes[i]);
+								}
+							} else if (role){
+								if(mutation.addedNodes[i].getAttribute("role") && (mutation.addedNodes[i].getAttribute("role") == role)) {
+									callback(mutation.addedNodes[i]);
+								}
+							}
+						} catch(e){console.warn(e)}
 					}
 				}
-			}
-		});
-	};
-	var target = document.querySelectorAll(containerSelector)[0];
-	var config = { childList: true, subtree: true };
-	var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-	var observer = new MutationObserver(onMutationsObserved);
-	observer.observe(target, config);
-
+			});
+		};
+		try{
+			var target = document.querySelectorAll(containerSelector)[0];
+			var config = { childList: true, subtree: true };
+			var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+			var observer = new MutationObserver(onMutationsObserved);
+			observer.observe(target, config);
+		} catch(e){console.warn(e);};
+	} catch(e){console.error(e);}
 }
 
-onElementInsertedTwitch(".chat-scrollable-area__message-container", "chat-line__message", function(element){
-  // Check for highlight words
-  
-  var chattext = $(element).find("#message").text();
-  var chatWords = chattext.split(" ");
-  if (!highlightWords){
-	  highlightWords=[];
-  }
-  var highlights = chatWords.filter(value => highlightWords.includes(value.toLowerCase().replace(/[^a-z0-9]/gi, '')));
-  $(element).removeClass("shown-comment");
-  if(highlights.length > 0) {
-	$(element).addClass("highlighted-comment");
-  }
-});
-	
+setTimeout(function(){startup("article[role='presentation']", false, initMessage, 'menuitem');},1000);
+
+})();

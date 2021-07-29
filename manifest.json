@@ -2,13 +2,13 @@
   "name": "Chat Overlay for Youtube, Twitch & more",
   "description": "Add live chat from Youtube, Twitch, Restream and more to your OBS as a browser overlay. Feature requests accepted!",
   "manifest_version": 2,
-  "version": "0.5.3",
+  "version": "0.6.0",
   "homepage_url": "http://chat.overlay.ninja/",
   "icons": {
     "128": "icons/icon-128.png"
   },
   "permissions": [
-    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "https://www.twitch.tv/*", "https://glimesh.tv/*", "https://chat.restream.io/*", "https://trovo.live/chat/*", "storage"
+    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "https://www.twitch.tv/*", "https://glimesh.tv/*", "https://chat.restream.io/*", "https://www.instagram.com/p/*", "https://instagram.com/p/*", "https://trovo.live/chat/*", "storage"
   ],
   "content_scripts": [
 	  {
@@ -35,6 +35,11 @@
 		"css": ["main.css"],
 		"js": ["jquery.js", "trovo.js"],
 		"matches": ["https://trovo.live/chat/*"]
+		},
+	  {
+		"css": ["main.css"],
+		"js": ["jquery.js", "instagram.js"],
+		"matches": ["https://instagram.com/p/*","https://www.instagram.com/p/*"]
 	  }
   ],
   "options_ui": {
