@@ -109,6 +109,17 @@ body {
     margin: 5px;
     padding: 10px;
 }
+.btn-clear-twitter {
+    display: block;
+    position: relative;
+    left: 0px;
+    bottom: 0px;
+    z-index: 100;
+    background-color: #FDD;
+    margin: 5px;
+    padding: 10px;
+	width:100%;
+}
 .btn-getoverlay-trovo {
     display: block;
     position: absolute;
@@ -129,6 +140,17 @@ body {
     margin: 5px;
     padding: 10px;
 }
+.btn-getoverlay-twitter {
+    display: block;
+    position: relative;
+    left: 0;
+    bottom: 0px;
+    z-index: 100;
+    background-color: #CEF;
+    margin: 5px;
+    padding: 10px;
+	width:100%;
+}
 .highlight-trovo {
 	max-height: 220px;
 	transform: scale(0.2) translate(-199%, 200%);
@@ -148,6 +170,18 @@ body {
 	width:200%;
     position: absolute;
     left: 220px;
+    bottom: 5px;
+    z-index: 100;
+	max-width: 1780px;
+}
+.highlight-twitter {
+	max-height: 220px;
+	transform: scale(0.2) translate(-199%, 200%);
+	opacity: 0.8;
+	width:200%;
+    position: relative;
+	display:none;
+    left: 0px;
     bottom: 5px;
     z-index: 100;
 	max-width: 1780px;
