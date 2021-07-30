@@ -144,6 +144,7 @@ body {
     padding: 10px;
 	width:100%;
 	cursor: pointer;
+	    border-radius: 20px;
 }
 .btn-getoverlay-trovo {
     display: block;
@@ -178,6 +179,7 @@ body {
     padding: 10px;
 	width:100%;
 	cursor: pointer;
+	    border-radius: 20px;
 }
 .highlight-trovo {
 	max-height: 220px;
@@ -213,6 +215,7 @@ body {
     bottom: 5px;
     z-index: 100;
 	max-width: 1780px;
+	    border-radius: 20px;
 }
 
 .btn-getoverlay {

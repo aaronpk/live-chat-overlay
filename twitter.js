@@ -50,16 +50,6 @@ function pushMessage(data){
 	}
 }
 
-function initMessage(ele){
-	var button  = document.createElement("button");
-	button.onclick = prepMessage;
-	button.innerHTML = "Show as overlay";
-	button.style = "    width: 60px;    height: 60px;    padding: 4px;  margin: 10px; background-color: #c7f6c7; cursor:pointer;"
-	try{
-		ele.appendChild(button);
-	} catch(e){}
-}
-
 var showOnlyFirstName;
 var highlightWords = [];
 
@@ -307,64 +297,37 @@ chrome.storage.sync.get(properties, function(item){
 });
 
 
-function startup(containerSelector, className, callback, role=false) {
+function startup() {
 	
-	
+	setTimeout(function(){
 		var bases = document.querySelector('main[role="main"]').querySelectorAll('article[role="article"]');
 		for (var i=0;i<bases.length;i++) {
-		  initMessage(bases[i]);
+			try {
+				if (!bases[i].dataset.set){
+					bases[i].dataset.set=true;
+					var button  = document.createElement("button");
+					button.onclick = prepMessage;
+					button.innerHTML = "Show as overlay";
+					button.style = "    width: 60px;    height: 60px;    padding: 4px;  margin: 10px; background-color: #c7f6c7; cursor:pointer;"
+					
+						bases[i].appendChild(button);
+					
+				}
+			} catch(e){}
 		}
+	}, 2000);
 
-	try {
-		var chatmessage = "Sample chat message!";
-		$( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img">:)</div></div>').delay(10).queue(function(next){
-			$( ".hl-c-cont" ).removeClass("fadeout");
-			next();
-		});
-	} catch(e){};
 	
 	if (loaded==false){
-		try{
+		try {
 			document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button class="btn-clear-twitter">CLEAR OVERLAY</button><button class="btn-getoverlay-twitter" >SHOW OVERLAY LINK</button><highlight-chat class="highlight-twitter"></highlight-chat>';
 			loaded=true;
 		} catch(e){}
 	}
 	
-	try{
-		
-		var onMutationsObserved = function(mutations) {
-			mutations.forEach(function(mutation) {
-				if (mutation.addedNodes.length) {
-					for (var i = 0, len = mutation.addedNodes.length; i < len; i++) {
-						try{
-							if (role){
-								if(mutation.addedNodes[i].childNodes[0].childNodes[0].childNodes[0].role && (mutation.addedNodes[i].childNodes[0].childNodes[0].childNodes[0].role == role)) {
-									callback(mutation.addedNodes[i].childNodes[0].childNodes[0].childNodes[0]);
-								}
-							}
-						} catch(e){}
-					}
-				}
-			});
-			
-			if (loaded==false){
-				try{
-					document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button class="btn-clear-twitter">CLEAR</button><button class="btn-getoverlay-twitter" >LINK</button><highlight-chat class="highlight-twitter"></highlight-chat>';
-					loaded=true;
-				} catch(e){}
-			}
-		};
-		try{
-			var target = document.querySelectorAll(containerSelector)[0];
-			var config = { childList: true, subtree: true };
-			var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-			var observer = new MutationObserver(onMutationsObserved);
-			observer.observe(target, config);
-		} catch(e){console.warn(e);};
-	} catch(e){console.error(e);}
 
 }
 
-setTimeout(function(){startup("main[role='main']", false, initMessage, 'article');},2000);
+setTimeout(function(){startup();},10);
 
 })();
