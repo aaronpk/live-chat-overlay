@@ -91,7 +91,10 @@ function prepMessage(ele){
   console.log(base.parentNode);
   
   try{
-	  var chatname = base.childNodes[1].querySelectorAll("a")[0].childNodes[0].childNodes[0].innerText;
+	  var chatname = base.childNodes[1].querySelectorAll("a")[0].childNodes[0].childNodes[0].innerText.trim();
+	  if (!chatname.length){
+		  chatname = base.childNodes[1].querySelectorAll("a")[0].innerText.trim();
+	  }
 	  if (showOnlyFirstName) {
 		chatname = chatname.replace(/ .*/,'');
 	  }
@@ -100,30 +103,74 @@ function prepMessage(ele){
 	//return;
   }
   
-  try {
-	var chatmessage =  base.parentNode.childNodes[2].childNodes[0].innerText;
-  } catch(e){
-	  try{
-		  var chatmessage =  base.parentNode.childNodes[1].childNodes[1].childNodes[1].childNodes[1].innerText;
-		  if (!chatmessage.length){
-			  var chatmessage =  base.parentNode.childNodes[1].childNodes[1].childNodes[1].innerText;
-		  }
-	  } catch(e){
-		  try{
-			  var chatmessage =  base.parentNode.childNodes[1].childNodes[1].childNodes[1].innerText;
-		  } catch(e){
-			  var chatmessage="";
-		  }
-	  }
-	 console.error(e);
-	
-	//return;
-  }
-  
   var chatimg=false;
+  var contentimg=false;
   try{
 	 chatimg = base.childNodes[0].querySelector("img").src
   } catch(e){}
+  
+  var chatmessage = "";
+  try { // poster
+	  
+	  
+	  chatmessage = base.parentNode.childNodes[1].childNodes[1].querySelector("[lang]");
+	  if (chatmessage){
+		  console.log(chatmessage);
+		  var links = chatmessage.querySelectorAll("a");
+		  for (var i =0;i<links.length;i++){
+			  if (links[i].innerText.length>15){
+				links[i].innerText = links[i].innerText.substring(0, 15) + "...";
+			  }
+		  }
+		  chatmessage = chatmessage.innerText;
+	  }
+	  console.log("1");
+	  
+	  if (!chatmessage.length){
+		  console.log(".");
+		  chatmessage =  base.parentNode.childNodes[1].childNodes[1].childNodes[1].innerText;
+		   console.log("2");
+	  }
+	  try{
+		contentimg = base.parentNode.querySelector("video").getAttribute("poster");
+	  }catch(e){
+		  try{
+			contentimg = base.parentNode.childNodes[1].childNodes[1].querySelector("[lang]").parentNode.nextElementSibling.querySelector("img").src;
+		  } catch(e){
+				contentimg = base.parentNode.childNodes[1].childNodes[1].querySelector("[lang]").parentNode.nextElementSibling.querySelector("img").src;
+		  }
+	  }
+	  
+  } catch(e){
+	   
+	  if (!chatmessage){
+		  console.log(ele.parentNode);
+		  try{
+			  if (ele.parentNode.querySelectorAll("[lang]").length){
+				chatmessage =  ele.parentNode.querySelector("[lang]").innerText;
+			  }
+		  }catch(e){}
+		  console.log("3");
+	  } else {
+		  console.log(chatmessage);
+	  }
+		  
+	   try{
+		contentimg = ele.parentNode.querySelector("video").getAttribute("poster"); //tweetPhoto
+	  }catch(e){
+		  try{
+			contentimg = ele.parentNode.querySelector("[data-testid='tweetPhoto']").querySelector("img").src;
+		  } catch(e){
+			  try{
+				contentimg = base.parentNode.childNodes[1].childNodes[1].childNodes[1].parentNode.nextElementSibling.querySelector("img").src;
+			  } catch(e){}
+		}
+	  }
+  }
+  
+  if (!chatmessage){chatmessage="";}
+  
+  console.log(contentimg);
   
   var chatdonation = false;
   var chatmembership = false;
@@ -164,12 +211,17 @@ function prepMessage(ele){
   data.chatimg = chatimg;
   data.hasDonation = hasDonation;
   data.hasMembership = hasMembership;
+  data.contentimg = contentimg;
   data.type = "twitter";
   
-  toDataURL(chatimg, function(dataUrl) {
-	  data.chatimg = dataUrl;
+  if (data.type === "instagram"){
+	  toDataURL(chatimg, function(dataUrl) {
+		  data.chatimg = dataUrl;
+		  pushMessage(data);
+	  });
+  } else {
 	  pushMessage(data);
-  });
+  }
 
   $( "highlight-chat" ).removeClass("preview").append('<div class="hl-c-cont fadeout">'
      + '<div class="hl-name">' + chatname
@@ -273,7 +325,7 @@ function startup(containerSelector, className, callback, role=false) {
 	
 	if (loaded==false){
 		try{
-			document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button class="btn-clear-twitter">CLEAR</button><button class="btn-getoverlay-twitter" >LINK</button><highlight-chat class="highlight-twitter"></highlight-chat>';
+			document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button class="btn-clear-twitter">CLEAR OVERLAY</button><button class="btn-getoverlay-twitter" >SHOW OVERLAY LINK</button><highlight-chat class="highlight-twitter"></highlight-chat>';
 			loaded=true;
 		} catch(e){}
 	}

@@ -24,30 +24,18 @@ function actionwtf(){ // steves personal socket server service
 		soca.send(JSON.stringify({"join":channel}));
 	};
 	
-	/* soca.addEventListener('message', function (event) {
-		if (event.data){
-			var data = JSON.parse(event.data);
-			if ("url" in data){
-				if ("twitch" in data){
-					if (document.getElementById("img_"+data["twitch"])){
-						document.getElementById("img_"+data["twitch"]).src = data['url'];
-					}
-				}
-			}
-		}
-	}); */
-	
 	chrome.storage.sync.set({
 		streamID: channel
 	});
 }
 
-setTimeout(function(){actionwtf();},100);
+
 
 function pushMessage(data){
 	var message = {};
 	message.msg = true;
 	message.contents = data;
+	console.log(message);
 	try {
 		chrome.storage.sync.get(sendProperties, function(item){
 			outputCounter+=1;
@@ -62,12 +50,6 @@ function pushMessage(data){
 	}
 }
 
-function initMessage(ele){
-	try{
-		ele.addEventListener('click', prepMessage);
-		ele.style.cursor = "pointer";
-	} catch(e){}
-}
 
 var showOnlyFirstName;
 var highlightWords = [];
@@ -88,14 +70,107 @@ function toDataURL(url, callback) {
 
 function prepMessage(ele){
   if (ele == window){return;}
-  if (this){
-	  ele = this;
+
+
+  try {
+	 document.querySelector(".hl-c-cont").parentNode.removeChild(document.querySelector(".hl-c-cont"));
+  } catch(e){}
+  
+  var contentimg = "";
+  
+  try{
+	   contentimg = ele.previousElementSibling.childNodes[0].querySelector("img").src;
+  } catch(e){
+	  
+  }
+  if (!contentimg){
+	  try {
+			contentimg = ele.previousElementSibling.childNodes[0].querySelector("video").getAttribute("poster");;
+	  } catch(e){}
   }
   
+  if (!contentimg){
+	  try {
+			contentimg = ele.querySelector("video").getAttribute("poster");
+	  } catch(e){}
+  }
+  if (!contentimg){
+	  try {
+			contentimg = ele.querySelector("img").getAttribute("poster");
+	  } catch(e){}
+  }
+   
+  
+  console.log(contentimg);
+  var contents = ele;
+  contents = ele.querySelector('div[data-testid="post-comment-root"]');
+  var name2="";
+  var msg="";
+  try{
+	  var name2 = contents.childNodes[0].innerText;
+	  var msg = contents.children[1].innerText;
+  } catch(e){}
+  
+  console.log(contents);
+  
+  console.log(contentimg);
+  console.log(name);
+  console.log(msg);
+  
+  console.log(ele.parentNode);
+  var img = ele.parentNode.childNodes[0].childNodes[0].querySelector("img").src;
+  console.log(img);
+  var name = ele.parentNode.childNodes[0].childNodes[1].childNodes[0].querySelector("a").innerText.trim();
+  console.log(name);
+   
+  if (!name){name=name2;}
+
+  var data = {};
+  data.chatname = name;
+  data.chatbadges = "";
+  data.backgroundColor = "";
+  data.textColor = "";
+  data.chatmessage = msg;
+  data.chatimg = img;
+  data.hasDonation = "";
+  data.hasMembership = "";;
+  data.contentimg = contentimg;
+  data.type = "instagram";
+  
+  if (data.type === "instagram"){
+	  if (data.contentimg){
+		  toDataURL(contentimg, function(dataUrl) {
+			  data.contentimg = dataUrl;
+			  if (data.chatimg){
+					toDataURL(data.chatimg, function(dataUrl) {
+						data.chatimg = dataUrl;
+						pushMessage(data);
+					});
+			  } else {
+				   pushMessage(data);
+			  }
+		  });
+	  } else if (data.chatimg){
+			toDataURL(data.chatimg, function(dataUrl) {
+				data.chatimg = dataUrl;
+				pushMessage(data);
+			});
+		} else {
+		   pushMessage(data);
+		}
+  } else {
+	  pushMessage(data);
+  }
+ 
+}
+function prepMessage2(ele){
+	
+  if (ele == window){return;}
+
   try {
 	document.querySelector(".hl-c-cont").parentNode.removeChild(document.querySelector(".hl-c-cont"));
   } catch(e){}
-  
+ 
   if (ele.querySelector("h3")){
 	 var base = ele.querySelector("h3");
   } else {
@@ -124,44 +199,19 @@ function prepMessage(ele){
 	 chatimg = base.parentNode.previousElementSibling.querySelector("img").src
   } catch(e){}
   
-  var chatdonation = false;
-  var chatmembership = false;
-  var chatsticker = false;
-  
   ele.style.backgroundColor = "#CCC";
-
-  var chatbadges = "";
- 
   // Mark this comment as shown
   ele.classList.add("shown-comment");
 
-  var hasDonation = '';
- 
-  var hasMembership = '';
- 
-  var backgroundColor = "";
-  var textColor = "";
- 
-  /* var chattext = $(element).text(); // add this back in
-  var chatWords = chattext.split(" ");
-  if (!highlightWords){
-	  highlightWords=[];
-  }
-  var highlights = chatWords.filter(value => highlightWords.includes(value.toLowerCase().replace(/[^a-z0-9]/gi, '')));
-  $(element).removeClass("shown-comment");
-  if(highlights.length > 0) {
-	$(element).addClass("highlighted-comment");
-  } */
-
   var data = {};
   data.chatname = chatname;
-  data.chatbadges = chatbadges;
-  data.backgroundColor = backgroundColor;
-  data.textColor = textColor;
+  data.chatbadges = "";
+  data.backgroundColor = "";
+  data.textColor = "";
   data.chatmessage = chatmessage;
   data.chatimg = chatimg;
-  data.hasDonation = hasDonation;
-  data.hasMembership = hasMembership;
+  data.hasDonation = "";
+  data.hasMembership = "";
   data.type = "instagram";
   
   toDataURL(chatimg, function(dataUrl) {
@@ -169,32 +219,7 @@ function prepMessage(ele){
 	  pushMessage(data);
   });
 
-  $( "highlight-chat" ).removeClass("preview").append('<div class="hl-c-cont fadeout">'
-     + '<div class="hl-name">' + chatname
-       + '<div class="hl-badges">' + chatbadges + '</div>'
-     + '</div>'
-     + '<div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div>'
-     + '<div class="hl-img"><img id="img_'+chatname+'" src="' + chatimg + '"></div>'
-     +hasDonation+hasMembership
-   +'</div>')
-  .delay(10).queue(function(next){
-    $( ".hl-c-cont" ).removeClass("fadeout");
-    next();
-  });
 };
-
-document.querySelector("body").innerHTML += '<button class="btn-clear-instagram">CLEAR</button><button class="btn-getoverlay-instagram" >LINK</button><highlight-chat class="highlight-instagram"></highlight-chat>';
-
-$("body").on("click", ".btn-clear-instagram", function () {
-  pushMessage(false);
-  $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
-    $(".hl-c-cont").remove().dequeue();
-  });
-});
-
-$("body").on("click", ".btn-getoverlay-instagram", function () {
-    prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
-});
 
 
 // Show a placeholder message so you can position the window before the chat is live
@@ -253,52 +278,56 @@ chrome.storage.sync.get(properties, function(item){
 });
 
 
-function startup(containerSelector, className, callback, role=false) {
-	var bases = document.querySelectorAll('li[role="menuitem"]');
-	for (var i=0;i<bases.length;i++) {
-	  initMessage(bases[i]);
-	}
-
-	try {
-		var chatmessage = "Sample chat message!";
-		$( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img">:)</div></div>').delay(10).queue(function(next){
-			$( ".hl-c-cont" ).removeClass("fadeout");
-			next();
-		});
-	} catch(e){};
-
-
-	try{
-		var onMutationsObserved = function(mutations) {
-			mutations.forEach(function(mutation) {
-				if (mutation.addedNodes.length) {
-					for (var i = 0, len = mutation.addedNodes.length; i < len; i++) {
-						try{
-							if (className!==false){
-								console.warn(mutation.addedNodes[i]);
-								if(mutation.addedNodes[i].className == className) {
-									callback(mutation.addedNodes[i]);
-								}
-							} else if (role){
-								if(mutation.addedNodes[i].getAttribute("role") && (mutation.addedNodes[i].getAttribute("role") == role)) {
-									callback(mutation.addedNodes[i]);
-								}
-							}
-						} catch(e){console.warn(e)}
-					}
+function startup() {
+	console.log("STARTED");
+	setTimeout(function(){actionwtf();},1010);
+	
+	setInterval(function(){
+		var main = document.querySelectorAll("article[role='presentation']");
+		for (var j =0;j<main.length;j++){
+			try{
+				if (!main[j].childNodes[3].childNodes[0].dataset.set){
+					main[j].childNodes[3].childNodes[0].innerHTML += '<span><button class="btn-push-instagram">OVERLAY</button></span><span><button class="btn-clear-instagram">CLEAR</button></span><span><button class="btn-getoverlay-instagram" >LINK</button></span>';
+					main[j].childNodes[3].childNodes[0].dataset.set = true;	
 				}
-			});
-		};
-		try{
-			var target = document.querySelectorAll(containerSelector)[0];
-			var config = { childList: true, subtree: true };
-			var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-			var observer = new MutationObserver(onMutationsObserved);
-			observer.observe(target, config);
-		} catch(e){console.warn(e);};
-	} catch(e){console.error(e);}
-}
+			} catch(e){}
+			var subMain = main[j].querySelectorAll("[role='menuitem']");
+			for (var i =0;i<subMain.length;i++){
+				if (subMain[i].dataset.set){continue;}
+				subMain[i].innerHTML += '<span><button class="btn-push-instagram-sub">OVERLAY</button></span><span><button class="btn-clear-instagram">CLEAR</button></span><span><button class="btn-getoverlay-instagram" >LINK</button></span>';
+				subMain[i].dataset.set = true;
+			}
+		}
+	},2000);
+	
+	$("body").on("click", ".btn-clear-instagram", function () {
+		  pushMessage(false);
+		  $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
+			$(".hl-c-cont").remove().dequeue();
+		  });
+	});
 
-setTimeout(function(){startup("article[role='presentation']", false, initMessage, 'menuitem');},1000);
+	$("body").on("click", ".btn-getoverlay-instagram", function () {
+			prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
+	});
+	
+	$("body").on("click", ".btn-getoverlay-instagram", function () {
+			prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
+	});
+	
+	$("body").on("click", ".btn-push-instagram", function (e) {
+			console.log(this.parentNode.parentNode.parentNode);
+			prepMessage(this.parentNode.parentNode.parentNode);
+	});
+	
+	$("body").on("click", ".btn-push-instagram-sub", function (e) {
+			console.log(this.parentNode.parentNode);
+			prepMessage2(this.parentNode.parentNode);
+	});
+	
+	
+}
+console.log("STARTING");
+startup();
 
 })();

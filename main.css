@@ -98,16 +98,40 @@ body {
     background-color: #FDD;
     margin: 5px;
     padding: 10px;
+	cursor: pointer;
 }
 .btn-clear-instagram {
     display: block;
-    position: absolute;
-    left: 80px;
+    float:left;
+    left: 30px;
     bottom: 0px;
     z-index: 100;
     background-color: #FDD;
-    margin: 5px;
-    padding: 10px;
+    padding: 0 4px;
+    margin: 5px 2px;
+	cursor: pointer;
+}
+.btn-push-instagram {
+    display: block;
+    float:left;
+    left: 30px;
+    bottom: 0px;
+    z-index: 100;
+    background-color: #CEC;
+   padding: 0 4px;
+    margin: 5px 2px;
+	cursor: pointer;
+}
+.btn-push-instagram-sub {
+    display: block;
+    float:left;
+    left: 30px;
+    bottom: 0px;
+    z-index: 100;
+    background-color: #CEC;
+    padding: 0 4px;
+    margin: 5px 2px;
+	cursor: pointer;
 }
 .btn-clear-twitter {
     display: block;
@@ -119,6 +143,7 @@ body {
     margin: 5px;
     padding: 10px;
 	width:100%;
+	cursor: pointer;
 }
 .btn-getoverlay-trovo {
     display: block;
@@ -129,16 +154,18 @@ body {
     background-color: #CEF;
     margin: 5px;
     padding: 10px;
+	cursor: pointer;
 }
 .btn-getoverlay-instagram {
     display: block;
-    position: absolute;
+     float:left;
     left: 160px;
     bottom: 0px;
     z-index: 100;
     background-color: #CEF;
-    margin: 5px;
-    padding: 10px;
+    padding: 0 4px;
+    margin: 5px 2px;
+	cursor: pointer;
 }
 .btn-getoverlay-twitter {
     display: block;
@@ -150,6 +177,7 @@ body {
     margin: 5px;
     padding: 10px;
 	width:100%;
+	cursor: pointer;
 }
 .highlight-trovo {
 	max-height: 220px;
@@ -261,6 +289,7 @@ body {
 	cursor: pointer;
 	opacity: 0.7;
 }
+
 .highlighted-comment {
     background-color: var(--highlighted-comment-bg-color) !important;
 }

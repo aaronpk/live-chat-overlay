@@ -8,7 +8,7 @@
     "128": "icons/icon-128.png"
   },
   "permissions": [
-    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "https://www.twitch.tv/*", "https://glimesh.tv/*", "https://chat.restream.io/*", "https://www.instagram.com/p/*", "https://instagram.com/p/*", "https://trovo.live/chat/*", "https://twitter/*", "https://www.twitter.com/*", "https://www.twitter.com/*", "storage"
+    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "https://www.twitch.tv/*", "https://glimesh.tv/*", "https://chat.restream.io/*", "https://www.instagram.com/*", "https://instagram.com/*", "https://trovo.live/chat/*", "https://www.twitter.com/*", "https://www.twitter.com/*", "storage"
   ],
   "content_scripts": [
 	  {
@@ -39,7 +39,7 @@
 	  {
 		"css": ["main.css"],
 		"js": ["jquery.js", "instagram.js"],
-		"matches": ["https://instagram.com/p/*","https://www.instagram.com/p/*"]
+		"matches": ["https://instagram.com/*","https://www.instagram.com/*"]
 	  },
 	   {
 		"css": ["main.css"],

@@ -31,6 +31,8 @@
     --donation-label-color: #fff;
     --donation-label-text: 'SUPERCHAT';
     --donation-shadow-color: #fff;
+	
+	--image-content-max-height: 300px;
 
     --shown-comment-bg-color: #555555;
     --highlighted-comment-bg-color: #f0f07d;
@@ -40,7 +42,7 @@
     */
     --comment-width: auto; /* go 100% for a full screen lower third style*/
     --comment-padding: 20px 20px 20px 145px;
-    --comment-area-height: 30vh;
+    --comment-area-height: 70vh;
     --comment-scale: 1;
     --comment-area-size-offset: 0;
     --comment-area-bottom: 10px;
@@ -69,7 +71,14 @@ body {
 }
 .fadeout {
 	transform: translateY(340px) !important;
+	webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5 ease-in-out;
+    -ms-transition: opacity 0.5 ease-in-out;
+    -o-transition: opacity 0.5 ease-in-out;
+    opacity: 0;
 }
+
+
 yt-live-chat-app {
     margin-bottom: var(--comment-area-height);
     height: calc(100vh - var(--comment-area-height)) !important;
@@ -146,6 +155,7 @@ yt-live-chat-text-message-renderer.shown-comment {
     width: 100%;
     margin: 0 auto;
     transition: .5s all cubic-bezier(0.250, 0.250, 0.105, 1.2);
+	z-index:1;
 }
 
 .hl-name {
@@ -161,6 +171,7 @@ yt-live-chat-text-message-renderer.shown-comment {
     border-radius: var(--author-border-radius);
     font-size: var(--author-font-size);
 	white-space: nowrap;
+	z-index:2;
 }
 .hl-message {
     position: absolute;
@@ -172,13 +183,38 @@ yt-live-chat-text-message-renderer.shown-comment {
     border-radius: var(--comment-border-radius);
     font-size: var(--comment-font-size);
 	word-break: break-word;
+	z-index:1;
 }
+.hl-message-img {
+    position: absolute;
+    width: 63%;
+    font-weight: var(--comment-font-weight);
+    padding: var(--comment-padding);
+    color: var(--comment-color);
+    background-color: var(--comment-bg-color);
+    border-radius: var(--comment-border-radius);
+    font-size: var(--comment-font-size);
+	word-break: break-word;
+	z-index:1;
+}
+
+.hl-message:empty {
+	background-color:#0000;
+	width:200px;
+}
+.hl-name:empty {
+  background-color:#0000;
+  z-index:1;
+}
+
 .hl-message img {
     width: 50px;
     vertical-align: middle;
+	z-index:1;
 }
 .hl-message a {
     color: white;
+	z-index:1;
 }
 .hl-img {
     position: absolute;
@@ -191,12 +227,35 @@ yt-live-chat-text-message-renderer.shown-comment {
     border-radius: 50%;
     border: 0;
     padding: var(--author-avatar-border-size);
+	z-index:3;
+	
 }
 .hl-img img {
     display: block;
     width: 100%;
     border-radius: 50%;
     z-index: 1;
+}
+.hl-imgContent {
+    max-height: 300px;
+    max-width: 40%;
+    display: inline-block;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    right: 0;
+    z-index: 0;
+	top: -18px;
+}
+
+.hl-imgContent > img {
+    object-fit: scale-down;;
+    display: block;
+    margin: 0;
+    height: 100%;
+	max-width:100%;
+	max-height: 300px
+    
 }
 /* overlay a very faint white layer to bump the blacks above the luma key cutoff */
 .hl-img:after {
@@ -223,6 +282,9 @@ yt-live-chat-text-message-renderer.shown-comment {
 .hl-badges img.yt-live-chat-author-badge-renderer {
   width: 24px;
   height: 24px;
+}
+.hl-badges:empty {
+  background-color:#0000;
 }
 
 .donation {
@@ -323,8 +385,7 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 				var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(self.searchString);
 				if (results == null) {
 					return null;
-				}
-				else {
+				} else {
 					return decodeURI(results[1]) || 0;
 				}
 			};
@@ -347,6 +408,20 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 		window.location.href = "https://github.com/steveseguin/live-chat-overlay#readme";
 	}
 	
+	function realign(){
+		var img = document.getElementById("img");
+		var width = img.clientWidth + 200;
+		var message = document.getElementById("message"); 
+		if (message.innerText.length){
+			message.style.width = "calc(100vw - "+width+"px)";
+			document.getElementById("imgContent").style.right = "unset";
+			document.getElementById("imgContent").style.left = (20+  document.getElementById("message").clientWidth) + "px";
+		} else {
+			message.style.maxWidth = "300px";
+			document.getElementById("imgContent").style.right = "unset";
+			document.getElementById("imgContent").style.left = (20 + 300) + "px";
+		}	
+	}
 	
 	function applySettings(item){
 	
@@ -398,6 +473,12 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 		highlightWords = item.highlightWords;
 	}
 	
+	try{
+		if (parseInt(window.innerHeight)<500){
+			document.documentElement.style.setProperty("--image-content-max-height", window.innerHeight)
+		}
+	}catch(e){console.error(e);}
+	
 	//var counter=0;
 	var idle = null;
 	
@@ -436,14 +517,20 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 						applySettings(settings);
 					}
 					
+					var addImage = "";
+					if (data.contentimg){
+						 addImage = '<div id="imgContent" class="hl-imgContent"><img id="img" src="' + data.contentimg + '"  onerror="this.parent.style.display=\'none\'" onload="realign();"/></div>';
+					}
+					
 					document.getElementById("output").innerHTML = '<div class="hl-c-cont highlight-chat">'
 						 + '<div class="hl-name">' + data.chatname
 						 + '<div class="hl-badges">' + data.chatbadges + '</div>'
 						 + '</div>'
-						 + '<div class="hl-message" style="'+ data.backgroundColor +' '+ data.textColor +'">' + data.chatmessage + '</div>'
+						 + '<div id="message" class="hl-message" style="'+ data.backgroundColor +' '+ data.textColor +'">' + data.chatmessage + '</div>'
 						 + '<div class="hl-img"><img id="img_'+data.chatname+'" src="' + data.chatimg + '" onerror="this.style.display=\'none\'"></div>'
+						 + addImage
 						 + data.hasDonation + data.hasMembership +'</div>';
-						 
+					
 					for (i = 0; i < document.getElementsByTagName("img").length; i++) {
 						document.getElementsByTagName("img")[i].onerror = function(){
 							if (this.alt.length!==2){
