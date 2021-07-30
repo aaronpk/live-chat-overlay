@@ -61,7 +61,8 @@ The link should be resuable between streams, but you can also manually set it to
 
 #### Sample of how it looks with Twitter:
 
-![image](https://user-images.githubusercontent.com/2575698/127700432-33ee3b20-68cf-439c-bfea-28d47f695b9d.png)
+![image](https://user-images.githubusercontent.com/2575698/127702854-1555643f-8f5f-4868-bb48-7787e6453b6a.png)
+
 
 
 ## Customization
