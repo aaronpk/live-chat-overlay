@@ -144,7 +144,7 @@ body {
     padding: 10px;
 	max-width:100%;
 	cursor: pointer;
-	border-radius: 20px;
+	border-radius: 50px;
 	animation: 1s linear fadein;
 	width: 225px;
 }

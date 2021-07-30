@@ -307,11 +307,14 @@ function startup() {
 					bases[i].dataset.set=true;
 					var button  = document.createElement("button");
 					button.onclick = prepMessage;
-					button.innerHTML = "Show as overlay";
+					button.innerHTML = "Show Overlay";
 					button.style = "    width: 60px;    height: 60px;    padding: 4px;  margin: 10px; background-color: #c7f6c7; cursor:pointer;"
 					button.className = "btn-push-twitter";
-					bases[i].appendChild(button);
-					
+					try{
+						bases[i].querySelector('[data-testid="tweet"]').childNodes[0].appendChild(button);
+					}catch(e){
+						bases[i].appendChild(button);
+					}
 				}
 			} catch(e){}
 		}
