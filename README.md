@@ -50,9 +50,8 @@ Open up the live chat for a video, and click popout chat to open it in a new win
 `https://www.youtube.com/live_chat?is_popout=1&v=VIDEOID`
 
 After the page loads, if the extension is loaded correctly, you will see a POP UP that contains a github-domain-based URL; COPY that URL and past it into your OBS as a browser source.  Make the browser source 1280x250 or 1920x250 in resolution.  If using Instagram/Twitter with images, maybe considering a height of 400px instead; also, for Twitter/IG, there is no pop-out -- so it just embeds into the main side.
-![image](https://user-images.githubusercontent.com/2575698/127703131-2b44d266-5704-4df3-ace2-bd8aac1fd763.png)
 
-<img src="https://github.com/steveseguin/live-chat-overlay/raw/main/chat-screenshot.png" width="300">
+![image](https://user-images.githubusercontent.com/2575698/127703131-2b44d266-5704-4df3-ace2-bd8aac1fd763.png)
 
 To make a Chat message now appear in OBS, simply click on a chat message in the Youtube/Twitch **POP OUT** window or whereever buttons appear.
 
