@@ -49,7 +49,7 @@ Open up the live chat for a video, and click popout chat to open it in a new win
 
 `https://www.youtube.com/live_chat?is_popout=1&v=VIDEOID`
 
-After the page loads, if the extension is loaded correctly, you will see a POP UP that contains a github-domain-based URL; COPY that URL and past it into your OBS as a browser source.  Make the browser source 1280x250 or 1920x250 in resolution.
+After the page loads, if the extension is loaded correctly, you will see a POP UP that contains a github-domain-based URL; COPY that URL and past it into your OBS as a browser source.  Make the browser source 1280x250 or 1920x250 in resolution.  If using Instagram/Twitter with images, maybe considering a height of 400px instead.
 
 <img src="https://github.com/steveseguin/live-chat-overlay/raw/main/chat-screenshot.png" width="300">
 
