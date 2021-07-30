@@ -69,13 +69,17 @@ function toDataURL(url, callback) {
 
 function prepMessage(ele){
   if (ele == window){return;}
-  if (this){
+  
+  if (this.targetEle){
+	  ele = this.targetEle.parentNode;;
+	  console.log(ele);
+  } else if (this){
 	  ele = this.parentNode;
   }
+  
   try {
 	document.querySelector(".hl-c-cont").parentNode.removeChild(document.querySelector(".hl-c-cont"));
   } catch(e){}
-  
   
   var base = ele.querySelector("[data-testid='tweet']");
   console.log(base.parentNode);
@@ -310,12 +314,13 @@ function startup() {
 					button.innerHTML = "Show Overlay";
 					button.style = "    width: 60px;    height: 60px;    padding: 4px;  margin: 10px; background-color: #c7f6c7; cursor:pointer;"
 					button.className = "btn-push-twitter";
-					bases[i].appendChild(button);
-					//try{
-					//	bases[i].querySelector('[data-testid="tweet"]').childNodes[0].appendChild(button);
-					//}catch(e){
-					//	bases[i].appendChild(button);
-					//}
+					button.targetEle = bases[i]
+					//bases[i].appendChild(button);
+					try{
+						bases[i].querySelector('[data-testid="tweet"]').childNodes[0].appendChild(button);
+					}catch(e){
+						bases[i].appendChild(button);
+					}
 				}
 			} catch(e){}
 		}
