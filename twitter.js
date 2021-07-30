@@ -299,7 +299,7 @@ chrome.storage.sync.get(properties, function(item){
 
 function startup() {
 	
-	setTimeout(function(){
+	setInterval(function(){
 		var bases = document.querySelector('main[role="main"]').querySelectorAll('article[role="article"]');
 		for (var i=0;i<bases.length;i++) {
 			try {
@@ -310,7 +310,7 @@ function startup() {
 					button.innerHTML = "Show as overlay";
 					button.style = "    width: 60px;    height: 60px;    padding: 4px;  margin: 10px; background-color: #c7f6c7; cursor:pointer;"
 					button.className = "btn-push-twitter";
-						bases[i].appendChild(button);
+					bases[i].appendChild(button);
 					
 				}
 			} catch(e){}

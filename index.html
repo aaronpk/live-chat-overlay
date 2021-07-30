@@ -408,6 +408,8 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 		window.location.href = "https://github.com/steveseguin/live-chat-overlay#readme";
 	}
 	
+	window.onresize = realign;
+	
 	function realign(){
 		var img = document.getElementById("img");
 		var width = img.clientWidth + 200;
