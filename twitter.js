@@ -310,11 +310,12 @@ function startup() {
 					button.innerHTML = "Show Overlay";
 					button.style = "    width: 60px;    height: 60px;    padding: 4px;  margin: 10px; background-color: #c7f6c7; cursor:pointer;"
 					button.className = "btn-push-twitter";
-					try{
-						bases[i].querySelector('[data-testid="tweet"]').childNodes[0].appendChild(button);
-					}catch(e){
-						bases[i].appendChild(button);
-					}
+					bases[i].appendChild(button);
+					//try{
+					//	bases[i].querySelector('[data-testid="tweet"]').childNodes[0].appendChild(button);
+					//}catch(e){
+					//	bases[i].appendChild(button);
+					//}
 				}
 			} catch(e){}
 		}
