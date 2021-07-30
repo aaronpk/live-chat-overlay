@@ -144,7 +144,7 @@ body {
     padding: 10px;
 	max-width:100%;
 	cursor: pointer;
-	border-radius: 50px;
+	border-radius: 20px;
 	animation: 1s linear fadein;
 	width: 225px;
 }
@@ -504,8 +504,8 @@ highlight-chat.preview {
 	margin: 10px; 
 	background-color: #c7f6c7;
 	cursor:pointer;
-	border-radius: 20px;
-		animation: 1s linear fadein;
+	border-radius: 50px;
+	animation: 1s linear fadein;
 }
 /* hide chat input to give more space to the chat */
 /*
