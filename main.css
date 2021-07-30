@@ -145,6 +145,16 @@ body {
 	width:100%;
 	cursor: pointer;
 	    border-radius: 20px;
+		animation: 1s linear fadein;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 .btn-getoverlay-trovo {
     display: block;
@@ -180,6 +190,7 @@ body {
 	width:100%;
 	cursor: pointer;
 	    border-radius: 20px;
+		animation: 1s linear fadein;
 }
 .highlight-trovo {
 	max-height: 220px;
@@ -216,6 +227,7 @@ body {
     z-index: 100;
 	max-width: 1780px;
 	    border-radius: 20px;
+		animation: 1s linear fadein;
 }
 
 .btn-getoverlay {
@@ -483,7 +495,16 @@ highlight-chat.preview {
         transform: rotate(9deg) translate3D(-250px, 0, 0);
     }
 }
-
+.btn-push-twitter{
+	width: 60px;    
+	height: 60px;   
+	padding: 4px;  
+	margin: 10px; 
+	background-color: #c7f6c7;
+	cursor:pointer;
+	border-radius: 20px;
+		animation: 1s linear fadein;
+}
 /* hide chat input to give more space to the chat */
 /*
 #input-panel, yt-live-chat-viewer-engagement-message-renderer {

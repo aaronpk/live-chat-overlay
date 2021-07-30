@@ -315,6 +315,10 @@ function startup() {
 				}
 			} catch(e){}
 		}
+		
+		if (!document.getElementById("overlaybutton")){
+			document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button id="overlaybutton" class="btn-clear-twitter">CLEAR OVERLAY</button><button class="btn-getoverlay-twitter" >SHOW OVERLAY LINK</button><highlight-chat class="highlight-twitter"></highlight-chat>';
+		}
 	}, 2000);
 
 	
