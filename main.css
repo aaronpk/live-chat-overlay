@@ -142,10 +142,11 @@ body {
     background-color: #FDD;
     margin: 5px;
     padding: 10px;
-	width:100%;
+	max-width:100%;
 	cursor: pointer;
-	    border-radius: 20px;
-		animation: 1s linear fadein;
+	border-radius: 20px;
+	animation: 1s linear fadein;
+	width: 225px;
 }
 @keyframes fadein {
   from {
@@ -187,10 +188,11 @@ body {
     background-color: #CEF;
     margin: 5px;
     padding: 10px;
-	width:100%;
+	max-width:100%;
 	cursor: pointer;
-	    border-radius: 20px;
-		animation: 1s linear fadein;
+	border-radius: 20px;
+	animation: 1s linear fadein;
+	width: 225px;
 }
 .highlight-trovo {
 	max-height: 220px;
@@ -226,8 +228,8 @@ body {
     bottom: 5px;
     z-index: 100;
 	max-width: 1780px;
-	    border-radius: 20px;
-		animation: 1s linear fadein;
+	border-radius: 20px;
+	animation: 1s linear fadein;
 }
 
 .btn-getoverlay {
