@@ -309,7 +309,7 @@ function startup() {
 					button.onclick = prepMessage;
 					button.innerHTML = "Show as overlay";
 					button.style = "    width: 60px;    height: 60px;    padding: 4px;  margin: 10px; background-color: #c7f6c7; cursor:pointer;"
-					
+					button.className = "btn-push-twitter";
 						bases[i].appendChild(button);
 					
 				}
