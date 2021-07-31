@@ -133,22 +133,9 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   data.hasMembership = hasMembership;
   pushMessage(data);
 
-  $( "highlight-chat" ).removeClass("preview").append('<div class="hl-c-cont fadeout">'
-     + '<div class="hl-name">' + chatname
-       + '<div class="hl-badges">' + chatbadges + '</div>'
-     + '</div>'
-     + '<div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div>'
-     + '<div class="hl-img"><img src="' + chatimg + '"></div>'
-     +hasDonation+hasMembership
-   +'</div>')
-  .delay(10).queue(function(next){
-    $( ".hl-c-cont" ).removeClass("fadeout");
-    next();
-  });
-
 });
 
-$( "yt-live-chat-app" ).before( '<highlight-chat style="transform: scale(0.2) translate(-199%, 200%);bottom: 2px;width: 170%;height: 220px;background-color: #0005;left: 50px;"></highlight-chat><button class="btn-clear-youtube">CLEAR</button><button class="btn-getoverlay-youtube">LINK</button>' );
+$( "yt-live-chat-app" ).before( '<button class="btn-clear-youtube">CLEAR</button><button class="btn-getoverlay-youtube">LINK</button>' );
 
 $("body").on("click", ".btn-clear-youtube", function () {
   pushMessage(false);
@@ -160,17 +147,6 @@ $("body").on("click", ".btn-clear-youtube", function () {
 $("body").on("click", ".btn-getoverlay-youtube", function () {
 	alreadyPrompted=true;
 	prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
-});
-
-// Show a placeholder message so you can position the window before the chat is live
-$(function(){
-  var chatmessage = "this livestream is the best!";
-  var chatimg = "https://pin13.net/youtube-live-chat-sample-avatar.png";
-  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div></div>')
-  .delay(10).queue(function(next){
-    $( ".hl-c-cont" ).removeClass("fadeout");
-    next();
-  });
 });
 
 // Restore settings

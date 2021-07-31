@@ -161,11 +161,7 @@ $("body").on("click", ".btn-getoverlay-twitch", function () {
 function addButtons(){
 	if (document.getElementById("pushButtonOverlay")){return;}
 	try{
-		document.querySelectorAll(".chat-input__buttons-container")[0].innerHTML += '<button id="pushButtonOverlay" class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
-		return
-	} catch(e){
 		document.body.innerHTML += '<button  id="pushButtonOverlay" class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
-	}
 }
 
 setTimeout(function(){addButtons();},1000);
