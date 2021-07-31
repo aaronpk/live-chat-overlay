@@ -411,18 +411,21 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 	window.onresize = realign;
 	
 	function realign(){
-		var img = document.getElementById("img");
-		var width = img.clientWidth + 200;
-		var message = document.getElementById("message"); 
-		if (message.innerText.length){
-			message.style.width = "calc(100vw - "+width+"px)";
-			document.getElementById("imgContent").style.right = "unset";
-			document.getElementById("imgContent").style.left = (20+  document.getElementById("message").clientWidth) + "px";
-		} else {
-			message.style.maxWidth = "300px";
-			document.getElementById("imgContent").style.right = "unset";
-			document.getElementById("imgContent").style.left = (20 + 300) + "px";
-		}	
+		try {
+			var img = document.getElementById("img");
+			if (!img){return;}
+			var width = img.clientWidth + 200;
+			var message = document.getElementById("message"); 
+			if (message.innerText.length){
+				message.style.width = "calc(100vw - "+width+"px)";
+				document.getElementById("imgContent").style.right = "unset";
+				document.getElementById("imgContent").style.left = (20+  document.getElementById("message").clientWidth) + "px";
+			} else {
+				message.style.maxWidth = "300px";
+				document.getElementById("imgContent").style.right = "unset";
+				document.getElementById("imgContent").style.left = (20 + 300) + "px";
+			}	
+		} catch(e){console.warn(e);}
 	}
 	
 	function applySettings(item){
