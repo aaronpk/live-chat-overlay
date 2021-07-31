@@ -255,6 +255,8 @@ body {
     color: #fff;
     background: #444;
 	cursor: pointer;
+	z-index:9999px;
+	animation: 1s linear fadein;
 }
 .btn-getoverlay-youtube {
 	position: absolute;
@@ -279,6 +281,8 @@ body {
     background: #383;
 	cursor: pointer;
     right: 250px;
+	z-index:9999px;
+	animation: 1s linear fadein;
 }
 .btn-getoverlay-glimesh {
 	position: absolute;

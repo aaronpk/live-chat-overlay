@@ -15,12 +15,7 @@ var alreadyPrompted = false;
 
 function actionwtf(){ // steves personal socket server service
 	if (soca){return;}
-	
-	if (!alreadyPrompted){
-		alreadyPrompted=true;
-		prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
-	}
-	
+
 	soca = new WebSocket("wss://api.action.wtf:666");
 	soca.onclose = function (){
 		setTimeout(function(){soca=false;actionwtf(); },2000);
@@ -149,19 +144,6 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
   
   pushMessage(data);
 
-  $( "highlight-chat" ).removeClass("preview").append('<div class="hl-c-cont fadeout">'
-     + '<div class="hl-name">' + chatname
-       + '<div class="hl-badges">' + chatbadges + '</div>'
-     + '</div>'
-     + '<div class="hl-message" style="'+backgroundColor+' '+textColor+'">' + chatmessage + '</div>'
-     + '<div class="hl-img"><img id="img_'+chatname+'" src="' + chatimg + '"></div>'
-     +hasDonation+hasMembership
-   +'</div>')
-  .delay(10).queue(function(next){
-    $( ".hl-c-cont" ).removeClass("fadeout");
-    next();
-  });
-
 });
 
 $("body").on("click", ".btn-clear-twitch", function () {
@@ -176,17 +158,19 @@ $("body").on("click", ".btn-getoverlay-twitch", function () {
     prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
 });
 
-document.querySelectorAll(".chat-input__buttons-container")[0].innerHTML += '<highlight-chat style="transform: scale(0.2) translate(-199%, 200%);bottom: 2px;width:200%;height:220px;"></highlight-chat><button class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
+function addButtons(){
+	if (document.getElementById("pushButtonOverlay")){return;}
+	try{
+		document.querySelectorAll(".chat-input__buttons-container")[0].innerHTML += '<button id="pushButtonOverlay" class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
+		return
+	} catch(e){
+		document.body.innerHTML += '<button  id="pushButtonOverlay" class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
+	}
+}
 
-// Show a placeholder message so you can position the window before the chat is live
-$(function(){
-  var chatmessage = "Sample chat message!";
-  var chatimg = "https://pin13.net/youtube-live-chat-sample-avatar.png";
-  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + chatmessage + '</div><div class="hl-img"><img src="' + chatimg + '"></div></div>').delay(10).queue(function(next){
-    $( ".hl-c-cont" ).removeClass("fadeout");
-    next();
-  });
-});
+setTimeout(function(){addButtons();},1000);
+
+setTimeout(function(){addButtons();},10000);
 
 var properties = ["color","scale","streamID","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
 chrome.storage.sync.get(properties, function(item){
