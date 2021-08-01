@@ -83,7 +83,7 @@ If you need support or have a bug to report, please feel free to join me at http
 
 ## Credits
 
-The code for this project was original based on the works of:
+The code for this project was originally based on the works of:
 - https://www.youtube.com/watch?v=NHy9D4ClTvc (ROJ BTS)
 - https://github.com/aaronpk/live-chat-overlay (aaronpk).
 
