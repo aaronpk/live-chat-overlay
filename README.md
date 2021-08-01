@@ -1,9 +1,9 @@
 YouTube/Twitch and More - Chat Overlay Ninja
 ============================================
 
-This Chrome browser extension turns your live video chat into something that can be used to show chat comments in OBS Studio or other studio production software.
+This Chrome browser extension turns your social chat and comments section into selectable social overlays for OBS Studio or other studio production software.
 
-This Chat overlay extensions will foward the selected chat message over a websocket connection to a secondary webpage, which can be used in OBS-Studio as a simple browser source. This makes capturing the chat messages from a Live video stream very easy and fast -- no Chroma keying or window-capturing needed.  It also makes customizing the style pretty easy, with no Chrome extension development needed. Twitch and Youtube live chat is supported, with more options coming.
+This Chat overlay extensions will forward the selected chat message over a web-socket connection to a secondary webpage, which can be used in OBS-Studio as a simple browser source. This makes capturing the chat messages from a live video stream very easy and fast -- no Chroma keying or window-capturing needed. It also makes customizing the style pretty easy, with no Chrome extension development needed.
 
 📺 Video demoing how to install and use here: https://www.youtube.com/watch?v=UOg3RvHO-xk
 
@@ -35,13 +35,13 @@ The webstore has a review process, which can take a few days to complete, so new
 
 #### Manual Installation
 
-If manually installing, you just need to download and install this repositoary an "unpacked" extension in Chrome.
+If manually installing, you just need to download and install this repository an "unpacked" extension in Chrome.
 
-The download link is here: https://github.com/steveseguin/live-chat-overlay/archive/refs/heads/main.zip  Just extract the files to a folder once downloaded.
+The download link is here: https://github.com/steveseguin/twitch-youtube-restream-chat-overlay/archive/refs/heads/main.zip Just extract the files to a folder once downloaded.
 
-Next, in Chrome, launch the Extensions page:  * [chrome://extensions/](chrome://extensions/)
+Next, in Chrome, launch the Extensions page: * chrome://extensions/
 
-On that page, choose "Load unpacked", and navigate to the newly unpacked folder we downloaded, selecting it.  That's it! All installed.  :)
+On that page, choose "Load unpacked", and navigate to the newly unpacked folder we downloaded, selecting it. That's it! All installed. :)
 
 ## Usage
 
@@ -67,7 +67,7 @@ The link should be resuable between streams, but you can also manually set it to
 
 ## Customization
 
-If you wish to Stylize the Chat message overlay in OBS, you can edit this file: https://github.com/steveseguin/live-chat-overlay/blob/main/index.html
+If you wish to Stylize the Chat message overlay in OBS, you can edit this file: https://raw.githubusercontent.com/steveseguin/twitch-youtube-restream-chat-overlay/main/index.html
 
 You can download it to your local drive and open it directly in OBS. To link the file to the correct websocket connection, you will also need to add ?session=XXXXXX to the end of the browser source local file link in OBS, where XXXXXX is the session value given to you by the Chrome extension when the chat starts and the popup is displayed.
 
@@ -83,9 +83,7 @@ If you need support or have a bug to report, please feel free to join me at http
 
 ## Credits
 
-Most of this CSS and JavaScript came from a video by [ROJ BTS](https://www.youtube.com/watch?v=NHy9D4ClTvc), so huge thanks to him for the initial work! [Code GIST](https://gist.github.com/rojbts/8f7a560947d1d8a5bbaad2add1277d26)
-
-Also thank you to aaronpk @ https://github.com/aaronpk/live-chat-overlay, as their work is what this code builds upon.
+The code for this project was original based on the works of ROJ BTS and https://github.com/aaronpk/live-chat-overlay.
 
 -steve
 
