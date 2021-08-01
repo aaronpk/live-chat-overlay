@@ -42,8 +42,6 @@ function actionwtf(){ // steves personal socket server service
 	});
 }
 
-setTimeout(function(){actionwtf();},100);
-
 function pushMessage(data){
 	var message = {};
 	message.msg = true;
@@ -153,11 +151,6 @@ $("body").on("click", ".btn-clear-twitch", function () {
   });
 });
 
-$("body").on("click", ".btn-getoverlay-twitch", function () {
-    alreadyPrompted=true;
-    prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
-});
-
 function addButtons(){
 	if (document.getElementById("pushButtonOverlay")){return;}
 	document.body.innerHTML += '<button  id="pushButtonOverlay" class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
@@ -168,6 +161,7 @@ setTimeout(function(){addButtons();},1000);
 setTimeout(function(){addButtons();},10000);
 
 var properties = ["color","scale","streamID","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
+
 chrome.storage.sync.get(properties, function(item){
   var color = "#000";
   if(item.color) {
@@ -219,6 +213,14 @@ chrome.storage.sync.get(properties, function(item){
   highlightWords = item.highlightWords;
 });
 
+
+$("body").on("click", ".btn-getoverlay-twitch", function () {
+    alreadyPrompted=true;
+    prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
+});
+
+
+setTimeout(function(){actionwtf();},500);
 
 $("#primary-content").append('<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
 

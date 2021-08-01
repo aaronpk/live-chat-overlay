@@ -88,6 +88,7 @@ body {
     color: #fff;
     background: #444;
 	cursor: pointer;
+	animation: 1s linear fadein;
 }
 .btn-clear-trovo {
     display: block;
@@ -269,6 +270,7 @@ body {
     background: #383;
 	cursor: pointer;
     right: 250px;
+	animation: 1s linear fadein;
 }
 .btn-getoverlay-twitch {
 	position: absolute;

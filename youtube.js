@@ -34,8 +34,6 @@ function actionwtf(){ // steves personal socket server service
 	});
 }
 
-setTimeout(function(){actionwtf();},100);
-
 function pushMessage(data){
 				  
 	var message = {};	
@@ -135,7 +133,6 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 
 });
 
-$( "yt-live-chat-app" ).before( '<button class="btn-clear-youtube">CLEAR</button><button class="btn-getoverlay-youtube">LINK</button>' );
 
 $("body").on("click", ".btn-clear-youtube", function () {
   pushMessage(false);
@@ -214,7 +211,10 @@ function displayAspectRatio() {
 displayAspectRatio();
 window.onresize = displayAspectRatio;
 
-
+setTimeout(function(){
+	$( "yt-live-chat-app" ).before( '<button class="btn-clear-youtube">CLEAR</button><button class="btn-getoverlay-youtube">LINK</button>' );
+	actionwtf();
+},600);
 
 function onElementInserted(containerSelector, tagName, callback) {
 
