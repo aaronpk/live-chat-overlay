@@ -41,7 +41,7 @@ The download link is here: https://github.com/steveseguin/twitch-youtube-restrea
 
 Next, in Chrome, launch the Extensions page: * chrome://extensions/
 
-On that page, choose "Load unpacked", and navigate to the newly unpacked folder we downloaded, selecting it. That's it! All installed. :)
+On that page, make sure developer mode is enabled, then choose "Load unpacked", and navigate to the newly unpacked folder we downloaded. Selecting the folder, click OK, and that's it! All installed. :)  Repeat this process if you wish to update the extension, as it will not auto-update if you had manually installed it.
 
 ## Usage
 
@@ -55,7 +55,7 @@ After the page loads, if the extension is loaded correctly, you will see a POP U
 
 To make a Chat message now appear in OBS, simply click on a chat message in the Youtube/Twitch **POP OUT** window or whereever buttons appear.
 
-YOu can re-use the same overlay in OBS or Vmix or wherever for all your chat inputs.
+You can re-use the same overlay in OBS or Vmix or wherever for all your chat inputs.
 
 The link should be resuable between streams, but you can also manually set it to something specific via the plugin's settings page.
 
