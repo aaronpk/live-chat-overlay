@@ -160,8 +160,7 @@ $("body").on("click", ".btn-getoverlay-twitch", function () {
 
 function addButtons(){
 	if (document.getElementById("pushButtonOverlay")){return;}
-	try{
-		document.body.innerHTML += '<button  id="pushButtonOverlay" class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
+	document.body.innerHTML += '<button  id="pushButtonOverlay" class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
 }
 
 setTimeout(function(){addButtons();},1000);
