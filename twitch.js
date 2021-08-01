@@ -153,7 +153,11 @@ $("body").on("click", ".btn-clear-twitch", function () {
 
 function addButtons(){
 	if (document.getElementById("pushButtonOverlay")){return;}
-	document.body.innerHTML += '<button  id="pushButtonOverlay" class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
+	if (document.querySelector(".chat-input__buttons-container")){
+		document.querySelector(".chat-input__buttons-container").innerHTML += '<button  id="pushButtonOverlay" class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
+	} else if (document.querySelector(".chat-room__content")){
+		document.querySelector(".chat-room__content").lastChild.innerHTML += '<button  id="pushButtonOverlay" class="btn-clear-twitch">CLEAR</button><button class="btn-getoverlay-twitch">LINK</button>';
+	} 
 }
 
 setTimeout(function(){addButtons();},1000);
