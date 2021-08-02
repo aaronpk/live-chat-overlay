@@ -78,6 +78,8 @@ to
 
 ![image](https://user-images.githubusercontent.com/2575698/115710917-e929d780-a340-11eb-9bb8-15dd5e603904.png)
 
+Also, adding `&showtime=5000` to the overlay link added to OBS will have the overlay auto-hide after 5-seconds (5000 milliseconds). You can change this number, or just not use it at all, in which case the overlay will show until manually changed/cleared.
+
 ## Support
 
 If you need support or have a bug to report, please feel free to join me at https://discord.vdo.ninja. 
