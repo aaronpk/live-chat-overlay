@@ -11,7 +11,7 @@ function generateStreamID(){
 };
 var channel = generateStreamID();
 var outputCounter = 0; // used to avoid doubling up on old messages if lag or whatever
-
+var enabled = false;
 var sendProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
 
 function actionwtf(){ // steves personal socket server service
@@ -301,36 +301,71 @@ chrome.storage.sync.get(properties, function(item){
 });
 
 
-function startup() {
-	
-	setInterval(function(){
-		var bases = document.querySelector('main[role="main"]').querySelectorAll('article[role="article"]');
-		for (var i=0;i<bases.length;i++) {
-			try {
-				if (!bases[i].dataset.set){
-					bases[i].dataset.set=true;
-					var button  = document.createElement("button");
-					button.onclick = prepMessage;
-					button.innerHTML = "Show Overlay";
-					button.style = "    width: 60px;    height: 60px;    padding: 4px;  margin: 10px; background-color: #c7f6c7; cursor:pointer;"
-					button.className = "btn-push-twitter";
-					button.targetEle = bases[i]
-					//bases[i].appendChild(button);
-					try{
-						bases[i].querySelector('[data-testid="tweet"]').childNodes[0].appendChild(button);
-					}catch(e){
-						bases[i].appendChild(button);
-					}
+$("body").on("click", "#startupbutton", function () {
+    document.getElementById("startupbutton").remove();
+	clearTimeout(preStartupInteval);
+	startup();
+});
+
+document.getElementById("startupbutton")
+
+function checkButtons(){
+	var bases = document.querySelector('main[role="main"]').querySelectorAll('article[role="article"]');
+	for (var i=0;i<bases.length;i++) {
+		try {
+			if (!bases[i].dataset.set){
+				bases[i].dataset.set=true;
+				var button  = document.createElement("button");
+				button.onclick = prepMessage;
+				button.innerHTML = "Show Overlay";
+				button.style = "    width: 60px;    height: 60px;    padding: 4px;  margin: 10px; background-color: #c7f6c7; cursor:pointer;"
+				button.className = "btn-push-twitter";
+				button.targetEle = bases[i]
+				//bases[i].appendChild(button);
+				try{
+					bases[i].querySelector('[data-testid="tweet"]').childNodes[0].appendChild(button);
+				}catch(e){
+					bases[i].appendChild(button);
 				}
-			} catch(e){}
-		}
-		
-		if (!document.getElementById("overlaybutton")){
-			document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button id="overlaybutton" class="btn-clear-twitter">CLEAR OVERLAY</button><button class="btn-getoverlay-twitter" >SHOW OVERLAY LINK</button><highlight-chat class="highlight-twitter"></highlight-chat>';
-		}
+			}
+		} catch(e){}
+	}
+	
+	if (!document.getElementById("overlaybutton")){
+		document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button id="overlaybutton" class="btn-clear-twitter">CLEAR OVERLAY</button><button class="btn-getoverlay-twitter" >SHOW OVERLAY LINK</button>';
+	}
+}
+function startup() {
+	checkButtons();
+	setInterval(function(){
+		checkButtons();
 	}, 2000);
 }
 
-setTimeout(function(){startup();},10);
+function preStartup(){
+	if (!(document.getElementById("overlaybutton") || document.getElementById("startupbutton"))){
+		document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button id="startupbutton" class="btn-clear-twitter">Enable Overlay Service</button>';
+	}
+}
+
+setTimeout(function(){preStartup();},1000);
+
+var preStartupInteval = setInterval(function(){preStartup();},5000);
 
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

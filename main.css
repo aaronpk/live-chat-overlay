@@ -146,7 +146,7 @@ body {
 	max-width:100%;
 	cursor: pointer;
 	border-radius: 20px;
-	animation: 1s linear fadein;
+	animation: 0.2s linear fadein;
 	width: 225px;
 }
 @keyframes fadein {
@@ -192,9 +192,26 @@ body {
 	max-width:100%;
 	cursor: pointer;
 	border-radius: 20px;
-	animation: 1s linear fadein;
+	animation: 0.2s linear fadein;
 	width: 225px;
 }
+#startupbutton{
+	display: block;
+    position: relative;
+    left: 0;
+    bottom: 0px;
+    z-index: 100;
+    background-color: #CFC;
+    margin: 5px;
+    padding: 10px;
+	max-width:100%;
+	cursor: pointer;
+	border-radius: 20px;
+	animation: 0.5s linear fadein;
+	width: 225px;
+	font-size:0.8em;
+}
+
 .highlight-trovo {
 	max-height: 220px;
 	transform: scale(0.2) translate(-199%, 200%);
@@ -232,6 +249,7 @@ body {
 	border-radius: 20px;
 	animation: 1s linear fadein;
 }
+
 
 .btn-getoverlay {
 	position: absolute;
