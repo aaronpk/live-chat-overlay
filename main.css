@@ -195,6 +195,23 @@ body {
 	animation: 0.2s linear fadein;
 	width: 225px;
 }
+
+.btn-getoverlay-facebook {
+    color: #61d0e5;
+    margin: 0 0 0 5px;
+	cursor: pointer;
+}
+.btn-clear-facebook {
+    color: #e56761;
+    margin: 0 0 0 5px;
+	cursor: pointer;
+}
+.btn-push-facebook {
+    color: #71e561;
+    margin: 0 0 0 5px;
+	cursor: pointer;
+}
+
 #startupbutton{
 	display: block;
     position: relative;
@@ -531,12 +548,7 @@ highlight-chat.preview {
 	border-radius: 50px;
 	animation: 1s linear fadein;
 }
-/* hide chat input to give more space to the chat */
-/*
-#input-panel, yt-live-chat-viewer-engagement-message-renderer {
-	display: none !important;
-}
-*/
+
 
 yt-live-chat-item-list-renderer {
 	margin-bottom: 20px;

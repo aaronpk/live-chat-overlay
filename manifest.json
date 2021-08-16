@@ -2,13 +2,13 @@
   "name": "Chat Overlay for Youtube, Twitch & more",
   "description": "Add live chat from Youtube, Twitch, Restream and more to your OBS as a browser overlay. Feature requests accepted!",
   "manifest_version": 2,
-  "version": "0.7.3",
+  "version": "0.7.4",
   "homepage_url": "http://chat.overlay.ninja/",
   "icons": {
     "128": "icons/icon-128.png"
   },
   "permissions": [
-    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "https://www.twitch.tv/*", "https://glimesh.tv/*", "https://chat.restream.io/*", "https://www.instagram.com/*", "https://instagram.com/*", "https://trovo.live/chat/*", "https://www.twitter.com/*", "https://www.twitter.com/*", "storage"
+    "https://youtube.com/*", "https://www.youtube.com/*", "https://studio.youtube.com/*", "https://www.twitch.tv/*", "https://glimesh.tv/*", "https://chat.restream.io/*", "https://www.instagram.com/*", "https://instagram.com/*", "https://trovo.live/chat/*", "https://www.twitter.com/*", "https://www.twitter.com/*", "https://facebook.com/*", "https://www.facebook.com/*", "storage"
   ],
   "content_scripts": [
 	  {
@@ -39,12 +39,17 @@
 	  {
 		"css": ["main.css"],
 		"js": ["jquery.js", "instagram.js"],
-		"matches": ["https://instagram.com/*","https://www.instagram.com/*"]
+		"matches": ["https://facebook.com/*"]
 	  },
 	   {
 		"css": ["main.css"],
 		"js": ["jquery.js", "twitter.js"],
 		"matches": ["https://twitter.com/*","https://www.twitter.com/*"]
+	  },
+	   {
+		"css": ["main.css"],
+		"js": ["jquery.js", "facebook.js"],
+		"matches": ["https://facebook.com/*","https://www.facebook.com/*"]
 	  }
   ],
   "options_ui": {
