@@ -14,7 +14,8 @@ This Chat overlay extensions will forward the selected chat message over a web-s
 - restream.io (go here: https://chat.restream.io/chat)
 - trovo.live (pop-out chat)
 - Instagram (not yet in the chrome store)
-- Twitter (Works with tweets and replies - not yet in the chrome store)
+- Twitter (Works with tweets and replies)
+- Facebook live (Not yet in the chrome web store; manual installed )
 
 ![image](https://user-images.githubusercontent.com/2575698/121636030-485cbc00-ca55-11eb-8416-4d7626653fa8.png)
 
@@ -64,7 +65,9 @@ The link should be resuable between streams, but you can also manually set it to
 
 ![image](https://user-images.githubusercontent.com/2575698/127702900-c5052779-4c21-492d-af7b-869d4784a6a7.png)
 
+#### And with Facebook live:
 
+![image](https://user-images.githubusercontent.com/2575698/129591874-d68c0dbe-14cb-4ae6-a888-c6d3c6c3999a.png)
 
 ## Customization
 
