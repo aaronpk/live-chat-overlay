@@ -75,6 +75,8 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
     chatname = chatname.replace(/ .*/,'');
   }
   
+  $(this).find('.bttv-tooltip').html(""); // BTT support
+  
   var chatmessage = $(this).find('*[data-test-selector="chat-line-message-body"').html();
   
   if (!chatmessage){
