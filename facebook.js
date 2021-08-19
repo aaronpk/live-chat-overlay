@@ -101,8 +101,11 @@ function prepMessage(ele){
   var name = ele.childNodes[1].querySelector('a[role="link"]').innerText;
   console.log(name);
   
-  var msg = ele.childNodes[1].querySelector('a[role="link"]').parentNode.parentNode.parentNode.childNodes[1].innerText;
-  
+  try {
+	  var msg = ele.childNodes[1].querySelector('a[role="link"]').parentNode.parentNode.parentNode.childNodes[1].innerText;
+  } catch(e){
+	  var msg = ele.childNodes[1].querySelector('a[role="link"]').parentNode.parentNode.parentNode.innerText;
+  }
 
   var data = {};
   data.chatname = name;
@@ -168,7 +171,9 @@ function startup() {
 	setTimeout(function(){actionwtf();},10);
 	
 	setInterval(function(){
-		var main = document.querySelector("div[role='complementary']").querySelectorAll("div[role='article']");
+		try {
+			var main = document.querySelector("div[role='complementary']").querySelectorAll("div[role='article']");
+		} catch(e){ return; }
 		for (var j =0;j<main.length;j++){
 			try{
 				if (!main[j].childNodes[1].childNodes[1].dataset.set){
