@@ -77,9 +77,14 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
   
   $(this).find('.bttv-tooltip').html(""); // BTT support
   
+  
   var chatmessage = $(this).find('*[data-test-selector="chat-line-message-body"').html();
+  if (!chatmessage){
+	  chatmessage = $(this).find('span.message').html(); // FFZ support
+  }
   
   if (!chatmessage){
+	   console.log($(this));
 	   console.log("Not message found");
 	   return;
   }
