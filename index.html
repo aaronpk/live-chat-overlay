@@ -36,6 +36,7 @@
 
     --shown-comment-bg-color: #555555;
     --highlighted-comment-bg-color: #f0f07d;
+	--highlight-chat-left: 0px;
 
     /*
     LAYOUT
@@ -79,6 +80,9 @@ body {
 }
 
 .ffz--inline{
+	display:inline-block;
+}
+.bttv-tooltip-wrapper {
 	display:inline-block;
 }
 
@@ -146,6 +150,8 @@ yt-live-chat-text-message-renderer.shown-comment {
 .highlight-chat {
     font-family: var(--font-family);
     font-weight: var(--highlight-chat-font-weight);
+	position:relative;
+	left: var(--highlight-chat-left); 
     box-sizing: border-box;
     font-size: 30px;
 }
@@ -157,7 +163,7 @@ yt-live-chat-text-message-renderer.shown-comment {
     padding: 20px;
     width: 100%;
     margin: 0 auto;
-    transition: .5s all cubic-bezier(0.250, 0.250, 0.105, 1.2);
+    
 	z-index:1;
 }
 
@@ -411,6 +417,10 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 		window.location.href = "https://github.com/steveseguin/live-chat-overlay#readme";
 	}
 	
+	var centering = false;
+	if (urlParams.has("center")){
+		centering = true;
+	}
 	
 	var timeoutDelay = false;
 	if (urlParams.has("showtime")){
@@ -421,6 +431,13 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 	window.onresize = realign;
 	
 	function realign(){
+		if (centering){
+			try{
+				var offsetLeft =  (parseInt(window.innerWidth) - parseInt(document.getElementById("message").clientWidth))/2;
+				document.documentElement.style.setProperty("--highlight-chat-left", offsetLeft+"px");
+				console.log(offsetLeft);
+			} catch(e){}
+		}
 		try {
 			var img = document.getElementById("img");
 			if (!img){return;}
@@ -436,6 +453,7 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 				document.getElementById("imgContent").style.left = (20 + 300) + "px";
 			}	
 		} catch(e){console.warn(e);}
+		
 	}
 	
 	function applySettings(item){
@@ -546,6 +564,8 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 						 + '<div class="hl-img"><img id="img_'+data.chatname+'" src="' + data.chatimg + '" onerror="this.style.display=\'none\'"></div>'
 						 + addImage
 						 + data.hasDonation + data.hasMembership +'</div>';
+						 
+					realign();
 					
 					for (i = 0; i < document.getElementsByTagName("img").length; i++) {
 						document.getElementsByTagName("img")[i].onerror = function(){
