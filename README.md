@@ -15,7 +15,7 @@ This Chat overlay extensions will forward the selected chat message over a web-s
 - trovo.live (pop-out chat)
 - Instagram (trigger it with a button)
 - Twitter (works with tweets and replies)
-- Facebook live (not yet in the chrome web store; manual install needed)
+- Facebook Live chat (no pop up option)
 
 ![image](https://user-images.githubusercontent.com/2575698/121636030-485cbc00-ca55-11eb-8416-4d7626653fa8.png)
 
@@ -71,6 +71,14 @@ The link should be resuable between streams, but you can also manually set it to
 
 ## Customization
 
+#### Basic options
+
+- Adding &center to the overlay link added to OBS will center the comments on the page
+
+- Adding &showtime=10000 to the overlay link will have messages appear for 10-seconds (10,000-ms), before they auto-fade away. You can set it to whatever value you want really; less than 1000 isn't recommended.
+
+#### More customization options
+
 If you wish to Stylize the Chat message overlay in OBS, you can edit this file: https://raw.githubusercontent.com/steveseguin/twitch-youtube-restream-chat-overlay/main/index.html
 
 You can download it to your local drive and open it directly in OBS. To link the file to the correct websocket connection, you will also need to add ?session=XXXXXX to the end of the browser source local file link in OBS, where XXXXXX is the session value given to you by the Chrome extension when the chat starts and the popup is displayed.
@@ -80,6 +88,8 @@ to
 `C:\Users\Steve\Desktop\index.html?session=sBtMwWrkhZ`
 
 ![image](https://user-images.githubusercontent.com/2575698/115710917-e929d780-a340-11eb-9bb8-15dd5e603904.png)
+
+There are also some options buried in the Chrome extension itself, but those will likey be changing going into the future.
 
 #### Auto-hide overlay after a timeout
 
