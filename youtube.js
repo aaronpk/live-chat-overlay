@@ -129,6 +129,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   data.chatimg = chatimg;
   data.hasDonation = hasDonation;
   data.hasMembership = hasMembership;
+  data.type = "youtube";
   pushMessage(data);
 
 });

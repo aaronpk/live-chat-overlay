@@ -67,7 +67,10 @@ var highlightWords = [];
 
 $("body").unbind("click").on("click", ".chat-line__message", function () { // twitch
 
- 
+  var chatdonation = false;
+  var chatmembership = false;
+  var chatsticker = false;
+  
   $(".hl-c-cont").remove();
   var chatname = $(this).find(".chat-author__display-name").text();
 
@@ -84,21 +87,39 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
   }
   
   if (!chatmessage){
+	  chatdonation = $(this).find('.chat-line__message--cheer-amount').html(); // FFZ support
+	  if (chatdonation){
+		 //$(this).find('.chat-line__message--cheer-amount').html("");
+		 // $(this).find("span[data-test-selector='chat-message-separator']").html("");
+		 //$(this).find(".chat-line__message-container").find('span[data-test-selector="chat-message-separator"]').nextAll().html();
+		 chatmessage = "";
+		 chatdonation = 0;
+		 $(this).find(".chat-line__message-container").find('span[data-test-selector="chat-message-separator"]').nextAll().each(function(index){
+			if ($(this).find('.chat-line__message--cheer-amount').html()){
+				chatdonation += parseInt($(this).find('.chat-line__message--cheer-amount').html());
+			}
+			chatmessage += $(this).html();
+		});
+		if (chatdonation==1){
+			chatdonation += " bit";
+		} else if (chatdonation>1){
+			chatdonation += " bits";
+		}
+		
+	  }
+  }
+  
+  if (!chatmessage){
 	   console.log($(this));
-	   console.log("Not message found");
+	   console.log("No message found");
 	   return;
   }
   var chatimg = 'http://chat.overlay.ninja/twitch.png';
-  var chatdonation = false;
-  var chatmembership = false;
-  var chatsticker = false;
+  
   
   this.style.backgroundColor = "#666";
 
-  // Donation amounts for stickers use a differnet id than regular superchats
-  if(chatsticker) {
-    chatdonation = $(this).find("#purchase-amount-chip").html();
-  }
+  
 
   var chatbadges = "";
   if($(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").length > 0) {
@@ -110,7 +131,7 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
 
   var hasDonation = '';
   if(chatdonation) {
-    hasDonation = '<div class="donation">' + chatdonation + '</div>';
+    hasDonation = '<div class="cheer">' + chatdonation + '</div>';
   }
 
   var hasMembership = '';

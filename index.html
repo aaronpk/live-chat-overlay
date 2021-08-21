@@ -22,6 +22,7 @@
     --author-avatar-border-size: 3px;
     --author-avatar-size: 128px;
     --author-font-size: 30px;
+	
     /* donation/superchat specific */
     --donation-color: #5a4211;
     --donation-bg-color: #fff;
@@ -32,8 +33,16 @@
     --donation-label-text: 'SUPERCHAT';
     --donation-shadow-color: #fff;
 	
+	--cheer-color: #5a4211;
+    --cheer-bg-color: #fff;
+    --cheer-gradient-stop0: #BF953F;
+    --cheer-gradient-stop1: #ede599;
+    --cheer-gradient-stop2: #B38728;
+    --cheer-label-color: #fff;
+    --cheer-label-text: 'Cheer';
+    --cheer-shadow-color: #fff;
+	
 	--image-content-max-height: 300px;
-
     --shown-comment-bg-color: #555555;
     --highlighted-comment-bg-color: #f0f07d;
 	--highlight-chat-left: 0px;
@@ -42,7 +51,7 @@
     LAYOUT
     */
     --comment-width: auto; /* go 100% for a full screen lower third style*/
-    --comment-padding: 20px 20px 20px 145px;
+    --comment-padding: 20px 35px 20px 145px;
     --comment-area-height: 70vh;
     --comment-scale: 1;
     --comment-area-size-offset: 0;
@@ -54,6 +63,7 @@
     --highlight-chat-font-weight: 600;
     --author-font-weight: 700;
     --comment-font-weight: 600;
+	
 }
 
 body {
@@ -85,7 +95,9 @@ body {
 .bttv-tooltip-wrapper {
 	display:inline-block;
 }
-
+.chat-image__container{
+	display:inline-block;
+}
 yt-live-chat-app {
     margin-bottom: var(--comment-area-height);
     height: calc(100vh - var(--comment-area-height)) !important;
@@ -99,6 +111,11 @@ tp-yt-paper-tooltip {
 .chat-line__message{
 	cursor: pointer;
 }
+
+div#message > div {
+    display: inline-block;
+}
+
 .tooltip{
 	display:none;
 }
@@ -295,7 +312,53 @@ yt-live-chat-text-message-renderer.shown-comment {
 .hl-badges:empty {
   background-color:#0000;
 }
-
+.cheer {
+    position: absolute;
+    display: block;
+    text-align: center;
+    left: 70px;
+    top: 108px;
+    z-index: 3;
+    min-width: 128px;
+    border-radius: 10px;
+    padding: 30px 5px 0;
+    overflow: hidden;
+    background: linear-gradient(to right, var(--cheer-gradient-stop0), var(--cheer-gradient-stop1), var(--cheer-gradient-stop2));
+    color: var(--cheer-color);
+    transform: rotate(-5deg) translateX(-50%);
+}
+.cheer::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.23);
+    border-radius: 10px 10px 0 0;
+    padding: 5px 0 0;
+    display: block;
+    content: var(--cheer-label-text);
+    color: var(--cheer-label-color);
+}
+.cheer::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 0;
+    height: 200%;
+    width: 1px;
+    background-color: var(--cheer-bg-color);
+    box-shadow: 0 0 20px 20px var(--cheer-shadow-color);
+    opacity: 0.7;
+    transform: rotate(9deg) translate3D(250px, 0, 0);
+    animation: bitties 3s ease-in-out infinite;
+}
+@keyframes bitties {
+    from {
+        transform: rotate(9deg) translate3D(-250px, 0, 0);
+    }
+}
 .donation {
     position: absolute;
     display: block;
@@ -311,10 +374,6 @@ yt-live-chat-text-message-renderer.shown-comment {
     color: var(--donation-color);
     transform: rotate(-5deg) translateX(-50%);
 }
-.membership {
-    padding: 10px 10px 5px 10px;
-	font-size: 20px !important;
-}
 .donation::before {
     position: absolute;
     top: 0;
@@ -329,6 +388,11 @@ yt-live-chat-text-message-renderer.shown-comment {
     content: var(--donation-label-text);
     color: var(--donation-label-color);
 }
+.membership {
+    padding: 10px 10px 5px 10px;
+	font-size: 20px !important;
+}
+
 .membership::before {
     content: '';
 }
