@@ -81,6 +81,8 @@ function toDataURL(url, callback) {
   xhr.send();
 }
 
+NodeList.prototype.forEach = Array.prototype.forEach
+
 function prepMessage(ele){
   if (ele == window){return;}
   
@@ -104,11 +106,44 @@ function prepMessage(ele){
   }
   console.log(name);
   
+  var msg = "";
   try {
-	var msg = ele.childNodes[1].querySelector('a[role="link"]').parentNode.parentNode.parentNode.childNodes[1].innerText;
+	  console.log(ele);
+	ele.childNodes[1].querySelector('a[role="link"]').parentNode.parentNode.parentNode.querySelector('span[lang]').querySelectorAll('*').forEach(function(node) {
+		
+		if (node.nodeName == "IMG"){
+			msg+=node.outerHTML;
+			console.log(node.outerHTML);
+		} else {
+			node.childNodes.forEach(function(nn){
+				try{
+					if (nn.nodeName === "#text"){
+						msg+=nn.textContent;
+					}
+				}catch(e){}
+			});
+		}
+		
+	});
   } catch(e){
-	var msg = ele.childNodes[1].querySelector('a[role="link"]').parentNode.parentNode.parentNode.innerText;
+	console.error(e);
+	ele.childNodes[1].querySelector('a[role="link"]').parentNode.parentNode.parentNode.querySelectorAll('*').forEach(function(node) {
+		console.warn(node);
+		if (node.nodeName == "IMG"){
+			msg+=node.outerHTML;
+			console.log(node.outerHTML);
+		} else {
+			node.childNodes.forEach(function(nn){
+				try{
+					if (nn.nodeName === "#text"){
+						msg+=nn.textContent;
+					}
+				}catch(e){}
+			});
+		}
+	});
   }
+  
   
   if (msg){
 	msg = msg.trim();
