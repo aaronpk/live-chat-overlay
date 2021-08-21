@@ -99,13 +99,26 @@ function prepMessage(ele){
  
   console.log(chatimg);
   var name = ele.childNodes[1].querySelector('a[role="link"]').innerText;
+  if (name){
+	name = name.trim();
+  }
   console.log(name);
   
   try {
-	  var msg = ele.childNodes[1].querySelector('a[role="link"]').parentNode.parentNode.parentNode.childNodes[1].innerText;
+	var msg = ele.childNodes[1].querySelector('a[role="link"]').parentNode.parentNode.parentNode.childNodes[1].innerText;
   } catch(e){
-	  var msg = ele.childNodes[1].querySelector('a[role="link"]').parentNode.parentNode.parentNode.innerText;
+	var msg = ele.childNodes[1].querySelector('a[role="link"]').parentNode.parentNode.parentNode.innerText;
   }
+  
+  if (msg){
+	msg = msg.trim();
+	if (name){
+		if (msg.startsWith(name)){
+			msg = msg.replace(name, '');
+			msg = msg.trim();
+		}
+	}
+}
 
   var data = {};
   data.chatname = name;
