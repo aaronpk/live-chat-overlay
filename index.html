@@ -278,9 +278,10 @@ yt-live-chat-text-message-renderer.shown-comment {
     object-fit: scale-down;;
     display: block;
     margin: 0;
-    height: 100%;
+    height: calc(100vh - 12px);
 	max-width:100%;
-	max-height: 300px
+	max-height: 300px;
+	min-height: calc(var(--author-avatar-size) + 30px);
     
 }
 /* overlay a very faint white layer to bump the blacks above the luma key cutoff */
@@ -492,8 +493,6 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 	}
 	var timeoutTimer = null;
 	
-	window.onresize = realign;
-	
 	function realign(){
 		if (centering){
 			try{
@@ -505,20 +504,22 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 		try {
 			var img = document.getElementById("img");
 			if (!img){return;}
-			var width = img.clientWidth + 200;
+			var width = img.clientWidth + 214;
 			var message = document.getElementById("message"); 
 			if (message.innerText.length){
 				message.style.width = "calc(100vw - "+width+"px)";
 				document.getElementById("imgContent").style.right = "unset";
-				document.getElementById("imgContent").style.left = (20+  document.getElementById("message").clientWidth) + "px";
+				document.getElementById("imgContent").style.left = (document.getElementById("message").clientWidth + 19) + "px";
 			} else {
 				message.style.maxWidth = "300px";
-				document.getElementById("imgContent").style.right = "unset";
-				document.getElementById("imgContent").style.left = (20 + 300) + "px";
+				document.getElementById("imgContent").style.right = 0;
+				document.getElementById("imgContent").style.left = (300) + "px";
 			}	
 		} catch(e){console.warn(e);}
 		
 	}
+	
+	window.onresize = realign;
 	
 	function applySettings(item){
 	
@@ -620,16 +621,32 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 						 addImage = '<div id="imgContent" class="hl-imgContent"><img id="img" src="' + data.contentimg + '"  onerror="this.parent.style.display=\'none\'" onload="realign();"/></div>';
 					}
 					
+					
+					
 					document.getElementById("output").innerHTML = '<div class="hl-c-cont highlight-chat">'
 						 + '<div class="hl-name">' + data.chatname
 						 + '<div class="hl-badges">' + data.chatbadges + '</div>'
 						 + '</div>'
-						 + '<div id="message" class="hl-message" style="'+ data.backgroundColor +' '+ data.textColor +'">' + data.chatmessage + '</div>'
+						 + '<div id="message" class="hl-message" style="'+data.backgroundColor +' '+ data.textColor +'">' + data.chatmessage + '</div>'
 						 + '<div class="hl-img"><img id="img_'+data.chatname+'" src="' + data.chatimg + '" onerror="this.style.display=\'none\'"></div>'
 						 + addImage
 						 + data.hasDonation + data.hasMembership +'</div>';
-						 
-					realign();
+					
+
+					var fontsize = "";
+					if (document.getElementById("message").innerText.length>300){
+						fontsize = (parseInt(30000/document.getElementById("message").innerText.length));
+						if (fontsize<50){fontsize=50;}
+						document.getElementById("message").style = data.backgroundColor +' '+ data.textColor+'; font-size: '+fontsize+'%;';
+					}
+					
+					if (centering){
+						try{
+							var offsetLeft =  (parseInt(window.innerWidth) - parseInt(document.getElementById("message").clientWidth))/2;
+							document.documentElement.style.setProperty("--highlight-chat-left", offsetLeft+"px");
+							console.log(offsetLeft);
+						} catch(e){}
+					}
 					
 					for (i = 0; i < document.getElementsByTagName("img").length; i++) {
 						document.getElementsByTagName("img")[i].onerror = function(){

@@ -30,7 +30,6 @@ function actionwtf(){ // steves personal socket server service
 }
 
 
-
 function pushMessage(data){
 	var message = {};
 	message.msg = true;
@@ -70,11 +69,6 @@ function toDataURL(url, callback) {
 
 function prepMessage(ele){
   if (ele == window){return;}
-
-
-  try {
-	 document.querySelector(".hl-c-cont").parentNode.removeChild(document.querySelector(".hl-c-cont"));
-  } catch(e){}
   
   var contentimg = "";
   
@@ -167,10 +161,6 @@ function prepMessage2(ele){
 	
   if (ele == window){return;}
 
-  try {
-	document.querySelector(".hl-c-cont").parentNode.removeChild(document.querySelector(".hl-c-cont"));
-  } catch(e){}
- 
   if (ele.querySelector("h3")){
 	 var base = ele.querySelector("h3");
   } else {
@@ -302,9 +292,6 @@ function startup() {
 	
 	$("body").on("click", ".btn-clear-instagram", function () {
 		  pushMessage(false);
-		  $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
-			$(".hl-c-cont").remove().dequeue();
-		  });
 	});
 
 	$("body").on("click", ".btn-getoverlay-instagram", function () {
