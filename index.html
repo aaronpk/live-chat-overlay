@@ -634,9 +634,11 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 					
 
 					var fontsize = "";
-					if (document.getElementById("message").innerText.length>300){
-						fontsize = (parseInt(30000/document.getElementById("message").innerText.length));
-						if (fontsize<50){fontsize=50;}
+					var limitchar = parseInt(window.innerWidth/6.5);
+					
+					if (document.getElementById("message").innerText.length>limitchar){
+						fontsize = (parseInt((limitchar*100)/document.getElementById("message").innerText.length));
+						if (fontsize<43){fontsize=43;}
 						document.getElementById("message").style = data.backgroundColor +' '+ data.textColor+'; font-size: '+fontsize+'%;';
 					}
 					
