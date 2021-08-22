@@ -224,11 +224,22 @@ function startup() {
 		} catch(e){ return; }
 		for (var j =0;j<main.length;j++){
 			try{
-				if (!main[j].childNodes[1].childNodes[1].dataset.set){
-					main[j].childNodes[1].childNodes[1].dataset.set = "true";
-					var newNode = main[j].childNodes[1].childNodes[1].childNodes[1].cloneNode();
-					newNode.innerHTML = '<span><a class="btn-push-facebook">ADD</a></span><span><a class="btn-clear-facebook">CLEAR</a></span><span><a class="btn-getoverlay-facebook" >LINK</a></span>';
-					insertAfter(newNode, main[j].childNodes[1].childNodes[1].childNodes[1]) 
+				if (!main[j].childNodes[1].dataset.set){
+					main[j].childNodes[1].dataset.set = "true";
+					
+					if (main[j].childNodes[1].childNodes[1].childNodes[1]){
+						var newNode = main[j].childNodes[1].childNodes[1].childNodes[1].cloneNode();
+						newNode.innerHTML = '<span><a class="btn-push-facebook">ADD</a></span><span><a class="btn-clear-facebook">CLEAR</a></span><span><a class="btn-getoverlay-facebook" >LINK</a></span>';
+						insertAfter(newNode, main[j].childNodes[1].childNodes[1].childNodes[1]) 
+					} else if (main[j].childNodes[1].childNodes[2].childNodes[1]){
+						var newNode = main[j].childNodes[1].childNodes[2].childNodes[1].cloneNode();
+						newNode.innerHTML = '<span><a class="btn-push-facebook">ADD</a></span><span><a class="btn-clear-facebook">CLEAR</a></span><span><a class="btn-getoverlay-facebook" >LINK</a></span>';
+						insertAfter(newNode, main[j].childNodes[1].childNodes[2].childNodes[1]) 
+						
+					}  else {
+						console.warn(main[j]);
+					}
+					
 					newNode.querySelector(".btn-push-facebook").onclick = function(){prepMessage(this.parentNode.parentNode.parentNode.parentNode.parentNode);};
 					newNode.querySelector(".btn-getoverlay-facebook").onclick = function(){
 						prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
