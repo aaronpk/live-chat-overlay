@@ -77,6 +77,11 @@ The link should be resuable between streams, but you can also manually set it to
 
 - Adding &showtime=10000 to the overlay link will have messages appear for 10-seconds (10,000-ms), before they auto-fade away. You can set it to whatever value you want really; less than 1000 isn't recommended.
 
+example:
+```
+https://chat.overlay.ninja?session=sBtMwWrkhZ&showtime=5000
+```
+
 #### More customization options
 
 If you wish to Stylize the Chat message overlay in OBS, you can edit this file: https://raw.githubusercontent.com/steveseguin/twitch-youtube-restream-chat-overlay/main/index.html
@@ -91,14 +96,6 @@ to
 
 There are also some options buried in the Chrome extension itself, but those will likey be changing going into the future.
 
-#### Auto-hide overlay after a timeout
-
-Adding `&showtime=5000` to the overlay link added to OBS will have the overlay auto-hide after 5-seconds (5000 milliseconds). You can change this number, or just not use it at all, in which case the overlay will show until manually changed/cleared.
-
-example:
-```
-https://chat.overlay.ninja?session=sBtMwWrkhZ&showtime=5000
-```
 
 ## Support
 
