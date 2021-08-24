@@ -94,6 +94,9 @@ to
 
 ![image](https://user-images.githubusercontent.com/2575698/115710917-e929d780-a340-11eb-9bb8-15dd5e603904.png)
 
+#### and some other options for simple changes
+
+For simple CSS changes, you can add them to the OBS Browser Source itself, and it will apply to the index.html file without needing to actually edit it.
 
 There are also some options buried in the Chrome extension itself, but those will likey be changing going into the future. You can change the color of the message background for example.
 
