@@ -82,7 +82,7 @@ example:
 https://chat.overlay.ninja?session=sBtMwWrkhZ&showtime=5000
 ```
 
-#### More customization options
+### Advanced customization options
 
 If you wish to Stylize the Chat message overlay in OBS, you can edit this file: https://raw.githubusercontent.com/steveseguin/twitch-youtube-restream-chat-overlay/main/index.html
 
@@ -94,7 +94,8 @@ to
 
 ![image](https://user-images.githubusercontent.com/2575698/115710917-e929d780-a340-11eb-9bb8-15dd5e603904.png)
 
-There are also some options buried in the Chrome extension itself, but those will likey be changing going into the future.
+
+There are also some options buried in the Chrome extension itself, but those will likey be changing going into the future. You can change the color of the message background for example.
 
 
 ## Support
