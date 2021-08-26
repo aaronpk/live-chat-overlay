@@ -344,7 +344,11 @@ function startup() {
 
 function preStartup(){
 	if (!(document.getElementById("overlaybutton") || document.getElementById("startupbutton"))){
-		document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button id="startupbutton" class="btn-clear-twitter">Enable Overlay Service</button>';
+		try{
+			document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button id="startupbutton" class="btn-clear-twitter">Enable Overlay Service</button>';
+		} catch (e){
+			document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label][role="link"]')[0].parentNode.outerHTML += '<button id="startupbutton" class="btn-clear-twitter">Enable Overlay Service</button>';
+		}
 	}
 }
 
