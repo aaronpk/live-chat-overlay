@@ -141,6 +141,14 @@ $("#pop-out-url").click(function(){
 });
 
 
+$(function(){
+  
+  // Restore the popout URL field if they refresh the page
+  if(window.location.hash) {
+    $("#pop-out-button").click();
+  }
+
+});
 
 
 
