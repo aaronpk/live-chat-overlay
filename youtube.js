@@ -1,5 +1,4 @@
 var showOnlyFirstName;
-
 var highlightWords = [];
 var sessionID = "";
 var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
@@ -17,7 +16,6 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 
   var data = {};
 
-  $(".hl-c-cont").remove();
   data.authorname = $(this).find("#author-name").text();
 
   if(showOnlyFirstName) {
@@ -91,14 +89,6 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     }
     $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
 
-  } else {
-
-    $( "highlight-chat" ).removeClass("preview").append(html)
-    .delay(10).queue(function(next){
-      $( ".hl-c-cont" ).removeClass("fadeout");
-      next();
-    });
-
   }
 
 });
@@ -109,32 +99,6 @@ $("body").on("click", ".btn-clear", function () {
     command: "hide"
   };
   $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
-
-  $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
-    $(".hl-c-cont").remove().dequeue();
-  });
-});
-
-$("yt-live-chat-app").before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' );
-$("body").addClass("inline-chat");
-
-$(function(){
-
-  // Show a placeholder message so you can position the window before the chat is live
-  var data = {};
-  data.message = "this livestream is the best!";
-  data.authorimg = remoteWindowURL+"/youtube-live-chat-sample-avatar.png";
-  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + data.message + '</div><div class="hl-img"><img src="' + data.authorimg + '"></div></div>')
-  .delay(10).queue(function(next){
-    $( ".hl-c-cont" ).removeClass("fadeout");
-    next();
-  });
-
-  // Restore the popout URL field if they refresh the page
-  if(window.location.hash) {
-    $("#pop-out-button").click();
-  }
-
 });
 
 // Restore settings
@@ -145,40 +109,6 @@ chrome.storage.sync.get(configProperties, function(item){
     color = item.color;
   }
 
-  let root = document.documentElement;
-  root.style.setProperty("--keyer-bg-color", color);
-
-  if(item.authorBackgroundColor) {
-    root.style.setProperty("--author-bg-color", item.authorBackgroundColor);
-    root.style.setProperty("--author-avatar-border-color", item.authorBackgroundColor);
-  }
-  if(item.authorAvatarBorderColor) {
-    root.style.setProperty("--author-avatar-border-color", item.authorAvatarBorderColor);
-  }
-  if(item.commentBackgroundColor) {
-    root.style.setProperty("--comment-bg-color", item.commentBackgroundColor);
-  }
-  if(item.authorColor) {
-    root.style.setProperty("--author-color", item.authorColor);
-  }
-  if(item.commentColor) {
-    root.style.setProperty("--comment-color", item.commentColor);
-  }
-  if(item.fontFamily) {
-    root.style.setProperty("--font-family", item.fontFamily);
-  }
-  if(item.scale) {
-    root.style.setProperty("--comment-scale", item.scale);
-  }
-  if(item.commentBottom) {
-    root.style.setProperty("--comment-area-bottom", item.commentBottom);
-  }
-  if(item.commentHeight) {
-    root.style.setProperty("--comment-area-height", item.commentHeight);
-  }
-  if(item.sizeOffset) {
-    root.style.setProperty("--comment-area-size-offset", item.sizeOffset);
-  }
   showOnlyFirstName = item.showOnlyFirstName;
   highlightWords = item.highlightWords;
 
@@ -191,17 +121,8 @@ chrome.storage.sync.get(configProperties, function(item){
 });
 
 
-$("#primary-content").append('<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
 $("#primary-content").append('<span style=""><a href="#" id="pop-out-button" class="button">Get Overlay URL</a></span>');
 $("#primary-content").append('<span class="hidden"><input type="url" readonly id="pop-out-url"></span>');
-
-function displayAspectRatio() {
-  var ratio = Math.round(window.innerWidth / window.innerHeight * 100) / 100;
-  ratio += " (target 1.77)";
-  $("#aspect-ratio").text(ratio);
-}
-displayAspectRatio();
-window.onresize = displayAspectRatio;
 
 $("#pop-out-button").click(function(e){
   e.preventDefault();
