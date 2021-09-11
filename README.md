@@ -25,6 +25,9 @@ Open up the YouTube live chat for a video, and click YouTube's "popout chat" but
 
 `https://www.youtube.com/live_chat?is_popout=1&v=VIDEOID`
 
+Click "Get Overlay URL" and open that in a new window or another device, or add that as a browser source in OBS.
+
+
 ### Keying from a Computer
 
 You'll next need to bring that into your video stream and key it out, which will depend on what software or hardware you are using. In the ATEM Mini, you can use these settings in the upstream keyer:
@@ -45,7 +48,7 @@ Or you can use the downstream keyer:
 
 ### Adding as a Browser Source
 
-In software such as [OBS](https://obsproject.com) or [Lightstream Studio](http://strea.mr/aaronparecki) you can pop out a remote window as a browser source, and remote control it from your main YouTube chat window.
+In software such as [OBS](https://obsproject.com) or [Lightstream Studio](http://strea.mr/aaronparecki) you can use the remote window as a browser source, and remote control it from your main YouTube chat window.
 
 Before you start, you'll want to make sure you change the background color in the extension settings to the word "transparent" so that the browser window will have a transparent background.
 
@@ -53,7 +56,7 @@ Once you've loaded the YouTube popout chat window described above, you will see 
 
 ![get-overlay-url](get-overlay-url.png)
 
-You can open the URL on your computer too if you want to full screen it on a second monitor.
+You can also open the URL on your computer if you want to full screen it on a second monitor, or you can open this on a secondary device like an iPad.
 
 
 ## See this in action!
