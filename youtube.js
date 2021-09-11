@@ -14,19 +14,42 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     return;
   }
 
+  // Mark this comment as shown
+  $(this).addClass("shown-comment");
+
+  /* 
+   Properties to send to remote window:
+
+   message
+   authorName
+   authorImg
+   badges
+   donation
+   sticker
+   membership
+   backgroundColor
+   textColor
+   */
+
   var data = {};
 
-  data.authorname = $(this).find("#author-name").text();
+  data.message = $(this).find("#message").html();
+
+  data.authorName = $(this).find("#author-name").text();
 
   if(showOnlyFirstName) {
-    data.authorname = data.authorname.replace(/ [^ ]+$/, '');
+    data.authorName = data.authorName.replace(/ [^ ]+$/, '');
   }
 
-  data.message = $(this).find("#message").html();
-  data.authorimg = $(this).find("#img").attr('src');
-  data.authorimg = data.authorimg.replace("32", "128");
+  data.authorImg = $(this).find("#img").attr('src').replace("32", "128");
+
+  data.badges = '';
+  if($(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").length > 0) {
+    data.badges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
+  }
+
   data.donation = $(this).find("#purchase-amount").html();
-  data.membership = $(this).find(".yt-live-chat-membership-item-renderer #header-subtext").html();
+
   data.sticker = $(this).find(".yt-live-chat-paid-sticker-renderer #img").attr("src");
 
   // Donation amounts for stickers use a differnet id than regular superchats
@@ -34,28 +57,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     data.donation = $(this).find("#purchase-amount-chip").html();
   }
 
-  data.badges = "";
-  if($(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").length > 0) {
-    data.badges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
-  }
-
-  // Mark this comment as shown
-  $(this).addClass("shown-comment");
-
-  data.donationHTML = '';
-  if(data.donation) {
-    data.donationHTML = '<div class="donation">' + data.donation + '</div>';
-  }
-
-  data.membershipHTML = '';
-  if(data.membership) {
-    data.membershipHTML = '<div class="donation membership">NEW MEMBER!</div>';
-    data.message = data.membership;
-  }
-
-  if(data.sticker) {
-    data.message = '<img src="'+data.sticker+'">';
-  }
+  data.membership = $(this).find(".yt-live-chat-membership-item-renderer #header-subtext").html();
 
   data.backgroundColor = "";
   data.textColor = "";
@@ -70,21 +72,12 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     data.textColor = "color: #111;";
   }
 
-  var html = '<div class="hl-c-cont fadeout">'
-     + '<div class="hl-name">' + data.authorname
-       + '<div class="hl-badges">' + data.badges + '</div>'
-     + '</div>'
-     + '<div class="hl-message" style="'+data.backgroundColor+' '+data.textColor+'">' + data.message + '</div>'
-     + '<div class="hl-img"><img src="' + data.authorimg + '"></div>'
-     +data.donationHTML+data.membershipHTML
-   +'</div>';
-
   if(sessionID) {
 
     var remote = {
       version: version,
       command: "show",
-      html: html,
+      data: data,
       config: config
     }
     $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
