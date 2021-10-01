@@ -2,7 +2,7 @@
   "name": "Chat Overlay for Youtube, Twitch & more",
   "description": "Add live chat from Youtube, Twitch, Restream and more to your OBS as a browser overlay. Feature requests accepted!",
   "manifest_version": 2,
-  "version": "0.9.0",
+  "version": "0.10.0",
   "homepage_url": "http://chat.overlay.ninja/",
   "icons": {
     "128": "icons/icon-128.png"
@@ -40,6 +40,11 @@
 		"css": ["main.css"],
 		"js": ["jquery.js", "instagram.js"],
 		"matches": ["https://instagram.com/*","https://www.instagram.com/*"]
+	  },
+	  {
+		"css": ["main.css"],
+		"js": ["jquery.js", "instalive.js"],
+		"matches": ["https://instagram.com/*/live/","https://www.instagram.com/*/live/"]
 	  },
 	   {
 		"css": ["main.css"],
