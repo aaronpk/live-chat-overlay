@@ -13,7 +13,8 @@ This Chat overlay extensions will forward the selected chat message over a web-s
 - twitch.tv (pop-out chat)
 - restream.io (go here: https://chat.restream.io/chat)
 - trovo.live (pop-out chat)
-- Instagram (trigger it with a button)
+- Instagram (posts) (trigger it with a button)
+- Instagram Live (click on chat messages)
 - Twitter (works with tweets and replies)
 - Facebook Live chat (no pop up option)
 
