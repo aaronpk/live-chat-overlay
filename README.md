@@ -108,6 +108,10 @@ There's another Browser Extension made that's simliar to this one, however it us
 
 Find that extension here: https://github.com/steveseguin/social_stream
 
+### VDO.Ninja
+
+This particular Browser extension is maintained and supported to help provide VDO.Ninja users a powerful chat tool option for OBS. VDO.Ninja makes it easy to invite remote guests into OBS, VMix, or other production mixing software. Check out VDO.Ninja at https://vdo.ninja ; it's 100% free and open-source.
+
 ## Support
 
 If you need support or have a bug to report, please feel free to join me at https://discord.vdo.ninja. 
