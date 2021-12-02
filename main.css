@@ -229,6 +229,23 @@ body {
 }
 
 
+.btn-getoverlay-zoom {
+    color: #61d0e5;
+    margin: 0 0 0 5px;
+	cursor: pointer;
+}
+.btn-clear-zoom {
+    color: #e56761;
+    margin: 0 0 0 5px;
+	cursor: pointer;
+}
+.btn-push-zoom {
+    color: #71e561;
+    margin: 0 0 0 5px;
+	cursor: pointer;
+}
+
+
 #startupbutton{
 	display: block;
     position: relative;
