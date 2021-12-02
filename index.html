@@ -580,6 +580,11 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 		}
 	}catch(e){console.error(e);}
 	
+	function getChromeVersion() {     
+		var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+		return raw ? parseInt(raw[2], 10) : false;
+	}
+	
 	//var counter=0;
 	var idle = null;
 	
@@ -624,6 +629,11 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 						 addImage = '<div id="imgContent" class="hl-imgContent"><img id="img" src="' + data.contentimg + '"  onerror="this.parent.style.display=\'none\'" onload="realign();"/></div>';
 					}
 					
+					if (data.chatmessage && (getChromeVersion()>=95)){
+						if (/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi.test(data.chatmessage)){ // Chrome v96 , 97, and probably a few others don't support emojis with bolding added
+							 data.chatmessage = "<span style='font-weight:400;'>"+ data.chatmessage+"</font>";
+						}
+					}
 					
 					
 					document.getElementById("output").innerHTML = '<div class="hl-c-cont highlight-chat">'
