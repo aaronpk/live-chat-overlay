@@ -199,6 +199,10 @@ yt-live-chat-text-message-renderer.shown-comment {
 	white-space: nowrap;
 	z-index:2;
 }
+.hl-name>img {
+	height: 30px;
+	height: var(--author-font-size);
+}
 .hl-message {
     position: absolute;
     width: var(--comment-width);
@@ -637,17 +641,21 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 					
 					
 					document.getElementById("output").innerHTML = '<div class="hl-c-cont highlight-chat">'
-						 + '<div class="hl-name">' + data.chatname
+						 + '<div class="hl-name" id="nameDIV">' + data.chatname
 						 + '<div class="hl-badges">' + data.chatbadges + '</div>'
 						 + '</div>'
 						 + '<div id="message" class="hl-message" style="'+data.backgroundColor +' '+ data.textColor +'">' + data.chatmessage + '</div>'
-						 + '<div class="hl-img"><img id="img_'+data.chatname+'" src="' + data.chatimg + '" onerror="this.style.display=\'none\'"></div>'
+						 + '<div class="hl-img"><img src="' + data.chatimg + '" onerror="this.style.display=\'none\'"></div>'
 						 + addImage
 						 + data.hasDonation + data.hasMembership +'</div>';
 					
 
 					var fontsize = "";
 					var limitchar = parseInt(window.innerWidth/6.5);
+					
+					if (!data.chatname && !data.chatbadges){
+						document.querySelector("#nameDIV").style.display = "none";
+					}
 					
 					if (document.getElementById("message").innerText.length>limitchar){
 						fontsize = (parseInt((limitchar*100)/document.getElementById("message").innerText.length));
@@ -665,7 +673,9 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 					
 					for (i = 0; i < document.getElementsByTagName("img").length; i++) {
 						document.getElementsByTagName("img")[i].onerror = function(){
-							if (this.alt.length!==2){
+							if (this.parentNode.classList.contains("hl-name") && this.alt){
+								this.outerHTML = this.alt;	
+							} else if (this.alt.length!==2){
 								this.style.display='none';
 							} else {
 								this.outerHTML = this.alt;

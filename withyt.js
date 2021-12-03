@@ -96,6 +96,17 @@ function prepMessage(ele){
   } catch(e){
 	
   }
+  
+  try{
+	   chatimg = ele.querySelector(".avatar").querySelector("img").src;
+	   img = true;
+  } catch(e){
+	
+  }
+  
+  if (!chatimg){
+	  chatimg = "https://chat.overlay.ninja/youtube.png";
+  }
   console.log(chatimg);
   
   var name = ele.querySelector(".creator").innerText;
@@ -103,6 +114,17 @@ function prepMessage(ele){
 	name = name.replace("Reply From","");
 	name = name.trim();
   }
+  
+  if (!name){
+	try{
+		name = ele.querySelector(".creator").querySelector("img").src;
+		name = "<img src='"+name+"' alt='YouTube'/>";
+	} catch(e){
+		
+	}
+  }
+  
+  
   console.log(name);
   
   var msg = "";
@@ -134,32 +156,8 @@ function prepMessage(ele){
   data.contentimg = "";
   data.type = "youtube";
   
-  if (data.type === "youtube123"){ // should not trigger, as not needed
-	   if (data.contentimg){
-		  toDataURL(contentimg, function(dataUrl) {
-			  data.contentimg = dataUrl;
-			  if (data.chatimg && img){
-					toDataURL(data.chatimg, function(dataUrl) {
-						data.chatimg = dataUrl;
-						pushMessage(data);
-					});
-			  } else {
-					data.chatimg = "https://chat.overlay.ninja/youtube.png";
-					pushMessage(data);
-			  }
-		  });
-	    } else if (data.chatimg && img){
-			toDataURL(data.chatimg, function(dataUrl) {
-				data.chatimg = dataUrl;
-				pushMessage(data);
-			});
-		} else {
-			data.chatimg = "https://chat.overlay.ninja/youtube.png";
-		    pushMessage(data);
-		}
-  } else {
-	  pushMessage(data);
-  }
+  pushMessage(data);
+  
 }
 
 var properties = ["color","scale","streamID","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
@@ -185,7 +183,7 @@ function startup() {
 	
 	setInterval(function(){
 		try {
-			var main = document.querySelector(".questions").querySelectorAll("div.question.page-constraint, div.reply.page-constraint");
+			var main = document.querySelector(".questions").querySelectorAll("div.question.page-constraint");
 		} catch(e){ return; }
 		for (var j =0;j<main.length;j++){
 			try{
@@ -197,8 +195,28 @@ function startup() {
 						prepMessage(this.parentNode.parentNode.parentNode.parentNode);
 					};
 					
+					main[j].querySelector(".btn-getoverlay-withyoutube").onclick = function(){
+						prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
+					};
+					
+					main[j].querySelector(".btn-clear-withyoutube").onclick = function(){
+						pushMessage(false);
+					}
+				}
+			} catch(e){}
+		}
+		
+		try {
+			var main = document.querySelector(".questions").querySelectorAll("div.reply.page-constraint");
+		} catch(e){ return; }
+		for (var j =0;j<main.length;j++){
+			try{
+				if (!main[j].dataset.set){
+					main[j].dataset.set = "true";
+					main[j].insertAdjacentHTML('afterbegin', '<div><span><a class="btn-push-withyoutube" style="margin-right:10px;color:green;font-weight:700;">ADD</a></span><span><a class="btn-clear-withyoutube"  style="margin-right:10px;color:red;">CLEAR</a></span><span><a class="btn-getoverlay-withyoutube" >LINK</a></span></div>');
+					
 					main[j].querySelector(".btn-push-withyoutube").onclick = function(){
-						prepMessage(this.parentNode.parentNode.parentNode.parentNode);
+						prepMessage(this.parentNode.parentNode.parentNode);
 					};
 					
 					main[j].querySelector(".btn-getoverlay-withyoutube").onclick = function(){
