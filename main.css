@@ -1,24 +1,4 @@
- 
-.chat-line__message--emote-button{
-	display:inline-block;
-}
-.chat-line__message{
-	cursor: pointer;
-}
-.tooltip{
-	display:none;
-}
-.tw-tooltip{
-	display:none;
-}
 
-tp-yt-paper-tooltip {
-	display:none;
-}
-
-body {
-    background-color: var(--keyer-bg-color);
-}
 
 .btn-clear {
     position: absolute;
@@ -399,129 +379,6 @@ highlight-chat.preview {
     transform: translateY(600px);
 }
 
-.hl-name {
-    position: absolute;
-    top: -20px;
-    left: 50px;
-    font-weight: var(--author-font-weight);
-    background: var(--author-bg-color);
-    color: var(--author-color);
-    padding: 10px;
-    transform: rotate(-0deg);
-    z-index: 1;
-    border-radius: var(--author-border-radius);
-    font-size: var(--author-font-size);
-}
-.hl-message {
-    position: absolute;
-    width: var(--comment-width);
-    font-weight: var(--comment-font-weight);
-    padding: var(--comment-padding);
-    color: var(--comment-color);
-    background-color: var(--comment-bg-color);
-    border-radius: var(--comment-border-radius);
-    font-size: var(--comment-font-size);
-}
-.hl-message img {
-    width: 50px;
-    vertical-align: middle;
-}
-.hl-message a {
-    color: white;
-}
-.hl-img {
-    position: absolute;
-    top: 0;
-    z-index: 1;
-    left: -60px;
-    width: var(--author-avatar-size);
-    height: var(--author-avatar-size);
-    background-color: var(--author-avatar-border-color);
-    border-radius: 50%;
-    border: 0;
-    padding: var(--author-avatar-border-size);
-}
-.hl-img img {
-    display: block;
-    width: 100%;
-    border-radius: 50%;
-    z-index: 1;
-}
-/* overlay a very faint white layer to bump the blacks above the luma key cutoff */
-.hl-img:after {
-    content: '';
-    display: block;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    position:absolute;
-    pointer-events: none;
-    z-index: 3;
-}
-.hl-img::after {
-    background: rgba(255,255,255,.04);
-    mix-blend-mode: lighten;
-}
-
-.hl-badges {
-  display: inline-block;
-  margin-left: 10px;
-}
-.hl-badges img.yt-live-chat-author-badge-renderer {
-  width: 24px;
-  height: 24px;
-}
-
-.donation {
-    position: absolute;
-    display: block;
-    text-align: center;
-    left: 10px;
-    top: 108px;
-    z-index: 3;
-    min-width: 128px;
-    border-radius: 10px;
-    padding: 30px 5px 0;
-    overflow: hidden;
-    background: linear-gradient(to right, var(--donation-gradient-stop0), var(--donation-gradient-stop1), var(--donation-gradient-stop2));
-    color: var(--donation-color);
-    transform: rotate(-5deg) translateX(-50%);
-}
-.membership {
-    padding: 10px 10px 5px 10px;
-}
-.donation::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    font-size: 18px;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.23);
-    border-radius: 10px 10px 0 0;
-    padding: 5px 0 0;
-    display: block;
-    content: var(--donation-label-text);
-    color: var(--donation-label-color);
-}
-.membership::before {
-    content: '';
-}
-.donation::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: 0;
-    height: 200%;
-    width: 1px;
-    background-color: var(--donation-bg-color);
-    box-shadow: 0 0 20px 20px var(--donation-shadow-color);
-    opacity: 0.7;
-    transform: rotate(9deg) translate3D(250px, 0, 0);
-    animation: superchat 3s ease-in-out infinite;
-}
 @keyframes superchat {
     from {
         transform: rotate(9deg) translate3D(-250px, 0, 0);
@@ -537,7 +394,6 @@ highlight-chat.preview {
 	border-radius: 50px;
 	animation: 1s linear fadein;
 }
-
 
 yt-live-chat-item-list-renderer {
 	margin-bottom: 20px;
