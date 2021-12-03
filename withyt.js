@@ -118,7 +118,7 @@ function prepMessage(ele){
   if (!name){
 	try{
 		name = ele.querySelector(".creator").querySelector("img").src;
-		name = "YouTube"; //"<img src='"+name+"' alt='YouTube'/>";
+		name = "<img src='"+name+"' alt='YouTube'/>";
 	} catch(e){
 		
 	}
