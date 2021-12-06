@@ -98,13 +98,30 @@ function prepMessage(ele){
   }
   
   if (!chatimg){
-	  chatimg = ele.querySelector(".chat-item__user-avatar").outerHTML;
+	  if (ele.querySelector(".chat-item__user-avatar")){
+		chatimg = ele.querySelector(".chat-item__user-avatar").outerHTML;
+	  }
   }
  
   console.log(chatimg);
-  var name = ele.querySelector(".chat-item__sender").innerText;
-  if (name){
-	name = name.trim();
+  
+  if (ele.querySelector(".chat-item__sender")){
+	  var name = ele.querySelector(".chat-item__sender").innerText;
+	  if (name){
+		name = name.trim();
+	  }
+  } else {
+	  var sibling = ele;
+	  while (sibling.previousSibling && (sibling.previousSibling.role == "alert")){
+		sibling = sibling.previousSibling;
+		if (sibling.querySelector(".chat-item__sender")){
+			var name = sibling.querySelector(".chat-item__sender").innerText;
+			if (name){
+				name = name.trim();
+				break;
+			}
+		}
+	  }
   }
   console.log(name);
   
@@ -194,7 +211,12 @@ function startup() {
 			try{
 				if (!main[j].dataset.set){
 					main[j].dataset.set = "true";
-					main[j].childNodes[0].innerHTML = '<span><a class="btn-push-zoom">ADD</a></span><span><a class="btn-clear-zoom">CLEAR</a></span><span><a class="btn-getoverlay-zoom" >LINK</a></span>' + main[j].childNodes[0].innerHTML;
+					
+					if (main[j].childNodes[0].length == 1){
+						main[j].childNodes[0].innerHTML = '<span><a class="btn-push-zoom">ADD</a></span><span><a class="btn-clear-zoom">CLEAR</a></span><span><a class="btn-getoverlay-zoom" >LINK</a></span>' + main[j].childNodes[0].innerHTML;
+					} else {
+						main[j].childNodes[0].innerHTML += '<span><a class="btn-push-zoom">ADD</a></span><span><a class="btn-clear-zoom">CLEAR</a></span><span><a class="btn-getoverlay-zoom" >LINK</a></span>';
+					}
 					
 					main[j].querySelector(".btn-push-zoom").onclick = function(){
 						prepMessage(this.parentNode.parentNode.parentNode);
