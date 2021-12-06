@@ -110,6 +110,8 @@ There's another Browser Extension made that's simliar to this one, however it us
 
 Find that extension here: https://github.com/steveseguin/social_stream
 
+It also has the nifty ability to auto-respond to messages and provides streamdeck hotkey support, for preset rapid-responses.
+
 ### VDO.Ninja
 
 This particular Browser extension is maintained and supported to help provide VDO.Ninja users a powerful chat tool option for OBS. VDO.Ninja makes it easy to invite remote guests into OBS, VMix, or other production mixing software. Check out VDO.Ninja at https://vdo.ninja ; it's 100% free and open-source.
