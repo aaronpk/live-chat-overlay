@@ -244,7 +244,7 @@ function onElementInserted(containerSelector,  callback) {
 
 
 
-onElementInserted(".yt-live-chat-item-list-renderer", function(element){
+onElementInserted("yt-live-chat-app", function(element){
   console.log("New dom element inserted", element.tagName);
   // Check for highlight words
   var chattext = $(element).find("#message").text();

@@ -85,9 +85,9 @@ function prepMessage(ele){
   console.log(base.parentNode);
   
   try{
-	  var chatname = base.childNodes[1].querySelectorAll("a")[0].childNodes[0].childNodes[0].innerText.trim();
+	  var chatname = base.querySelectorAll("a")[1].childNodes[0].childNodes[0].innerText.trim();
 	  if (!chatname.length){
-		  chatname = base.childNodes[1].querySelectorAll("a")[0].innerText.trim();
+		  chatname = base.querySelectorAll("a[role='link']")[1].querySelector("[id]").childNodes[0].innerText.trim();
 	  }
 	  if (showOnlyFirstName) {
 		chatname = chatname.replace(/ .*/,'');
