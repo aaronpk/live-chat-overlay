@@ -141,6 +141,8 @@ function prepMessage(ele){
 		}
 	}
  }
+ 
+  ele.style.backgroundColor = "#ecf3ff";
 
   var data = {};
   data.chatname = name;
@@ -214,6 +216,8 @@ function startup() {
 					
 					if (main[j].childNodes[0].length == 1){
 						main[j].childNodes[0].innerHTML = '<span><a class="btn-push-zoom">ADD</a></span><span><a class="btn-clear-zoom">CLEAR</a></span><span><a class="btn-getoverlay-zoom" >LINK</a></span>' + main[j].childNodes[0].innerHTML;
+						
+						
 					} else {
 						main[j].childNodes[0].innerHTML += '<span><a class="btn-push-zoom">ADD</a></span><span><a class="btn-clear-zoom">CLEAR</a></span><span><a class="btn-getoverlay-zoom" >LINK</a></span>';
 					}
