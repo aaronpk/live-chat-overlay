@@ -131,6 +131,31 @@
 	width: 225px;
 }
 
+.btn-getoverlay-pollev {
+    color: #61d0e5;
+    margin: 0 0 0 5px;
+	cursor: pointer;
+    font-size: 2em;
+    z-index: 99999;
+    display: inline-block;
+}
+.btn-clear-pollev {
+    color: #e56761;
+    margin: 0 0 0 5px;
+	cursor: pointer;
+    font-size: 2em;
+    z-index: 99999;
+    display: inline-block;
+}
+.btn-push-pollev {
+    color: #71e561;
+    margin: 0 0 0 5px;
+	cursor: pointer;
+    font-size: 2em;
+    z-index: 99999;
+    display: inline-block;
+}
+
 .btn-getoverlay-facebook {
     color: #61d0e5;
     margin: 0 0 0 5px;
@@ -146,6 +171,8 @@
     margin: 0 0 0 5px;
 	cursor: pointer;
 }
+
+
 
 .btn-getoverlay-crowdcast {
     color: #61d0e5;
