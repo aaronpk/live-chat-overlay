@@ -163,16 +163,25 @@ function startup() {
 						main[j].dataset.set = "true";
 						main[j].insertAdjacentHTML('afterbegin', '<div><span><a class="btn-push-pollev" style="margin-right:10px;color:green;font-weight:700;">ADD</a></span><span><a class="btn-clear-pollev"  style="margin-right:10px;color:red;">CLEAR</a></span><span><a class="btn-getoverlay-pollev" >LINK</a></span></div>');
 						
-						main[j].querySelector(".btn-push-pollev").onclick = function(){
+						main[j].querySelector(".btn-push-pollev").onclick = function(event){
+							event.preventDefault();
+							event.stopPropagation();
 							prepMessage(this.parentNode.parentNode.parentNode.parentNode);
+							return false;
 						};
 						
-						main[j].querySelector(".btn-getoverlay-pollev").onclick = function(){
+						main[j].querySelector(".btn-getoverlay-pollev").onclick = function(event){
+							event.preventDefault();
+							event.stopPropagation();
 							prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
+							return false;
 						};
 						
-						main[j].querySelector(".btn-clear-pollev").onclick = function(){
+						main[j].querySelector(".btn-clear-pollev").onclick = function(event){
+							event.preventDefault();
+							event.stopPropagation();
 							pushMessage(false);
+							return false;
 						}
 					}
 				} catch(e){}
