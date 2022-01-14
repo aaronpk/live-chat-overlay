@@ -18,7 +18,7 @@ This Chat overlay extensions will forward the selected chat message over a web-s
 - Twitter (works with tweets and replies)
 - Facebook Live chat (no pop up option; does not support Mobile/4G/LTE - wifi or ethernet only)
 - Crowdcast.io
-- Zoom.us (text chat) 
+- Zoom.us (text chat and polls)
 - polleverywhere.com (https://www.polleverywhere.com/discourses/xxxxx question page)
 
 ![image](https://user-images.githubusercontent.com/2575698/121636030-485cbc00-ca55-11eb-8416-4d7626653fa8.png)
