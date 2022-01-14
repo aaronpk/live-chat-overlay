@@ -215,6 +215,17 @@ yt-live-chat-text-message-renderer.shown-comment {
 	word-break: break-word;
 	z-index:1;
 }
+.hl-choice {
+    width: var(--comment-width);
+    font-weight: var(--comment-font-weight);
+    padding: var(--comment-padding);
+    color: var(--comment-color);
+    background-color: var(--comment-bg-color);
+    border-radius: var(--comment-border-radius);
+    font-size: var(--comment-font-size);
+	word-break: break-word;
+	z-index:1;
+}
 .hl-message-img {
     position: absolute;
     width: 63%;
@@ -628,6 +639,11 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 						applySettings(settings);
 					}
 					
+					if (data.type && (data.type=="poll")){
+						processPoll(data);
+						return;
+					}
+					
 					var addImage = "";
 					if (data.contentimg){
 						 addImage = '<div id="imgContent" class="hl-imgContent"><img id="img" src="' + data.contentimg + '"  onerror="this.parent.style.display=\'none\'" onload="realign();"/></div>';
@@ -715,6 +731,50 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 	socket.onclose = function (){
 		setTimeout(function(){window.location.reload(true);},100);
 	};
+	
+	function processPoll(data){
+		
+		console.log(data);
+		var output = '<div class="hl-c-cont highlight-chat">'
+			 + '<div class="hl-name" id="nameDIV">' + data.question
+			 + '</div>';
+			 for (var i=0;i<data.answers.length;i++){
+				output += '<div class="hl-choice" id="message_'+i+'">• ' + data.answers[i].answer + '</div>'
+			 }
+			output +='</div>';
+			
+		document.getElementById("output").innerHTML = output;
+		
+
+		var fontsize = "";
+		var limitchar = parseInt(window.innerWidth/6.5);
+		
+		<!-- if (document.getElementById("message").innerText.length>limitchar){ -->
+			<!-- fontsize = (parseInt((limitchar*100)/document.getElementById("message").innerText.length)); -->
+			<!-- if (fontsize<43){fontsize=43;} -->
+			<!-- document.getElementById("message").style = data.backgroundColor +' '+ data.textColor+'; font-size: '+fontsize+'%;'; -->
+		<!-- } -->
+		
+		<!-- if (centering){ -->
+			<!-- try{ -->
+				<!-- var offsetLeft =  (parseInt(window.innerWidth) - parseInt(document.getElementById("message").clientWidth))/2; -->
+				<!-- document.documentElement.style.setProperty("--highlight-chat-left", offsetLeft+"px"); -->
+				<!-- console.log(offsetLeft); -->
+			<!-- } catch(e){} -->
+		<!-- } -->
+		
+		document.getElementById("output").classList.remove("fadeout");
+		
+		if (timeoutDelay){
+			clearTimeout(timeoutTimer);
+			timeoutTimer = setTimeout(function(){
+				document.getElementById("output").classList.add("fadeout");
+				clearInterval(nextComment);
+			}, timeoutDelay);
+		}
+					
+	
+	}
 	
 	</script>
 	</body>

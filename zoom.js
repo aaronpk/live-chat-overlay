@@ -184,6 +184,42 @@ function prepMessage(ele){
   }
 }
 
+function prepPoll(ele, answers = true){
+  if (ele == window){return;}
+  
+  console.log(ele);
+  
+  var question = "";
+  try{
+	   question = ele.querySelector(".poll-question-title__content").innerText.trim();
+  } catch(e){	
+  }
+  
+  var choices = "";
+  try{
+	   choices = ele.querySelectorAll(".poll-single-question-answer-result__option-container");
+  } catch(e){	
+  }
+  
+  var results = [];
+  if (answers){
+	  for (var i =0;i<choices.length;i++){
+		  var choice = {};
+		  choice.answer = choices[i].querySelector(".poll-single-question-answer-result__label-text").innerText.trim();
+		  choice.result = choices[i].querySelector(".poll-single-question-answer-result__label-percent").innerText.trim();
+		  results.push(choice);
+	  }
+  }
+
+  var data = {};
+  data.question = question;
+  data.answers = results;
+  data.source = "zoom";
+  data.type = "poll";
+  pushMessage(data);
+
+}
+
 var properties = ["color","scale","streamID","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords"];
 
 chrome.storage.sync.get(properties, function(item){
@@ -200,15 +236,46 @@ chrome.storage.sync.get(properties, function(item){
   }
 });
 
+function detectPoll(){
+	if (document.getElementById("poll__body")){
+		var main = document.querySelector(".poll-footer__right");
+		if (main.marked){return}
+		main.marked = true;
+		
+		main.innerHTML += '<span><a class="btn-push-zoom">Q</a></span><span><a class="btn-push-zoom-2">Q+C</a></span><span><a class="btn-clear-zoom">CLR</a></span><span><a class="btn-getoverlay-zoom" >LNK</a></span>';
+			
+		main.querySelector(".btn-push-zoom").onclick = function(){
+			prepPoll(document.getElementById("poll__body"), false);
+		};
+		
+		main.querySelector(".btn-push-zoom-2").onclick = function(){
+			prepPoll(document.getElementById("poll__body"), true);
+		};
+		
+		main.querySelector(".btn-getoverlay-zoom").onclick = function(){
+			prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
+		};
+		
+		main.querySelector(".btn-clear-zoom").onclick = function(){
+			pushMessage(false);
+		}
+	}
+}
+
 
 function startup() {
 	console.log("STARTED");
 	setTimeout(function(){actionwtf();},10);
 	
 	setInterval(function(){
+		
+		
+		detectPoll();
+
 		try {
 			var main = document.querySelector("#chat-list-content").querySelectorAll("div[role='alert']");
 		} catch(e){ return; }
+		
 		for (var j =0;j<main.length;j++){
 			try{
 				if (!main[j].dataset.set){

@@ -192,20 +192,80 @@
 
 
 .btn-getoverlay-zoom {
-    color: #61d0e5;
-    margin: 0 0 0 5px;
+	 border-radius: 8px;
+    height: 32px;
+    padding: 0 16px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: 2px solid transparent;
+    outline-offset: 1px;
+    -webkit-transition: all .2s ease-in;
+    -o-transition: .2s all ease-in;
+    transition: all .2s ease-in;
+    border: 1px solid #bababa;
+    font-size: 14px;
 	cursor: pointer;
+	background: #61d0e522;
+    color: rgb(0 115 149);
+    margin: 0 0 0 5px;
 }
 .btn-clear-zoom {
+	 border-radius: 8px;
+    height: 32px;
+    padding: 0 16px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: 2px solid transparent;
+    outline-offset: 1px;
+    -webkit-transition: all .2s ease-in;
+    -o-transition: .2s all ease-in;
+    transition: all .2s ease-in;
+    border: 1px solid #bababa;
+    font-size: 14px;
     color: #e56761;
+	background: #e5676122;
     margin: 0 0 0 5px;
 	cursor: pointer;
 }
 .btn-push-zoom {
-    color: #71e561;
+  
+    border-radius: 8px;
+    height: 32px;
+    padding: 0 16px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: 2px solid transparent;
+    outline-offset: 1px;
+    -webkit-transition: all .2s ease-in;
+    -o-transition: .2s all ease-in;
+    transition: all .2s ease-in;
+    border: 1px solid #bababa;
+    font-size: 14px;
+	background: #71e56122;
+    color: rgb(28 158 0);
     margin: 0 0 0 5px;
 	cursor: pointer;
 }
+.btn-push-zoom-2 {
+    border-radius: 8px;
+    height: 32px;
+    padding: 0 16px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: 2px solid transparent;
+    outline-offset: 1px;
+    -webkit-transition: all .2s ease-in;
+    -o-transition: .2s all ease-in;
+    transition: all .2s ease-in;
+    border: 1px solid #bababa;
+    font-size: 14px;
+	background: #71e56122;
+    color: rgb(28 158 0);
+    margin: 0 0 0 5px;
+	cursor: pointer;
+}
+
+
 
 
 #startupbutton{
