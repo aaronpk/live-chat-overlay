@@ -603,20 +603,41 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 	//var counter=0;
 	var idle = null;
 	
-	var socket = new WebSocket("wss://api.action.wtf:666");
-		
+	var socket = new WebSocket("wss://api.overlay.ninja"); // version 1.x.x of the app.
 	socket.onclose = function (){
 		setTimeout(function(){window.location.reload(true);},100);
 	};
-	
 	socket.onopen = function (){
 		socket.send(JSON.stringify({"join":roomID}));
-	}
-	
+	};
 	socket.addEventListener('message', function (event) {
 		if (event.data){
 			var data = JSON.parse(event.data);
-			
+			if (!("contents" in data)){
+				data.contents = data;
+			}
+			processEvent(data);
+		}
+	});
+	
+	if (roomID.length === 10){ // version 0.x.x of the app.  Run it for now also, just in case user on old version still. Will be deprecated eventually.
+		var socket_oldVersion = new WebSocket("wss://api.action.wtf:666");
+		
+		socket_oldVersion.onclose = function (){
+			setTimeout(function(){window.location.reload(true);},100);
+		};
+		socket_oldVersion.onopen = function (){
+			socket_oldVersion.send(JSON.stringify({"join":roomID}));
+		};
+		socket_oldVersion.addEventListener('message', function (event) {
+			if (event.data){
+				processEvent(JSON.parse(event.data));
+			}
+		});
+	}
+
+	
+	function processEvent(data){
 			var settings = false;
 			if (data.settings){
 				settings = data.settings;
@@ -643,10 +664,15 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 						processPoll(data);
 						return;
 					}
+					if (!data.type){
+						data.type = "";
+					}
 					
 					var addImage = "";
 					if (data.contentimg){
 						 addImage = '<div id="imgContent" class="hl-imgContent"><img id="img" src="' + data.contentimg + '"  onerror="this.parent.style.display=\'none\'" onload="realign();"/></div>';
+					} else {
+						data.contentimg = "";
 					}
 					
 					if (data.chatmessage && (getChromeVersion()>=95)){
@@ -655,6 +681,27 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 						}
 					}
 					
+					if (!data.chatbadges){
+						data.chatbadges = "";
+					}
+					if (!data.chatname){
+						data.chatname = "";
+					}
+					if (!data.backgroundColor){
+						data.backgroundColor = "";
+					}
+					if (!data.textColor){
+						data.textColor = "";
+					}
+					if (!data.chatmessage){
+						data.chatmessage = "";
+					}
+					if (!data.hasDonation){
+						data.hasDonation = "";
+					}
+					if (!data.hasMembership){
+						data.hasMembership = "";
+					}
 					
 					document.getElementById("output").innerHTML = '<div class="hl-c-cont highlight-chat">'
 						 + '<div class="hl-name" id="nameDIV">' + data.chatname
@@ -725,21 +772,23 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 					applySettings(settings);
 				}
 			}
-		}
-	});
+		
+	}
 	
-	socket.onclose = function (){
-		setTimeout(function(){window.location.reload(true);},100);
-	};
+	
 	
 	function processPoll(data){
-		
+		if (!data.answers){
+			data.answers=[];
+		}
 		console.log(data);
 		var output = '<div class="hl-c-cont highlight-chat">'
 			 + '<div class="hl-name" id="nameDIV">' + data.question
 			 + '</div>';
 			 for (var i=0;i<data.answers.length;i++){
-				output += '<div class="hl-choice" id="message_'+i+'">• ' + data.answers[i].answer + '</div>'
+				 try{
+					output += '<div class="hl-choice" id="message_'+i+'">• ' + data.answers[i].answer + '</div>'
+				}catch(e){}
 			 }
 			output +='</div>';
 			

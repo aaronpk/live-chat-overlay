@@ -20,8 +20,8 @@ function saveOptions(e) {
 }
 function generateStreamID(){
 	var text = "";
-	var possible = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
-	for (var i = 0; i < 10; i++){
+	var possible = "ABCEFGHJKLMNPQRSTUVWXYZabcefghijkmnpqrstuvwxyz23456789";
+	for (var i = 0; i < 11; i++){
 		text += possible.charAt(Math.floor(Math.random() * possible.length));
 	}
 	chrome.storage.sync.set({

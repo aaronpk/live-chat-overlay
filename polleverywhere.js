@@ -2,8 +2,8 @@
 var soca=false;
 function generateStreamID(){
 	var text = "";
-	var possible = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
-	for (var i = 0; i < 10; i++){
+	var possible = "ABCEFGHJKLMNPQRSTUVWXYZabcefghijkmnpqrstuvwxyz23456789";
+	for (var i = 0; i < 11; i++){
 		text += possible.charAt(Math.floor(Math.random() * possible.length));
 	}
 	return text;
@@ -16,7 +16,7 @@ var connecting = false;
 function actionwtf(){ // steves personal socket server service
 	if (soca){return;}
 	
-	soca = new WebSocket("wss://api.action.wtf:666");
+	soca = new WebSocket("wss://api.overlay.ninja");
 	soca.onclose = function (){
 		console.error("closed: reconnecting");
 		clearTimeout(connecting);

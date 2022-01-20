@@ -1,8 +1,8 @@
 var soca=false;
 function generateStreamID(){
 	var text = "";
-	var possible = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
-	for (var i = 0; i < 10; i++){
+	var possible = "ABCEFGHJKLMNPQRSTUVWXYZabcefghijkmnpqrstuvwxyz23456789";
+	for (var i = 0; i < 11; i++){
 		text += possible.charAt(Math.floor(Math.random() * possible.length));
 	}
 	return text;
@@ -21,7 +21,7 @@ function actionwtf(){ // steves personal socket server service
 		prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
 	}
 	
-	soca = new WebSocket("wss://api.action.wtf:666");
+	soca = new WebSocket("wss://api.overlay.ninja");
 	soca.onclose = function (){
 		setTimeout(function(){soca=false;actionwtf(); },2000);
 	};

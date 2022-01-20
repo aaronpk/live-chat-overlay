@@ -1,8 +1,8 @@
 var soca=false;
 function generateStreamID(){
 	var text = "";
-	var possible = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
-	for (var i = 0; i < 10; i++){
+	var possible = "ABCEFGHJKLMNPQRSTUVWXYZabcefghijkmnpqrstuvwxyz23456789";
+	for (var i = 0; i < 11; i++){
 		text += possible.charAt(Math.floor(Math.random() * possible.length));
 	}
 	return text;
@@ -16,7 +16,7 @@ var alreadyPrompted = false;
 function actionwtf(){ // steves personal socket server service
 	if (soca){return;}
 
-	soca = new WebSocket("wss://api.action.wtf:666");
+	soca = new WebSocket("wss://api.overlay.ninja");
 	soca.onclose = function (){
 		setTimeout(function(){soca=false;actionwtf(); },2000);
 	};
@@ -116,10 +116,7 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
   }
   var chatimg = 'http://chat.overlay.ninja/twitch.png';
   
-  
   this.style.backgroundColor = "#666";
-
-  
 
   var chatbadges = "";
   if($(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").length > 0) {
@@ -168,8 +165,18 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
   data.hasMembership = hasMembership;
   data.type = "twitch";
   
-  pushMessage(data);
-
+  fetch("https://api.action.wtf:667/username/"+data.chatname).then(response => {
+		response.text().then(function (text) {
+			if (text.startsWith("https://")){
+				data.chatimg = text;
+			} 
+			pushMessage(data);
+		}).catch(function(){
+			pushMessage(data);
+		});
+	}).catch(error => {
+		pushMessage(data);
+	});
 });
 
 $("body").on("click", ".btn-clear-twitch", function () {
