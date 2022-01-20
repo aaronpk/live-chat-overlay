@@ -107,11 +107,11 @@ There are also some options buried in the Chrome extension itself, but those wil
 
 ### REST API for Webhooks
 
-Sample of how to send an overlay event as a POST (JSON) request
+You can use this API endpoint to have overlays appear automatically based on a webhook or other REST API POST request. Lots of sites have webhooks, including crypto exchanges. Have an overlay appear automatically when an event occurs!
 
-https://chat.overlay.ninja/sample_post_api.html
+Refer to the source code of this linked page for advanced details: https://chat.overlay.ninja/sample_post_api.html
 
-The concept is as follows in Javascript:
+A basic sample of how to send an overlay event as a POST (JSON) request is below:
 ```
 function sendBasicMSG(){
     var sessionID = prompt("What is the session ID you want to send this message to?");
@@ -130,7 +130,10 @@ function sendBasicMSG(){
 	xhr.send(JSON.stringify(data));
 }
 ```
-You can use this concept to have overlays appear automatically based on a webhook. Lots of sites have webhooks, including crypto exchanges.  You'll just need to make sure the webhook is in the following structure.
+
+The end point is `https://api.overlay.ninja/SESSIONIDHERE`, where the SESSIONIDHERE is the session ID set by the index file; `index.html?session=SESSIONIDHERE`.
+
+Please do not heavily spam the server or send large files (>1mb).
 
 ### Consolidate Messaging Extension
 
