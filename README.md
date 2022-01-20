@@ -105,6 +105,33 @@ For simple CSS changes, you can add them to the OBS Browser Source itself, in th
 There are also some options buried in the Chrome extension itself, but those will likey be changing going into the future. You can change the color of the message background for example.
 
 
+### REST API for Webhooks
+
+Sample of how to send an overlay event as a POST (JSON) request
+
+https://chat.overlay.ninja/sample_post_api.html
+
+The concept is as follows in Javascript:
+```
+function sendBasicMSG(){
+    var sessionID = prompt("What is the session ID you want to send this message to?");
+	if (!sessionID){return;}
+	
+	  var data = {};
+	  data.chatname = "TEST USER";
+	  data.chatmessage = "TEST MESSAGE HERE";
+	  data.chatimg = 'http://chat.overlay.ninja/twitch.png';
+	  data.hasDonation = "$10 CAD";
+	  data.type = "someAppSource";
+	
+    var xhr = new XMLHttpRequest();
+	xhr.open("POST", "https://api.overlay.ninja/"+sessionID, true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify(data));
+}
+```
+You can use this concept to have overlays appear automatically based on a webhook. Lots of sites have webhooks, including crypto exchanges.  You'll just need to make sure the webhook is in the following structure.
+
 ### Consolidate Messaging Extension
 
 There's another Browser Extension made that's simliar to this one, however it usees Peer-to-Peer in place of a routing server to transport messages and it consolidates *all* messages into a single dashboard, rather than needing to interface with multiple windows to trigger Featured Messaging.  In many ways, it's superior, although it only supports streaming messagings, and not so much static content, like Instagram post comments.
