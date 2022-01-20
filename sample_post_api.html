@@ -26,15 +26,15 @@ function sendAdvancedMSG(){
 	  var data = {};
 	  data.settings = {}; // Settings will change global settings related to the overlay; timeout, etc.
 	  data.contents = {}; // contents of the overlay itself
-	  data.contents.chatname = "TEST USER";
+	  data.contents.chatname = "Anonymous User";
 	  data.contents.chatbadges = "";
 	  data.contents.backgroundColor = "";
 	  data.contents.textColor = "";
-	  data.contents.chatmessage = "TEST MESSAGE HERE";
+	  data.contents.chatmessage = "Someone donated to you!";
 	  data.contents.chatimg = 'http://chat.overlay.ninja/twitch.png';
-	  data.contents.hasDonation = "$10 CAD";
+	  data.contents.hasDonation = "1.3 ETH";
 	  data.contents.hasMembership = "";
-	  data.contents.type = "test";
+	  data.contents.type = "crypto";
 	
     var xhr = new XMLHttpRequest();
 	xhr.open("POST", "https://api.overlay.ninja/"+sessionID, true);
