@@ -133,7 +133,7 @@ function sendBasicMSG(){
 
 The end point is `https://api.overlay.ninja/SESSIONIDHERE`, where the SESSIONIDHERE is the session ID set by the index file; `index.html?session=SESSIONIDHERE`.
 
-Please do not heavily spam the server or send large files (>1mb).
+You do not need to follow the same structure as what is listed above; you can use your own fields, etc, but you will then need to handle that data in the overlay index.html file yourself. Just please do not heavily spam the server or send large files (>1mb).
 
 ### Consolidate Messaging Extension
 
