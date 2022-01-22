@@ -36,10 +36,12 @@ function actionwtf(){ // steves personal socket server service
 			}
 		}
 	});
-	
+
 	chrome.storage.sync.set({
 		streamID: channel
 	});
+	
+	chrome.runtime.lastError;
 }
 
 function pushMessage(data){
@@ -212,6 +214,8 @@ chrome.storage.sync.get(properties, function(item){
 	chrome.storage.sync.set({
 		streamID: channel
 	});
+	
+	chrome.runtime.lastError;
   }
 
   let root = document.documentElement;
