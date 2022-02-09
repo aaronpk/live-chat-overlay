@@ -77,7 +77,7 @@ $("#react-root").unbind("click").on("click", "div>div>section>div", function (ev
 	
 	var chatname="";
 	try {
-		chatname = this.childNodes[0].childNodes[0].childNodes[1].childNodes[0].textContent;
+		chatname = this.childNodes[0].childNodes[0].childNodes[1].children[0].textContent;
 		chatname = chatname.replace(/ .*/,'');
 	} catch(e){
 		console.error(e);
