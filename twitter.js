@@ -331,8 +331,14 @@ function checkButtons(){
 		} catch(e){}
 	}
 	
-	if (!document.getElementById("overlaybutton")){
-		document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button id="overlaybutton" class="btn-clear-twitter">CLEAR OVERLAY</button><button class="btn-getoverlay-twitter" >SHOW OVERLAY LINK</button>';
+	if (!document.getElementById("overlaybutton")){ // aria-label="Tweeter" //  ;
+		try {
+			var eles = document.querySelector('header[role="banner"]').querySelectorAll('[data-testid="SideNav_NewTweet_Button"]');
+			var ele = eles[eles.length - 1].parentNode;
+		} catch(e){
+			var ele = document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode;
+		}
+		ele.outerHTML += '<button id="overlaybutton" class="btn-clear-twitter">CLEAR OVERLAY</button><button class="btn-getoverlay-twitter" >SHOW OVERLAY LINK</button>';
 	}
 }
 function startup() {
@@ -347,7 +353,10 @@ function preStartup(){
 		try{
 			document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label="Tweet"]')[0].parentNode.outerHTML += '<button id="startupbutton" class="btn-clear-twitter">Enable Overlay Service</button>';
 		} catch (e){
-			document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label][role="link"]')[0].parentNode.outerHTML += '<button id="startupbutton" class="btn-clear-twitter">Enable Overlay Service</button>';
+			var eles = document.querySelector('header[role="banner"]').querySelectorAll('a[aria-label][role="link"]');
+			var ele = eles[eles.length - 1].parentNode;
+			ele.outerHTML += '<button id="startupbutton" class="btn-clear-twitter">Enable Overlay Service</button>';
+			
 		}
 	}
 }
