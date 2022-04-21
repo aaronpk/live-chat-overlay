@@ -167,7 +167,7 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
   data.hasMembership = hasMembership;
   data.type = "twitch";
   
-  fetch("https://api.action.wtf:667/username/"+data.chatname).then(response => {
+  fetch("https://twitch.action.wtf/username/"+data.chatname).then(response => {
 		response.text().then(function (text) {
 			if (text.startsWith("https://")){
 				data.chatimg = text;
