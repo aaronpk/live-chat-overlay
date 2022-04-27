@@ -20,6 +20,7 @@ This Chat overlay extensions will forward the selected chat message over a web-s
 - Crowdcast.io
 - Zoom.us (text chat and polls)
 - polleverywhere.com (https://www.polleverywhere.com/discourses/xxxxx question page)
+- Trovo (open the chat pop-up page: https://trovo.live/chat/xxxxxx)
 
 ![image](https://user-images.githubusercontent.com/2575698/121636030-485cbc00-ca55-11eb-8416-4d7626653fa8.png)
 
