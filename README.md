@@ -1,4 +1,4 @@
-###### Status Update:
+##### Status Update:
 Just a note that I'm shifting my focus from chat.overlay.ninja to Social Stream going forward: https://github.com/steveseguin/social_stream  I will still support chat.overlay.ninja, but my main development efforts will be focused on the more capable and scalable Social Stream chat overlay extension.
 
 YouTube/Twitch and More - Chat Overlay Ninja
