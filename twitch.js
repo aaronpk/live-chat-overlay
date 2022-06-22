@@ -167,7 +167,8 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
   data.hasMembership = hasMembership;
   data.type = "twitch";
   
-  fetch("https://twitch.action.wtf/username/"+data.chatname).then(response => {
+  fetchWithTimeout("https://api.socialstream.ninja/twitch/avatar?username="+encodeURIComponent(data.chatname)).then(response => {
+  // fetch("https://twitch.action.wtf/username/"+data.chatname).then(response => {
 		response.text().then(function (text) {
 			if (text.startsWith("https://")){
 				data.chatimg = text;
@@ -180,6 +181,19 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
 		pushMessage(data);
 	});
 });
+
+async function fetchWithTimeout(URL, timeout=8000){ // ref: https://dmitripavlutin.com/timeout-fetch-request/
+	try {
+		const controller = new AbortController();
+		const timeout_id = setTimeout(() => controller.abort(), timeout);
+		const response = await fetch(URL, {...{timeout:timeout}, signal: controller.signal});
+		clearTimeout(timeout_id);
+		return response;
+	} catch(e){
+		errorlog(e);
+		return await fetch(URL); // iOS 11.x/12.0
+	}
+}
 
 $("body").on("click", ".btn-clear-twitch", function () {
   pushMessage(false);
