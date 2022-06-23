@@ -130,7 +130,7 @@ function prepMessage(ele){
   var msg = "";
   try {
 	console.log(ele);
-	msg = ele.querySelector('.text').innerText;
+	msg = ele.querySelector('div.text').innerText;
   } catch(e){
 	
   }
