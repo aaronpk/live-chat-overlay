@@ -61,11 +61,11 @@
 
 	var highlightWords = [];
 
-	$("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer", function () {
+	$("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer,ytd-sponsorships-live-chat-gift-purchase-announcement-renderer", function () {
 
 	  // Don't show deleted messages
 	  if($(this)[0].hasAttribute("is-deleted")) {
-		console.log("Not showing deleted message");
+		//console.log("Not showing deleted message");
 		return;
 	  }
 
@@ -85,6 +85,12 @@
 	  var chatsticker = $(this).find(".yt-live-chat-paid-sticker-renderer #img").attr("src");
 
 	  // Donation amounts for stickers use a differnet id than regular superchats
+	  if(chatsticker) {
+		chatdonation = $(this).find("#purchase-amount-chip").html();
+	  }
+
+	  var giftedmemembership = $(this).find("#primary-text.ytd-sponsorships-live-chat-header-renderer").html();
+	  
 	  if(chatsticker) {
 		chatdonation = $(this).find("#purchase-amount-chip").html();
 	  }
@@ -110,11 +116,17 @@
 	  if (chatmembership) {
 		  if (chatmessage){
 			  hasMembership = '<div class="donation membership">MEMBER CHAT</div>';
+		  } else if (giftedmemembership){
+			  hasMembership = '<div class="donation membership">SPONSORSHIP</div>';
 		  } else {
 			hasMembership = '<div class="donation membership">NEW MEMBER!</div>';
 			chatmessage = chatmembership;
 		  }
+	  } else if (!chatmessage && giftedmemembership){
+			chatmessage = giftedmemembership;
+			hasMembership = '<div class="donation membership">SPONSORSHIP</div>';
 	  }
+		  
 
 	  var backgroundColor = "";
 	  var textColor = "";
@@ -140,7 +152,6 @@
 	  data.hasMembership = hasMembership;
 	  data.type = "youtube";
 	  pushMessage(data);
-
 	});
 
 
@@ -219,13 +230,6 @@
 
 	$("#primary-content").append('<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
 
-	function displayAspectRatio() {
-	  var ratio = Math.round(window.innerWidth / window.innerHeight * 100) / 100;
-	  ratio += " (target 1.77)";
-	  $("#aspect-ratio").text(ratio);
-	}
-	displayAspectRatio();
-	window.onresize = displayAspectRatio;
 
 	setTimeout(function(){
 		$( "yt-live-chat-app" ).before( '<button class="btn-clear-youtube">CLEAR</button><button class="btn-getoverlay-youtube">LINK</button>' );
@@ -256,11 +260,7 @@
 
 	}
 
-
-
-
 	onElementInserted("yt-live-chat-app", function(element){
-	  console.log("New dom element inserted", element.tagName);
 	  // Check for highlight words
 	  var chattext = $(element).find("#message").text();
 	  var chatWords = chattext.split(" ");
