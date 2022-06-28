@@ -118,6 +118,7 @@
 			  hasMembership = '<div class="donation membership">MEMBER CHAT</div>';
 		  } else if (giftedmemembership){
 			  hasMembership = '<div class="donation membership">SPONSORSHIP</div>';
+			  chatmessage = giftedmemembership;
 		  } else {
 			hasMembership = '<div class="donation membership">NEW MEMBER!</div>';
 			chatmessage = chatmembership;
