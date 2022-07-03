@@ -1,4 +1,47 @@
+:root {
+    /* basic colors */
+    --keyer-bg-color: #000; /* change for a chroma key if you want, beware profile avatars may key out */
+    --comment-color: #fff;
+    --comment-bg-color: #222; /* needs to be slightly above black to not get keyed out */
+    --comment-border-radius: 0px;
+    --comment-font-size: 40px;
+    --author-color: #222;
+    --author-bg-color: #ffa500;
+    --author-avatar-border-color: #ffa500;
+    --author-border-radius: 0px;
+    --author-avatar-border-size: 3px;
+    --author-avatar-size: 128px;
+    --author-font-size: 30px;
+    /* donation/superchat specific */
+    --donation-color: #5a4211;
+    --donation-bg-color: #fff;
+    --donation-gradient-stop0: #BF953F;
+    --donation-gradient-stop1: #ede599;
+    --donation-gradient-stop2: #B38728;
+    --donation-label-color: #fff;
+    --donation-label-text: 'SUPERCHAT';
+    --donation-shadow-color: #fff;
 
+    --shown-comment-bg-color: #555555;
+    --highlighted-comment-bg-color: #f0f07d;
+
+    /*
+    LAYOUT
+    */
+    --comment-width: auto; /* go 100% for a full screen lower third style*/
+    --comment-padding: 20px 40px 20px 70px;
+    --comment-area-height: 30vh;
+    --comment-scale: 1;
+    --comment-area-size-offset: 0;
+    --comment-area-bottom: 10px;
+    /*
+    STYLE
+    */
+    --font-family: Avenir Next, Helvetica, Geneva, Verdana, Arial, sans-serif;
+    --highlight-chat-font-weight: 600;
+    --author-font-weight: 700;
+    --comment-font-weight: 600;
+}
 
 .btn-clear {
     position: absolute;

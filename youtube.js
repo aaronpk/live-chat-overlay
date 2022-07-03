@@ -261,17 +261,15 @@
 
 	}
 
-	onElementInserted("yt-live-chat-app", function(element){
-	  // Check for highlight words
-	  var chattext = $(element).find("#message").text();
-	  var chatWords = chattext.split(" ");
+	onElementInserted("yt-live-chat-app", function(element){ // Check for highlight words
+	  var chatWords = element.innerText.split(" ");
 	  if (!highlightWords){
 		  highlightWords=[];
 	  }
 	  var highlights = chatWords.filter(value => highlightWords.includes(value.toLowerCase().replace(/[^a-z0-9]/gi, '')));
-	  $(element).removeClass("shown-comment");
+	  element.classList.remove("shown-comment");
 	  if(highlights.length > 0) {
-		$(element).addClass("highlighted-comment");
+		 element.classList.add("highlighted-comment");
 	  }
 	});
 
