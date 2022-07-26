@@ -67,7 +67,7 @@ function pushMessage(data){
 }
 
 
-$("#react-root").unbind("click").on("click", "div>div>section>div", function (event) {
+function processClick(event){
 	console.log(event.target);
 	console.log(this);
 	if (!this.childNodes.length){return;}
@@ -77,19 +77,19 @@ $("#react-root").unbind("click").on("click", "div>div>section>div", function (ev
 	
 	var chatname="";
 	try {
-		chatname = this.childNodes[0].childNodes[0].childNodes[1].children[0].textContent;
+		chatname = this.childNodes[0].childNodes[0].childNodes[0].childNodes[1].children[0].textContent;
 		chatname = chatname.replace(/ .*/,'');
 	} catch(e){
 		console.error(e);
 	}
 	var chatmessage="";
 	try{
-		chatmessage = this.childNodes[0].childNodes[0].childNodes[1].children[1].innerHTML;
+		chatmessage = this.childNodes[0].childNodes[0].childNodes[0].childNodes[1].children[1].innerHTML;
 	}catch(e){console.error(e);}
 	
 	var chatimg="";
 	try{
-		chatimg = this.childNodes[0].childNodes[0].childNodes[0].querySelectorAll("img")[0].src;
+		chatimg = this.childNodes[0].childNodes[0].childNodes[0].childNodes[0].querySelectorAll("img")[0].src;
 	} catch(e){
 		console.error(e);
 	}
@@ -122,7 +122,7 @@ $("#react-root").unbind("click").on("click", "div>div>section>div", function (ev
 	  pushMessage(data);
   }
   
-});
+};
 
 var properties = ["streamID"];
 chrome.storage.sync.get(properties, function(item){
@@ -136,26 +136,53 @@ chrome.storage.sync.get(properties, function(item){
 });
 
 
-setTimeout(function(){
+var keepTrying = setInterval(function(){
+
+	if (!document.querySelector("footer") || !document.querySelector("footer").previousSibling){
+		return;
+	} else {
+		clearInterval(keepTrying);
+	}
+
+	console.log("Instagram live inject started");
 
 	document.head.insertAdjacentHTML("beforeend", `<style>div>div>section>div:hover{cursor: pointer;background-color: #6b94;}</style>`)
-
+	
+	function onElementInserted() {
+		var onMutationsObserved = function(mutations) {
+			mutations.forEach(function(mutation) {
+				console.log(mutation.addedNodes);
+				mutation.addedNodes.forEach(ele=>{
+					ele.addEventListener('click', processClick);
+				});
+			});
+		};
+		var target = document.querySelector("footer").previousSibling;
+		var config = { childList: true, subtree: true };
+		var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+		var observer = new MutationObserver(onMutationsObserved);
+		observer.observe(target, config);
+	}
+	
+	onElementInserted();
 
 	var button2 = document.createElement("button");
 	button2.innerHTML = "Clear all";
 	button2.style.cursor = "pointer";
-	button2.style.margin = "10px";
 	button2.style.backgroundColor = "#FCC";
 	button2.style.padding = "5px";
 	button2.style.width = "75px";
+	button2.style.borderRadius = "6px";
+	button2.style.margin = "0 5px";
 	
 	var button3 = document.createElement("button");
 	button3.innerHTML = "Get link";
 	button3.style.cursor = "pointer";
-	button3.style.margin = "10px";
 	button3.style.backgroundColor = "#CCF";
 	button3.style.padding = "5px";
 	button3.style.width = "75px";
+	button3.style.borderRadius = "6px";
+	button2.style.margin = "0 5px";
 	
 	button2.onclick = function(){
 		pushMessage(false);
@@ -165,7 +192,7 @@ setTimeout(function(){
 		 prompt("Overlay Link: https://chat.overlay.ninja?session="+channel+"\nAdd as a browser source; set height to 250px", "https://chat.overlay.ninja?session="+channel);
 	}
 		
-	document.querySelector("[data-testid='live-badge']").appendChild(button2);
-	document.querySelector("[data-testid='live-badge']").appendChild(button3);
+	document.querySelector("header").childNodes[0].childNodes[1].appendChild(button2);
+	document.querySelector("header").childNodes[0].childNodes[1].appendChild(button3);
 
-},2000);
+},500);

@@ -1,4 +1,11 @@
 (function() {
+	
+	
+	if (window.location.href.indexOf("/live/") > -1) {
+		console.log("Instagram live detected");
+		return;
+	}
+	
 var soca=false;
 function generateStreamID(){
 	var text = "";
