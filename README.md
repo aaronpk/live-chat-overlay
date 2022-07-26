@@ -1,5 +1,9 @@
 ##### Status Update of this project and its future :
-Just a note that I'm shifting my focus from chat.overlay.ninja to Social Stream going forward: https://github.com/steveseguin/social_stream. I will still support chat.overlay.ninja, but my main development efforts will be focused on the more capable and scalable Social Stream chat overlay extension.
+Just a note that I'm shifting my focus from this project to SocialStream.Ninja going forward (https://github.com/steveseguin/social_stream). I will still support this simple chat overlay extension, but my main development efforts will be focused on the more capable and scalable SocialStream.Ninja extension; check it out.
+
+##### Having issues with Twitch overlays loading slow?
+If having any problems with Twitch overlays loading slowly, or Twitch profile photos not loading at all, please update the extension to the newest version. I'm also on Discord at discord.vdo.ninja if seeking support or bug reports.
+
 
 YouTube/Twitch and More - Chat Overlay Ninja
 ============================================
