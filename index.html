@@ -611,26 +611,30 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 	var conCon = 1;
 	
 	var socket = new WebSocket("wss://api.overlay.ninja"); // version 1.x.x of the app.
-	socket.onclose = function (){
-		setTimeout(function(){
-			conCon+=1;
-			socket = new WebSocket("wss://api.overlay.ninja"); // version 1.x.x of the app.
-		},100*conCon);
-	};
-	socket.onopen = function (){
-		conCon = 1;
-		socket.send(JSON.stringify({"join":roomID}));
-	};
-	socket.addEventListener('message', function (event) {
-		if (event.data){
-			var data = JSON.parse(event.data);
-			if (!("contents" in data)){
-				data.contents = data;
-			}
-			processEvent(data);
-		}
-	});
+	setupSocket();
 	
+	function setupSocket(){
+		socket.onclose = function (){
+			setTimeout(function(){
+				conCon+=1;
+				socket = new WebSocket("wss://api.overlay.ninja"); // version 1.x.x of the app.
+				setupSocket();
+			},100*conCon);
+		};
+		socket.onopen = function (){
+			conCon = 1;
+			socket.send(JSON.stringify({"join":roomID}));
+		};
+		socket.addEventListener('message', function (event) {
+			if (event.data){
+				var data = JSON.parse(event.data);
+				if (!("contents" in data)){
+					data.contents = data;
+				}
+				processEvent(data);
+			}
+		});
+	}
 	if (roomID.length === 10){ // version 0.x.x of the app.  Run it for now also, just in case user on old version still. Will be deprecated eventually.
 		console.error("Old versions of this app are no longer supported.  Please go to chat.overlay.ninja and update your extension to the newest version if having issues");
 	}
