@@ -614,7 +614,7 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 	socket.onclose = function (){
 		setTimeout(function(){
 			conCon+=1;
-			socket.send(JSON.stringify({"join":roomID}));
+			socket = new WebSocket("wss://api.overlay.ninja"); // version 1.x.x of the app.
 		},100*conCon);
 	};
 	socket.onopen = function (){
