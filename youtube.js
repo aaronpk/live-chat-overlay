@@ -31,6 +31,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   data.donation = $(this).find("#purchase-amount").html();
   data.membership = $(this).find(".yt-live-chat-membership-item-renderer #header-subtext").html();
   data.sticker = $(this).find(".yt-live-chat-paid-sticker-renderer #img").attr("src");
+  data.chatId = $(this).attr("id");
 
   // Donation amounts for stickers use a differnet id than regular superchats
   if(data.sticker) {
@@ -42,13 +43,10 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     data.badges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
   }
 
-  if(sessionID && this.id === lastId) {
-    lastId = "";
-    var remote = {
-      version: version,
-      command: "hide"
-    };
-    $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
+  console.log($(this).attr("id"));
+
+  if(data.chatId === lastId) {
+    hideActiveChat();
     return;
   }
 
@@ -92,6 +90,8 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
      +data.donationHTML+data.membershipHTML
    +'</div>';
 
+  lastId = data.chatId;
+
   if(sessionID) {
 
     var remote = {
@@ -100,7 +100,6 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
       html: html,
       config: config
     }
-    lastId = this.id;
     $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
 
   } else {
@@ -115,7 +114,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 
 });
 
-$("body").on("click", ".btn-clear", function () {
+function hideActiveChat() {
   var remote = {
     version: version,
     command: "hide"
@@ -125,6 +124,12 @@ $("body").on("click", ".btn-clear", function () {
   $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
     $(".hl-c-cont").remove().dequeue();
   });
+
+  lastId = false;
+}
+
+$("body").on("click", ".btn-clear", function () {
+  hideActiveChat();
 });
 
 $("yt-live-chat-app").before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' );
