@@ -6,6 +6,7 @@ var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
 var remoteServerURL = remoteWindowURL + "pub";
 var version = "0.2.3";
 var config = {};
+var lastId = "";
 
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer", function () {
 
@@ -41,6 +42,16 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   data.badges = "";
   if($(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").length > 0) {
     data.badges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
+  }
+
+  if(sessionID && this.id === lastId) {
+    lastId = "";
+    var remote = {
+      version: version,
+      command: "hide"
+    };
+    $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
+    return;
   }
 
   // Mark this comment as shown
@@ -91,6 +102,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
       html: html,
       config: config
     }
+    lastId = this.id;
     $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
 
   } else {
