@@ -254,6 +254,13 @@ $("#pop-out-url").click(function(){
   $(this).select();
 });
 
+$(document).keyup(function(e){
+
+    if(e.keyCode === 27) {
+      hideActiveChat();
+    }
+
+});
 
 $(function(){
 
