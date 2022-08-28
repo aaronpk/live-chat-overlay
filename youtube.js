@@ -7,10 +7,13 @@ var remoteServerURL = remoteWindowURL + "pub";
 var version = "0.2.3";
 var config = {};
 var lastId = "";
+var autoHideTimer = null;
 
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer", function () {
 
   $(".active-comment").removeClass("active-comment");
+
+  clearTimeout(autoHideTimer);
 
   // Don't show deleted messages
   if($(this)[0].hasAttribute("is-deleted")) {
@@ -112,6 +115,12 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 
   }
 
+  if(config.autoHideSeconds) {
+    autoHideTimer = setTimeout(function(){
+      hideActiveChat();
+    }, config.autoHideSeconds*1000);
+  }
+
 });
 
 function hideActiveChat() {
@@ -157,7 +166,7 @@ $(function(){
 });
 
 // Restore settings
-var configProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL"];
+var configProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL","autoHideSeconds"];
 chrome.storage.sync.get(configProperties, function(item){
   var color = "#000";
   if(item.color) {

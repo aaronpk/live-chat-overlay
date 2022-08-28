@@ -14,13 +14,14 @@ function saveOptions(e) {
     fontFamily: document.querySelector("#font-family").value,
     highlightWords: document.querySelector("#highlight-words").value.toLowerCase().replace(/[^a-z0-9, ]/gi, '').split(",").map(e => e.trim()),
     showOnlyFirstName: document.querySelector("#firstname").checked,
+    autoHideSeconds: document.querySelector("#auto-hide-seconds").value,
     popoutURL: document.querySelector("#popout-url").value
   });
 }
 
 function restoreOptions() {
 
-  var properties = ["color","scale","commentBottom","commentHeight","sizeOffset","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL"];
+  var properties = ["color","scale","commentBottom","commentHeight","sizeOffset","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL","autoHideSeconds"];
   chrome.storage.sync.get(properties, function(result){
     document.querySelector("#color").value = result.color || "#000";
     document.querySelector("#scale").value = result.scale || "1.0";
@@ -34,6 +35,7 @@ function restoreOptions() {
     document.querySelector("#comment-color").value = result.commentColor || "#fff";
     document.querySelector("#font-family").value = result.fontFamily || "Avenir Next, Helvetica, Geneva, Verdana, Arial, sans-serif";
     document.querySelector("#firstname").checked = result.showOnlyFirstName || false;
+    document.querySelector("#auto-hide-seconds").value = result.autoHideSeconds || 0;
     document.querySelector("#highlight-words").value = result.highlightWords.join(", ") || "question";
     document.querySelector("#popout-url").value = result.popoutURL || "https://chat.aaronpk.tv/overlay/";
   });
