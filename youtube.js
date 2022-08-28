@@ -45,8 +45,6 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     data.badges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
   }
 
-  console.log($(this).attr("id"));
-
   if(data.chatId === lastId) {
     hideActiveChat();
     return;
