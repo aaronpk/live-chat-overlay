@@ -10,6 +10,8 @@ var lastId = "";
 
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer", function () {
 
+  $(".active-comment").removeClass("active-comment");
+
   // Don't show deleted messages
   if($(this)[0].hasAttribute("is-deleted")) {
     console.log("Not showing deleted message");
@@ -51,7 +53,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   }
 
   // Mark this comment as shown
-  $(this).addClass("shown-comment");
+  $(this).addClass("shown-comment").addClass("active-comment");
 
   data.donationHTML = '';
   if(data.donation) {
@@ -115,11 +117,13 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 });
 
 function hideActiveChat() {
-  var remote = {
-    version: version,
-    command: "hide"
-  };
-  $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
+  if(sessionID) {
+    var remote = {
+      version: version,
+      command: "hide"
+    };
+    $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
+  }
 
   $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
     $(".hl-c-cont").remove().dequeue();

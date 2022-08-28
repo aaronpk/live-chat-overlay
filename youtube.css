@@ -22,6 +22,7 @@
     --donation-label-text: 'SUPERCHAT';
     --donation-shadow-color: #fff;
 
+    --active-comment-bg-color: #90dd91;
     --shown-comment-bg-color: #555555;
     --highlighted-comment-bg-color: #f0f07d;
 
@@ -92,6 +93,10 @@ yt-live-chat-text-message-renderer.shown-comment {
 }
 .shown-comment:hover {
     opacity: 0.5;
+}
+yt-live-chat-text-message-renderer.active-comment {
+    background-color: var(--active-comment-bg-color) !important;
+    opacity: 1;
 }
 highlight-chat {
     font-family: var(--font-family);
