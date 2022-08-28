@@ -288,6 +288,12 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 
 
 
+yt-live-chat-viewer-engagement-message-renderer {
+  display: none !important;
+}
+
+
+
 .button {
   text-decoration: none;
   padding: 6px;
