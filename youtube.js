@@ -18,10 +18,8 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 
   var data = {};
 
-  data.message = $(this).find("#message").html();
-
-  $(this).find("#author-name #tooltip.hidden").remove();
-  data.authorName = $(this).find("#author-name").text();
+  $(".hl-c-cont").remove();
+  data.authorname = $(this).find("#author-name").text();
 
   if(showOnlyFirstName) {
     data.authorname = data.authorname.replace(/ [^ ]+$/, '');
