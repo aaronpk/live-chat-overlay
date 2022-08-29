@@ -525,6 +525,31 @@ highlight-chat.preview {
 	animation: 1s linear fadein;
 }
 
+.btn-push-slido{
+	cursor:pointer;
+	border-radius: 15px;
+	animation: 1s linear fadein;
+	background-color: #DDD4;
+    margin: 10px;
+    padding: 4px 11px;
+}
+.btn-getoverlay-slido{
+	cursor:pointer;
+	border-radius: 15px;
+	animation: 1s linear fadein;
+	background-color: #DDD4;
+    margin: 10px;
+    padding: 4px 11px;
+}
+.btn-clear-slido{
+	cursor:pointer;
+	border-radius: 15px;
+	animation: 1s linear fadein;
+	background-color: #DDD4;
+    margin: 0;
+    padding: 4px 11px;
+}
+
 yt-live-chat-item-list-renderer {
 	margin-bottom: 20px;
 }

@@ -51,7 +51,7 @@
     LAYOUT
     */
     --comment-width: auto; /* go 100% for a full screen lower third style*/
-    --comment-padding: 20px 35px 20px 145px;
+    --comment-padding: 20px 35px 20px 45px;
     --comment-area-height: 70vh;
     --comment-scale: 1;
     --comment-area-size-offset: 0;
@@ -204,7 +204,7 @@ yt-live-chat-text-message-renderer.shown-comment {
 	height: var(--author-font-size);
 }
 .hl-message {
-    position: absolute;
+    position: relative;
     width: var(--comment-width);
     font-weight: var(--comment-font-weight);
     padding: var(--comment-padding);
@@ -214,6 +214,9 @@ yt-live-chat-text-message-renderer.shown-comment {
     font-size: var(--comment-font-size);
 	word-break: break-word;
 	z-index:1;
+	display:inline;
+	top: 25px;
+	left: 95px;
 }
 .hl-choice {
     width: var(--comment-width);
@@ -606,6 +609,10 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 		return raw ? parseInt(raw[2], 10) : false;
 	}
 	
+	
+	var tmpImage = new Image();
+	tmpImage.src = "unknown.png";
+					
 	//var counter=0;
 	var idle = null;
 	var conCon = 1;
@@ -651,7 +658,9 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 			if (data.contents){
 				if (data.contents.chatimg){
 					var tmpImage = new Image();
-					tmpImage.src = data.contents.chatimg  // preload the image
+					tmpImage.src = data.contents.chatimg; // preload the image
+				} else {
+					data.contents.chatimg = "unknown.png";
 				}
 			}
 			
@@ -681,7 +690,7 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 					
 					var addImage = "";
 					if (data.contentimg){
-						 addImage = '<div id="imgContent" class="hl-imgContent"><img id="img" src="' + data.contentimg + '"  onerror="this.parent.style.display=\'none\'" onload="realign();"/></div>';
+						 addImage = '<div id="imgContent" class="hl-imgContent"><img id="img" src="' + data.contentimg + '" onerror="this.parentNode.style.display=\'none\'" onload="realign();"/></div>';
 					} else {
 						data.contentimg = "";
 					}
@@ -719,7 +728,7 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 						 + '<div class="hl-badges">' + data.chatbadges + '</div>'
 						 + '</div>'
 						 + '<div id="message" class="hl-message" style="'+data.backgroundColor +' '+ data.textColor +'">' + data.chatmessage + '</div>'
-						 + '<div class="hl-img"><img src="' + data.chatimg + '" onerror="this.style.display=\'none\'"></div>'
+						 + '<div class="hl-img"><img src="' + data.chatimg + '" onerror="this.parentNode.style.display=\'none\'"></div>'
 						 + addImage
 						 + data.hasDonation + data.hasMembership +'</div>';
 					
@@ -745,8 +754,9 @@ yt-live-chat-membership-item-renderer[is-deleted] {
 						} catch(e){}
 					}
 					
-					for (i = 0; i < document.getElementsByTagName("img").length; i++) {
-						document.getElementsByTagName("img")[i].onerror = function(){
+					var msgImg = document.querySelectorAll("#message img");
+					for (i = 0; i < msgImg.length; i++) {
+						msgImg[i].onerror = function(){
 							if (this.parentNode.classList.contains("hl-name") && this.alt){
 								this.outerHTML = this.alt;	
 							} else if (this.alt.length!==2){
