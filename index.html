@@ -51,7 +51,7 @@
     LAYOUT
     */
     --comment-width: auto; /* go 100% for a full screen lower third style*/
-    --comment-padding: 20px 35px 20px 45px;
+    --comment-padding: 20px 35px 20px 145px;
     --comment-area-height: 70vh;
     --comment-scale: 1;
     --comment-area-size-offset: 0;
@@ -204,7 +204,7 @@ yt-live-chat-text-message-renderer.shown-comment {
 	height: var(--author-font-size);
 }
 .hl-message {
-    position: relative;
+    position: absolute;
     width: var(--comment-width);
     font-weight: var(--comment-font-weight);
     padding: var(--comment-padding);
@@ -214,9 +214,6 @@ yt-live-chat-text-message-renderer.shown-comment {
     font-size: var(--comment-font-size);
 	word-break: break-word;
 	z-index:1;
-	display:inline;
-	top: 25px;
-	left: 95px;
 }
 .hl-choice {
     width: var(--comment-width);
