@@ -219,8 +219,8 @@ chrome.storage.sync.get(configProperties, function(item){
 });
 
 
-$("#primary-content").append('<span style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
-$("#primary-content").append('<span style=""><a href="#" id="pop-out-button" class="button">Get Overlay URL</a></span>');
+$("#primary-content").append('<span id="aspect-ratio-container" style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
+$("#primary-content").append('<span id="get-overlay-url-container"><a href="#" id="pop-out-button" class="button">Get Overlay URL</a></span>');
 $("#primary-content").append('<span class="hidden"><input type="url" readonly id="pop-out-url"></span>');
 
 function displayAspectRatio() {
@@ -248,6 +248,8 @@ $("#pop-out-button").click(function(e){
 
   $("highlight-chat").remove();
   $("body").removeClass("inline-chat");
+  $("#aspect-ratio-container").addClass("hidden");
+  $("#get-overlay-url-container").addClass("hidden");
 });
 
 $("#pop-out-url").click(function(){
@@ -268,6 +270,19 @@ $(function(){
   if(window.location.hash) {
     $("#pop-out-button").click();
   }
+
+  // Show banner
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  $.post("https://chat.aaronpk.tv/featured.php", {
+    lang: window.navigator.language,
+    tz: timezone
+  }, function(response){
+    if(response && response.img) {
+      var link = 'https://chat.aaronpk.tv/redirect.php?tag='+response.tag+'&lang='+window.navigator.language+'&tz='+timezone;
+      $("body").append('<div id="featured"><a href="'+link+'" target="_blank"><img src="'+response.img+'" height="32" width="160"></a></span>');
+    }
+  });
 
 });
 

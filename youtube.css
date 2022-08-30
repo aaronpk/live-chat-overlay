@@ -298,6 +298,16 @@ yt-live-chat-viewer-engagement-message-renderer {
 }
 
 
+#featured {
+    position: absolute;
+    z-index: 1000;
+    top: 8px;
+    right: 50px;
+}
+#featured img {
+    vertical-align: middle;
+}
+
 
 .button {
   text-decoration: none;
