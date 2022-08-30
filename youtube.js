@@ -4,7 +4,7 @@ var highlightWords = [];
 var sessionID = "";
 var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
 var remoteServerURL = remoteWindowURL + "pub";
-var version = "0.3.0";
+var version = "0.3.2";
 var config = {};
 var lastId = "";
 var autoHideTimer = null;
@@ -276,10 +276,11 @@ $(function(){
 
   $.post("https://chat.aaronpk.tv/featured.php", {
     lang: window.navigator.language,
-    tz: timezone
+    tz: timezone,
+    version: version
   }, function(response){
     if(response && response.img) {
-      var link = 'https://chat.aaronpk.tv/redirect.php?tag='+response.tag+'&lang='+window.navigator.language+'&tz='+timezone;
+      var link = 'https://chat.aaronpk.tv/redirect.php?tag='+response.tag+'&lang='+window.navigator.language+'&tz='+timezone+"&version="+version;
       $("body").append('<div id="featured"><a href="'+link+'" target="_blank"><img src="'+response.img+'" height="32" width="160"></a></span>');
     }
   });
