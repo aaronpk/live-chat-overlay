@@ -188,7 +188,7 @@ function startup() {
 					main[j].insertAdjacentHTML('afterbegin', '<div><span><a class="btn-push-slido" style="color:green;font-weight:700;">ADD</a></span><span><a class="btn-clear-slido"  style="color:red;">CLEAR</a></span><span><a class="btn-getoverlay-slido" >LINK</a></span></div>');
 					
 					main[j].querySelector(".btn-push-slido").onclick = function(){
-						prepMessage2(this.parentNode.parentNode.parentNode.parentNode);
+						prepMessage2(this.parentNode.parentNode.parentNode);
 					};
 					
 					main[j].querySelector(".btn-getoverlay-slido").onclick = function(){
