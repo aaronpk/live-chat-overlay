@@ -115,7 +115,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 
   }
 
-  if(config.autoHideSeconds) {
+  if(config.autoHideSeconds && config.autoHideSeconds > 0) {
     autoHideTimer = setTimeout(function(){
       hideActiveChat();
     }, config.autoHideSeconds*1000);
