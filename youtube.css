@@ -193,8 +193,8 @@ highlight-chat.preview {
     pointer-events: none;
     z-index: 3;
 }
-.hl-img::after {
-    background: rgba(255,255,255,.04);
+.hl-img:after {
+    background: rgba(255,255,255,.1);
     mix-blend-mode: lighten;
 }
 
