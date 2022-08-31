@@ -4,9 +4,10 @@ var highlightWords = [];
 var sessionID = "";
 var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
 var remoteServerURL = remoteWindowURL + "pub";
-var version = "0.3.2";
+var version = "0.3.3";
 var config = {};
-var lastId = "";
+var lastID = "";
+var videoID = "";
 var autoHideTimer = null;
 
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer", function () {
@@ -48,7 +49,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     data.badges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
   }
 
-  if(data.chatId === lastId) {
+  if(data.chatId === lastID) {
     hideActiveChat();
     return;
   }
@@ -93,7 +94,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
      +data.donationHTML+data.membershipHTML
    +'</div>';
 
-  lastId = data.chatId;
+  lastID = data.chatId;
 
   if(sessionID) {
 
@@ -101,7 +102,8 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
       version: version,
       command: "show",
       html: html,
-      config: config
+      config: config,
+      v: videoID
     }
     $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
 
@@ -127,7 +129,8 @@ function hideActiveChat() {
   if(sessionID) {
     var remote = {
       version: version,
-      command: "hide"
+      command: "hide",
+      v: videoID
     };
     $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
   }
@@ -136,7 +139,7 @@ function hideActiveChat() {
     $(".hl-c-cont").remove().dequeue();
   });
 
-  lastId = false;
+  lastID = false;
 }
 
 $("body").on("click", ".btn-clear", function () {
@@ -274,10 +277,14 @@ $(function(){
   // Show banner
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+  const params = new URLSearchParams(window.location.search);
+  videoID = params.get('v');
+
   $.post("https://chat.aaronpk.tv/featured.php", {
     lang: window.navigator.language,
     tz: timezone,
-    version: version
+    version: version,
+    v: videoID
   }, function(response){
     if(response && response.img) {
       var link = 'https://chat.aaronpk.tv/redirect.php?tag='+response.tag+'&lang='+window.navigator.language+'&tz='+timezone+"&version="+version;
