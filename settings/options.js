@@ -10,6 +10,7 @@ function saveOptions(e) {
     commentColor: document.querySelector("#comment-color").value,
     authorBackgroundColor: document.querySelector("#author-bg-color").value,
     authorAvatarBorderColor: document.querySelector("#author-avatar-border-color").value,
+    authorAvatarOverlayOpacity: document.querySelector("#author-avatar-overlay-opacity").value,
     authorColor: document.querySelector("#author-color").value,
     fontFamily: document.querySelector("#font-family").value,
     highlightWords: document.querySelector("#highlight-words").value.toLowerCase().replace(/[^a-z0-9, ]/gi, '').split(",").map(e => e.trim()),
@@ -21,7 +22,7 @@ function saveOptions(e) {
 
 function restoreOptions() {
 
-  var properties = ["color","scale","commentBottom","commentHeight","sizeOffset","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL","autoHideSeconds"];
+  var properties = ["color","scale","commentBottom","commentHeight","sizeOffset","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL","autoHideSeconds","authorAvatarOverlayOpacity"];
   chrome.storage.sync.get(properties, function(result){
     document.querySelector("#color").value = result.color || "#000";
     document.querySelector("#scale").value = result.scale || "1.0";
@@ -30,6 +31,7 @@ function restoreOptions() {
     document.querySelector("#comment-height").value = result.commentHeight || "30vh";
     document.querySelector("#author-bg-color").value = result.authorBackgroundColor || "#ffa500";
     document.querySelector("#author-avatar-border-color").value = result.authorAvatarBorderColor || "#ffa500";
+    document.querySelector("#author-avatar-overlay-opacity").value = result.authorAvatarOverlayOpacity || "0.1";
     document.querySelector("#author-color").value = result.authorColor || "#222";
     document.querySelector("#comment-bg-color").value = result.commentBackgroundColor || "#222";
     document.querySelector("#comment-color").value = result.commentColor || "#fff";

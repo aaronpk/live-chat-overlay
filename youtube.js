@@ -169,7 +169,7 @@ $(function(){
 });
 
 // Restore settings
-var configProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL","autoHideSeconds"];
+var configProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL","autoHideSeconds","authorAvatarOverlayOpacity"];
 chrome.storage.sync.get(configProperties, function(item){
   var color = "#000";
   if(item.color) {
@@ -185,6 +185,9 @@ chrome.storage.sync.get(configProperties, function(item){
   }
   if(item.authorAvatarBorderColor) {
     root.style.setProperty("--author-avatar-border-color", item.authorAvatarBorderColor);
+  }
+  if(item.authorAvatarOverlayOpacity) {
+    root.style.setProperty("--author-avatar-overlay-opacity", item.authorAvatarOverlayOpacity);
   }
   if(item.commentBackgroundColor) {
     root.style.setProperty("--comment-bg-color", item.commentBackgroundColor);

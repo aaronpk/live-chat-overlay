@@ -12,6 +12,7 @@
     --author-avatar-border-size: 3px;
     --author-avatar-size: 128px;
     --author-font-size: 30px;
+    --author-avatar-overlay-opacity: 0.1;
     /* donation/superchat specific */
     --donation-color: #5a4211;
     --donation-bg-color: #fff;
@@ -194,7 +195,7 @@ highlight-chat.preview {
     z-index: 3;
 }
 .hl-img:after {
-    background: rgba(255,255,255,.1);
+    background: rgba(255,255,255,var(--author-avatar-overlay-opacity));
     mix-blend-mode: lighten;
 }
 
