@@ -34,10 +34,12 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   data.message = $(this).find("#message").html();
   data.authorimg = $(this).find("#img").attr('src');
   data.authorimg = data.authorimg.replace("32", "128");
-  data.donation = $(this).find("#purchase-amount").html();
+  data.donation = $(this).find("#purchase-amount .yt-live-chat-paid-message-renderer").html();
   data.membership = $(this).find(".yt-live-chat-membership-item-renderer #header-subtext").html();
   data.sticker = $(this).find(".yt-live-chat-paid-sticker-renderer #img").attr("src");
   data.chatId = $(this).attr("id");
+
+  console.log(data);
 
   // Donation amounts for stickers use a differnet id than regular superchats
   if(data.sticker) {
@@ -64,8 +66,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 
   data.membershipHTML = '';
   if(data.membership) {
-    data.membershipHTML = '<div class="donation membership">NEW MEMBER!</div>';
-    data.message = data.membership;
+    data.membershipHTML = '<div class="donation membership">NEW MEMBER!<br>' + data.membership + '</div>';
   }
 
   if(data.sticker) {
