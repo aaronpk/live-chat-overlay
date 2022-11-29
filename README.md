@@ -13,11 +13,11 @@ Install from the Chrome extension store:
 
 * https://chrome.google.com/webstore/detail/live-chat-overlay/aplaefbnohemkmngdogmbkpompjlijia
 
-Or you can install this as an "unpacked" extension. In Chrome, launch the Extensions page
+Or you can install this as an "unpacked" extension. [Download this project](https://github.com/aaronpk/live-chat-overlay/archive/refs/heads/main.zip) and unzip it somewhere on your computer. In Chrome, launch the Extensions page
 
 * [chrome://extensions/](chrome://extensions/)
 
-Then choose "Load unpacked", and navigate to this folder.
+Then choose "Load unpacked", and navigate to the folder you unzipped this into.
 
 ## Usage
 
