@@ -89,6 +89,7 @@
     padding: 0 4px;
     margin: 5px 2px;
 	cursor: pointer;
+	animation: 0.2s linear fadein;
 }
 .btn-push-instagram {
     display: block;
@@ -97,9 +98,12 @@
     bottom: 0px;
     z-index: 100;
     background-color: #CEC;
-   padding: 0 4px;
+	padding: 0 4px;
+	
     margin: 5px 2px;
+	margin-left:20px;
 	cursor: pointer;
+	animation: 0.2s linear fadein;
 }
 .btn-push-instagram-sub {
     display: block;
@@ -111,6 +115,7 @@
     padding: 0 4px;
     margin: 5px 2px;
 	cursor: pointer;
+	animation: 0.2s linear fadein;
 }
 .btn-clear-twitter {
     display: block;
@@ -157,6 +162,7 @@
     padding: 0 4px;
     margin: 5px 2px;
 	cursor: pointer;
+	animation: 0.2s linear fadein;
 }
 .btn-getoverlay-twitter {
     display: block;
