@@ -41,7 +41,7 @@ function pushMessage(data){
 	var message = {};
 	message.msg = true;
 	message.contents = data;
-	console.log(message);
+	//console.log(message);
 	try {
 		chrome.storage.sync.get(sendProperties, function(item){
 			outputCounter+=1;
@@ -96,7 +96,7 @@ function prepMessage2(ele){ // ele is an article
   try {
 	contentimg = document.querySelector("article").childNodes[0].childNodes[0].querySelector("img").src;
   } catch(e){
-	  console.log(e);
+	//  console.log(e);
   }
   
    if (!contentimg){
@@ -114,7 +114,7 @@ function prepMessage2(ele){ // ele is an article
   try {
 		var name = document.querySelector("div > ul > div[role='button'] h2").innerText;
   } catch(e){
-		console.log(e);
+		//console.log(e);
   }
   
   var data = {};
@@ -194,13 +194,13 @@ function prepMessage(ele){ // ele is an article
   try {
 	img = ele.childNodes[0].childNodes[0].querySelector("header img").src;
   } catch(e){
-	  console.log(e);
+	 // console.log(e);
   }
   
   try {
 		var name = ele.querySelector('span > a > span > div').innerText;
   } catch(e){
-		console.log(e);
+		//console.log(e);
   }
   
   var data = {};
@@ -263,7 +263,7 @@ function prepComment(ele){ // ele is an article
   try{
 	  msg = ele.parentNode.parentNode.querySelector("h3").nextElementSibling.innerText;
   } catch(e){
-	  console.log(e);
+	  //console.log(e);
   }
   
   
@@ -373,30 +373,34 @@ function startup() {
 	
 	setInterval(function(){
 		var main = document.querySelectorAll("article section:first-child");
-		for (var j =0;j<main.length;j++){
-			try{
-				if (!main[j].dataset.set){
-					main[j].innerHTML += '<span><button class="ignore btn-push-instagram">OVERLAY</button></span><span><button class="ignore btn-clear-instagram">CLEAR</button></span><span><button class="ignore btn-getoverlay-instagram" >LINK</button></span>';
-					main[j].dataset.set = true;	
+		if (main){
+			for (var j =0;j<main.length;j++){
+				try{
+					if (!main[j].dataset.set){
+						main[j].innerHTML += '<span><button class="ignore btn-push-instagram">OVERLAY</button></span><span><button class="ignore btn-clear-instagram">CLEAR</button></span><span><button class="ignore btn-getoverlay-instagram" >LINK</button></span>';
+						main[j].dataset.set = true;	
+					}
+				} catch(e){
+					//console.error(e);
 				}
-			} catch(e){
-				console.error(e);
 			}
 		}
 	},2000);
 	
 	setInterval(function(){
-		var main = document.querySelector("article div > div > ul").childNodes;
-		for (var j =0;j<main.length;j++){
-			try{
-				if (!main[j].dataset.set){
-					try {
-						main[j].querySelector("button:not(.ignore").parentNode.parentNode.parentNode.innerHTML += '<span><button class="ignore btn-push-instagram publish2">OVERLAY</button>';
-					} catch(e){console.log(e);}
-					main[j].dataset.set = true;	
+		var main = document.querySelector("article div > div > ul");
+		if (main){
+			for (var j =0;j<main.childNodes.length;j++){
+				try{
+					if (!main.childNodes[j].dataset.set){
+						try {
+							main.childNodes[j].querySelector("button:not(.ignore").parentNode.parentNode.parentNode.innerHTML += '<span><button class="ignore btn-push-instagram publish2">OVERLAY</button>';
+						} catch(e){}
+						main.childNodes[j].dataset.set = true;	
+					}
+				} catch(e){
+					//console.error(e);
 				}
-			} catch(e){
-				console.error(e);
 			}
 		}
 	},2000);
@@ -410,7 +414,7 @@ function startup() {
 	});
 	
 	$("body").on("click", ".publish2", function () {
-		console.log(this);
+		//console.log(this);
 		prepComment(this);
 	});
 	
@@ -418,7 +422,7 @@ function startup() {
 		var ele = this;
 		for (var i=0;i<10;i++){
 			if (ele.parentNode.nodeName == "ARTICLE"){
-				console.log(ele.parentNode);
+			//	console.log(ele.parentNode);
 				prepMessage(ele.parentNode);
 				break;
 			} else {

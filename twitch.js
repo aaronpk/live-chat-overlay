@@ -82,8 +82,8 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
   
   $(this).find('.bttv-tooltip').html(""); // BTT support
   
+  var chatmessage = $(this).find('*[data-a-target="chat-line-message-body"').html();
   
-  var chatmessage = $(this).find('*[data-test-selector="chat-line-message-body"').html();
   if (!chatmessage){
 	  chatmessage = $(this).find('span.message').html(); // FFZ support
   }
@@ -92,11 +92,11 @@ $("body").unbind("click").on("click", ".chat-line__message", function () { // tw
 	  chatdonation = $(this).find('.chat-line__message--cheer-amount').html(); // FFZ support
 	  if (chatdonation){
 		 //$(this).find('.chat-line__message--cheer-amount').html("");
-		 // $(this).find("span[data-test-selector='chat-message-separator']").html("");
-		 //$(this).find(".chat-line__message-container").find('span[data-test-selector="chat-message-separator"]').nextAll().html();
+		 // $(this).find("span[data-a-target='chat-message-separator']").html("");
+		 //$(this).find(".chat-line__message-container").find('span[data-a-target="chat-message-separator"]').nextAll().html();
 		 chatmessage = "";
 		 chatdonation = 0;
-		 $(this).find(".chat-line__message-container").find('span[data-test-selector="chat-message-separator"]').nextAll().each(function(index){
+		 $(this).find(".chat-line__message-container").find('span[data-a-target="chat-message-separator"]').nextAll().each(function(index){
 			if ($(this).find('.chat-line__message--cheer-amount').html()){
 				chatdonation += parseInt($(this).find('.chat-line__message--cheer-amount').html());
 			}
