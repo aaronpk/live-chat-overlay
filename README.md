@@ -55,6 +55,15 @@ Once you've loaded the YouTube popout chat window described above, you will see 
 
 You can open the URL on your computer too if you want to full screen it on a second monitor.
 
+### Persistent Links
+
+While there is no UI for this currently, if you would like to create a persistent link for your stream so that you don't have to re-add the browser source every time, here is how to do it.
+
+* Click "Get Overlay" on a livestream and grab the URL from the field that appears, which should look like `https://chat.aaronpk.tv/overlay/#3gADdqH3NS`
+* Notice that your YouTube popout chat address bar has changed to include the same fragment, e.g. `#3gADdqH3NS`
+* In the future, add that fragment part to your YouTube popout chat window and reload the page
+* Your YouTube chat window will send to the matching `chat.aaronpk.tv` URL that has the same fragment
+
 
 ## See this in action!
 
@@ -73,5 +82,5 @@ See https://github.com/aaronpk/youtube-chat-overlay/issues
 
 ## Credits
 
-The CSS and JavaScript originally came from a video by [ROJ BTS](https://www.youtube.com/watch?v=NHy9D4ClTvc), so huge thanks to him for the initial work!
+The original CSS and JavaScript originally came from a video by [ROJ BTS](https://www.youtube.com/watch?v=NHy9D4ClTvc), so huge thanks to him for the initial work!
 
