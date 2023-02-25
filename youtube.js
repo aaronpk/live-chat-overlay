@@ -4,7 +4,7 @@ var highlightWords = [];
 var sessionID = "";
 var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
 var remoteServerURL = remoteWindowURL + "pub";
-var version = "0.3.4";
+var version = "0.3.5";
 var config = {};
 var lastID = "";
 var videoID = "";
@@ -158,7 +158,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
       config: config,
       v: videoID
     }
-    $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
+    $.post(remoteServerURL+"?v="+videoID+"&id="+sessionID, JSON.stringify(remote));
 
   } else {
 
