@@ -160,6 +160,9 @@ highlight-chat.preview {
     width: 50px;
     vertical-align: middle;
 }
+.hl-message img.sticker {
+  width: 120px;
+}
 .hl-message a {
     color: white;
 }
@@ -223,8 +226,48 @@ highlight-chat.preview {
     color: var(--donation-color);
     transform: rotate(-5deg) translateX(-50%);
 }
+
+.donation.silver {
+    background: linear-gradient(to right, #d6d6d6, #f1f1f1, #d6d6d6);
+    color: #434343;    
+}
+.donation.gold {
+    background: linear-gradient(to right, #BF953F, #FCF6BA, #d0aa57, #FBF5B7, #AA771C);
+    color: #4d3400;
+}
+.donation.platinum {
+    background:
+        linear-gradient(
+        -72deg,
+        #dedeff,
+        #ffffff 16%,
+        #dedeff 21%,
+        #ffffff 24%,
+        #555564 27%,
+        #dedeff 36%,
+        #ffffff 45%,
+        #ffffff 60%,
+        #dedeff 72%,
+        #ffffff 80%,
+        #dedeff 84%,
+        #555564);
+    color: #333;
+}
+.donation.diamond {
+    background: linear-gradient(to right, #e5f1fa, #ffffff, #dbe7ec);
+    color: #00374d;
+}
+.donation.emerald {
+    background: linear-gradient(to right, #3fbf3f, #99ed9a, #3fbf3f);
+    color: #115a14;
+}
+
+
 .membership {
     padding: 10px 10px 5px 10px;
+    font-size: 0.8em;
+}
+.membership-length {
     font-size: 0.8em;
 }
 .donation::before {

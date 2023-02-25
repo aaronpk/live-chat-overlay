@@ -2,7 +2,7 @@
   "name": "Live Chat Overlay",
   "description": "Restyle the YouTube popout chat so you can overlay it for livestreams",
   "manifest_version": 3,
-  "version": "0.3.3",
+  "version": "0.3.4",
   "homepage_url": "https://github.com/aaronpk/live-chat-overlay",
   "icons": {
     "128": "icons/icon-128.png"
@@ -16,6 +16,7 @@
   "content_scripts": [{
     "css": ["youtube.css"],
     "js": ["jquery.js", "youtube.js"],
+    "all_frames": true,
     "matches": ["https://youtube.com/live_chat*", "https://www.youtube.com/live_chat*", "https://studio.youtube.com/live_chat*"]
   }],
   "options_ui": {

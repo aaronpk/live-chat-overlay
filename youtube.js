@@ -4,13 +4,13 @@ var highlightWords = [];
 var sessionID = "";
 var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
 var remoteServerURL = remoteWindowURL + "pub";
-var version = "0.3.3";
+var version = "0.3.4";
 var config = {};
 var lastID = "";
 var videoID = "";
 var autoHideTimer = null;
 
-$("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,yt-live-chat-paid-sticker-renderer", function () {
+$("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,ytd-sponsorships-live-chat-gift-purchase-announcement-renderer,yt-live-chat-paid-sticker-renderer", function () {
 
   $(".active-comment").removeClass("active-comment");
 
@@ -25,35 +25,36 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   var data = {};
 
   $(".hl-c-cont").remove();
-  data.authorname = $(this).find("#author-name").text();
 
+  data.chatId = $(this).attr("id");
+
+  if(data.chatId === lastID) {
+    hideActiveChat();
+    return;
+  }
+
+  data.authorname = $(this).find("#author-name").text();
   if(showOnlyFirstName) {
     data.authorname = data.authorname.replace(/ [^ ]+$/, '');
   }
-
-  data.message = $(this).find("#message").html();
   data.authorimg = $(this).find("#img").attr('src');
   data.authorimg = data.authorimg.replace("32", "128");
-  data.donation = $(this).find("#purchase-amount .yt-live-chat-paid-message-renderer").html();
-  data.membership = $(this).find(".yt-live-chat-membership-item-renderer #header-subtext").html();
-  data.sticker = $(this).find(".yt-live-chat-paid-sticker-renderer #img").attr("src");
-  data.chatId = $(this).attr("id");
 
-  console.log(data);
+  data.message = $(this).find("#message").html();
+
+  data.sticker = $(this).find(".yt-live-chat-paid-sticker-renderer #sticker #img").attr("src");
+
 
   // Donation amounts for stickers use a differnet id than regular superchats
   if(data.sticker) {
     data.donation = $(this).find("#purchase-amount-chip").html();
+  } else {
+    data.donation = $(this).find("#purchase-amount .yt-live-chat-paid-message-renderer").html();
   }
 
   data.badges = "";
   if($(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").length > 0) {
     data.badges = $(this).find("#chat-badges .yt-live-chat-author-badge-renderer img").parent().html();
-  }
-
-  if(data.chatId === lastID) {
-    hideActiveChat();
-    return;
   }
 
   // Mark this comment as shown
@@ -64,13 +65,62 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     data.donationHTML = '<div class="donation">' + data.donation + '</div>';
   }
 
+  data.membership = $(this).find(".yt-live-chat-membership-item-renderer #header-subtext").html(); // membership level e.g. "SILVER"
+  data.giftedMembership = $(this).find(".ytd-sponsorships-live-chat-header-renderer #primary-text").html(); // Bob gifted 20 memberships
+
   data.membershipHTML = '';
+
+  // Try to find the membership level name
+  data.membershipLevel = '';
   if(data.membership) {
-    data.membershipHTML = '<div class="donation membership">NEW MEMBER!<br>' + data.membership + '</div>';
+    var membershipLevelName;
+    if(m=data.membership.match(/(Welcome|Upgraded membership) to (.+)!/)) {
+      membershipLevelName = m[2];
+    } else {
+      membershipLevelName = data.membership;
+    }
+    switch(membershipLevelName) {
+      case 'SILVER':
+        data.membershipLevel = 'silver'; break;
+      case 'GOLD':
+        data.membershipLevel = 'gold'; break;
+      case 'PLATINUM':
+        data.membershipLevel = 'platinum'; break;
+      case 'DIAMOND':
+        data.membershipLevel = 'diamond'; break;
+      case 'EMERALD':
+        data.membershipLevel = 'emerald'; break;
+    }
   }
 
+
+  if(data.giftedMembership) {
+    data.membershipHTML = '<div class="donation membership '+data.membershipLevel+'">GIFT</div>';
+    data.message = data.giftedMembership;
+  } else if(data.membership) {
+    if(data.message) {
+      data.membershipLength = $(this).find(".yt-live-chat-membership-item-renderer #header-primary-text").text(); // "Member for 20 months"
+      if(data.membershipLength) {
+        if(m = data.membershipLength.match(/Member for (.+)/)) {
+          data.membership = data.membership + '<br><span class="membership-length">'+m[1]+'</span>';
+        }
+      }
+      // Member chat, show their member tier under their photo. Message will have been extracted already.
+      data.membershipHTML = '<div class="donation membership '+data.membershipLevel+'">'+data.membership+'</div>';
+    } else {
+      // New member or upgrade, show the tier in the main message section
+      if(data.membership.match(/Upgraded membership/)) {
+        data.membershipHTML = '<div class="donation membership '+data.membershipLevel+'">UPGRADE</div>';
+      } else {
+        data.membershipHTML = '<div class="donation membership '+data.membershipLevel+'">NEW MEMBER!</div>';
+      }
+      data.message = data.membership;
+    }
+  }
+
+
   if(data.sticker) {
-    data.message = '<img src="'+data.sticker+'">';
+    data.message = '<img class="sticker" src="'+data.sticker+'">';
   }
 
   data.backgroundColor = "";
@@ -85,6 +135,8 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
     data.backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-sponsor-color')+";";
     data.textColor = "color: #111;";
   }
+
+  // console.log(data);
 
   var html = '<div class="hl-c-cont fadeout">'
      + '<div class="hl-name">' + data.authorname
@@ -149,25 +201,6 @@ $("body").on("click", ".btn-clear", function () {
 
 $("yt-live-chat-app").before( '<highlight-chat></highlight-chat><button class="btn-clear">CLEAR</button>' );
 $("body").addClass("inline-chat");
-
-$(function(){
-
-  // Show a placeholder message so you can position the window before the chat is live
-  var data = {};
-  data.message = "this livestream is the best!";
-  data.authorimg = remoteWindowURL+"/youtube-live-chat-sample-avatar.png";
-  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + data.message + '</div><div class="hl-img"><img src="' + data.authorimg + '"></div></div>')
-  .delay(10).queue(function(next){
-    $( ".hl-c-cont" ).removeClass("fadeout");
-    next();
-  });
-
-  // Restore the popout URL field if they refresh the page
-  if(window.location.hash) {
-    $("#pop-out-button").click();
-  }
-
-});
 
 // Restore settings
 var configProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL","autoHideSeconds","authorAvatarOverlayOpacity"];
@@ -265,6 +298,7 @@ $("#pop-out-url").click(function(){
 
 $(document).keyup(function(e){
 
+    // Escape key hides active chat
     if(e.keyCode === 27) {
       hideActiveChat();
     }
@@ -272,6 +306,16 @@ $(document).keyup(function(e){
 });
 
 $(function(){
+
+  // Show a placeholder message so you can position the window before the chat is live
+  var data = {};
+  data.message = "this livestream is the best!";
+  data.authorimg = remoteWindowURL+"/youtube-live-chat-sample-avatar.png";
+  $( "highlight-chat" ).addClass("preview").append('<div class="hl-c-cont fadeout"><div class="hl-name">Sample User<div class="hl-badges"></div></div><div class="hl-message">' + data.message + '</div><div class="hl-img"><img src="' + data.authorimg + '"></div></div>')
+  .delay(10).queue(function(next){
+    $( ".hl-c-cont" ).removeClass("fadeout");
+    next();
+  });
 
   // Restore the popout URL field if they refresh the page
   if(window.location.hash) {
