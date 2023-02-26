@@ -3,21 +3,36 @@ Live Chat Overlay
 
 This browser extension turns the YouTube popout chat window into something that can be used to show chat comments keyed over a video. You can also bring it in to software like OBS or Lightstream Studio as a browser source!
 
-![chat-screenshot](chat-screenshot.png)
+![chat-screenshot](images/chat-screenshot.png)
 
 [Setup Tutorial](https://youtu.be/HwctGtdsHZI)
 
 ## Installation
 
-Install from the Chrome extension store:
+### Google Chrome Store
+
+The easiest way to install the extension from the Google Chrome store. Click the link below and you should see a prompt to install it in Chrome.
 
 * https://chrome.google.com/webstore/detail/live-chat-overlay/aplaefbnohemkmngdogmbkpompjlijia
 
-Or you can install this as an "unpacked" extension. [Download this project](https://github.com/aaronpk/live-chat-overlay/archive/refs/heads/main.zip) and unzip it somewhere on your computer. In Chrome, launch the Extensions page
 
-* [chrome://extensions/](chrome://extensions/)
+### Manual Installation
 
-Then choose "Load unpacked", and navigate to the folder you unzipped this into.
+First, [download this project](https://github.com/aaronpk/live-chat-overlay/archive/refs/heads/main.zip) and unzip it somewhere on your computer. In Chrome, launch the Extensions page.
+
+Go to **Window** and click **Extensions** (or enter this in your address bar `chrome://extensions/`)
+
+![window-extensions](images/chrome-window.png)
+
+Turn on **Developer Mode**
+
+![developer-mode](images/developer-mode.png)
+
+That will show a new set of options. Click "Load Unpacked"
+
+![load-unpacked](images/load-unpacked.png)
+
+Choose the folder you downloaded the extension into, and you should see it now in your list of extensions!
 
 ## Usage
 
@@ -51,7 +66,7 @@ Before you start, you'll want to make sure you change the background color in th
 
 Once you've loaded the YouTube popout chat window described above, you will see a button in the YouTube chat window called "Get Overlay URL". Clicking that will reveal a URL you can copy and load into OBS or your favorite streaming platform that supports browser overlay sources.
 
-![get-overlay-url](get-overlay-url.png)
+![get-overlay-url](images/get-overlay-url.png)
 
 You can open the URL on your computer too if you want to full screen it on a second monitor.
 
