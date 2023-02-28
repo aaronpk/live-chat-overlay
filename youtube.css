@@ -146,6 +146,10 @@ highlight-chat.preview {
     border-radius: var(--author-border-radius);
     font-size: var(--author-font-size);
 }
+.hl-name::before {
+    content: '';
+    background: #f6cc0c;
+}
 .hl-message {
     position: absolute;
     width: var(--comment-width);
