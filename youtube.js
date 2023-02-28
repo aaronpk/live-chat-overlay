@@ -3,8 +3,8 @@ var showOnlyFirstName;
 var highlightWords = [];
 var sessionID = "";
 var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
-var remoteServerURL = remoteWindowURL + "pub";
-var version = "0.3.5";
+var remoteServerURL = "https://chat.aaronpk.tv/overlay/pub";
+var version = "0.3.6";
 var config = {};
 var lastID = "";
 var videoID = "";
@@ -112,7 +112,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
       if(data.membership.match(/Upgraded membership/)) {
         data.membershipHTML = '<div class="donation membership '+data.membershipLevel+'">UPGRADE</div>';
       } else {
-        data.membershipHTML = '<div class="donation membership '+data.membershipLevel+'">NEW MEMBER!</div>';
+        data.membershipHTML = '<div class="donation membership '+data.membershipLevel+'">NEW<br>MEMBER!</div>';
       }
       data.message = data.membership;
     }
@@ -131,10 +131,10 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   }
 
   // This doesn't work yet
-  if(this.style.getPropertyValue('--yt-live-chat-sponsor-color')) {
-    data.backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-sponsor-color')+";";
-    data.textColor = "color: #111;";
-  }
+  // if(this.style.getPropertyValue('--yt-live-chat-sponsor-color')) {
+  //   data.backgroundColor = "background-color: "+this.style.getPropertyValue('--yt-live-chat-sponsor-color')+";";
+  //   data.textColor = "color: #111;";
+  // }
 
   // console.log(data);
 
@@ -185,7 +185,7 @@ function hideActiveChat() {
       command: "hide",
       v: videoID
     };
-    $.post(remoteServerURL+"?id="+sessionID, JSON.stringify(remote));
+    $.post(remoteServerURL+"?v="+videoID+"&id="+sessionID, JSON.stringify(remote));
   }
 
   $(".hl-c-cont").addClass("fadeout").delay(300).queue(function(){
@@ -252,7 +252,9 @@ chrome.storage.sync.get(configProperties, function(item){
 
   if(item.popoutURL) {
     remoteWindowURL = item.popoutURL;
-    remoteServerURL = remoteWindowURL + "pub";
+  }
+  if(item.serverURL) {
+    remoteServerURL = item.serverURL;
   }
 
   config = item;

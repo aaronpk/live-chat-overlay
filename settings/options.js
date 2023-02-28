@@ -16,7 +16,8 @@ function saveOptions(e) {
     highlightWords: document.querySelector("#highlight-words").value.toLowerCase().replace(/[^a-z0-9, ]/gi, '').split(",").map(e => e.trim()),
     showOnlyFirstName: document.querySelector("#firstname").checked,
     autoHideSeconds: document.querySelector("#auto-hide-seconds").value,
-    popoutURL: document.querySelector("#popout-url").value
+    popoutURL: document.querySelector("#popout-url").value,
+    serverURL: document.querySelector("#server-url").value
   });
 }
 
@@ -40,6 +41,7 @@ function restoreOptions() {
     document.querySelector("#auto-hide-seconds").value = result.autoHideSeconds || 0;
     document.querySelector("#highlight-words").value = result.highlightWords.join(", ") || "question";
     document.querySelector("#popout-url").value = result.popoutURL || "https://chat.aaronpk.tv/overlay/";
+    document.querySelector("#server-url").value = result.serverURL || "https://chat.aaronpk.tv/overlay/pub";
   });
 
 }
