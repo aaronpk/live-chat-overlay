@@ -72,12 +72,10 @@ You can open the URL on your computer too if you want to full screen it on a sec
 
 ### Persistent Links
 
-While there is no UI for this currently, if you would like to create a persistent link for your stream so that you don't have to re-add the browser source every time, here is how to do it.
+There is now an option for "Persistent Session ID" to enable a persistent link for your stream so that you don't have to re-add the browser source every time. Here is how to use it it.
 
-* Click "Get Overlay" on a livestream and grab the URL from the field that appears, which should look like `https://chat.aaronpk.tv/overlay/#3gADdqH3NS`
-* Notice that your YouTube popout chat address bar has changed to include the same fragment, e.g. `#3gADdqH3NS`
-* In the future, add that fragment part to your YouTube popout chat window and reload the page
-* Your YouTube chat window will send to the matching `chat.aaronpk.tv` URL that has the same fragment
+In the options form, check "PersistentSession ID" which will show a text box with a randomly generated Session ID. This Session ID will be used for a
+ll you future chats. You can also changle the Session ID inthat field if you want to reuse one that you already saved in a browser source.
 
 
 ## See this in action!
