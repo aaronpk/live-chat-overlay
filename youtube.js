@@ -184,7 +184,6 @@ function hideActiveChat() {
     var remote = {
       version: version,
       command: "hide",
-      html: '',
       config: config,
       v: videoID
     };
