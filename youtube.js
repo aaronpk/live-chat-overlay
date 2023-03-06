@@ -183,6 +183,7 @@ function hideActiveChat() {
     var remote = {
       version: version,
       command: "hide",
+      config: config,
       v: videoID
     };
     $.post(remoteServerURL+"?v="+videoID+"&id="+sessionID, JSON.stringify(remote));
@@ -203,7 +204,7 @@ $("yt-live-chat-app").before( '<highlight-chat></highlight-chat><button class="b
 $("body").addClass("inline-chat");
 
 // Restore settings
-var configProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL","autoHideSeconds","authorAvatarOverlayOpacity"];
+var configProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL","serverURL","autoHideSeconds","authorAvatarOverlayOpacity","persistentSessionID","sessionID"];
 chrome.storage.sync.get(configProperties, function(item){
   var color = "#000";
   if(item.color) {
@@ -255,6 +256,9 @@ chrome.storage.sync.get(configProperties, function(item){
   }
   if(item.serverURL) {
     remoteServerURL = item.serverURL;
+  }
+  if(item.persistentSessionID && item.sessionID) {
+    sessionID = item.sessionID;
   }
 
   config = item;
