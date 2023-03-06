@@ -63,7 +63,7 @@ function restoreOptions() {
     document.querySelector("#popout-url").value = result.popoutURL || "https://chat.aaronpk.tv/overlay/";
     document.querySelector("#server-url").value = result.serverURL || "https://chat.aaronpk.tv/overlay/pub";
     document.querySelector("#persistent-session-id").checked = result.persistentSessionID || false;
-    document.querySelector("#session-id").value = result.sessionID || nil;
+    document.querySelector("#session-id").value = result.sessionID || "";
   });
 
   document.querySelector("#persistent-session-id").addEventListener("change", toggleSessionID);
