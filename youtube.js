@@ -183,7 +183,7 @@ function hideActiveChat() {
   if(sessionID) {
     var remote = {
       version: version,
-      command: "show",
+      command: "hide",
       html: '',
       config: config,
       v: videoID
