@@ -8,7 +8,6 @@ function generateSessionID(){
 };
 
 function toggleSessionID() {
-  alert("Hi");
   if (this.checked) {
      console.log("Checked");
      document.querySelector("#session-id").value = generateSessionID();
