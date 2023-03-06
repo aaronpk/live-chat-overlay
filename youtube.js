@@ -179,7 +179,6 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
 });
 
 function hideActiveChat() {
-  var html = '<div class="hl-c-cont fadeout"></div>';
   if(sessionID) {
     var remote = {
       version: version,
