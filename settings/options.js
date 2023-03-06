@@ -11,7 +11,6 @@ function toggleSessionID() {
   if (this.checked) {
      document.querySelector("#session-id").value = generateSessionID();
   } else {
-     console.log("Unchecked");
      document.querySelector("#session-id").value = nil;
   }
 }
