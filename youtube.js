@@ -401,5 +401,7 @@ onElementInserted(".yt-live-chat-item-list-renderer#items", function(element){
   if(highlights.length > 0) {
     $(element).addClass("highlighted-comment");
   }
+  // Remove moderation menu for chat line
+  $(element).find("#menu").remove();
 });
 
