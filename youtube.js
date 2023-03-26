@@ -359,13 +359,22 @@ function generateSessionID(){
   return text;
 };
 
-function onElementInserted(containerSelector, tagName, callback) {
+function onElementInserted(containerSelector, callback) {
+
+    var watchedTagNames = [
+      "yt-live-chat-text-message-renderer".toUpperCase(),
+      "yt-live-chat-paid-message-renderer".toUpperCase(),
+      "yt-live-chat-membership-item-renderer".toUpperCase(),
+      "yt-live-chat-paid-sticker-renderer".toUpperCase(),
+      "ytd-sponsorships-live-chat-gift-purchase-announcement-renderer".toUpperCase()
+    ];
 
     var onMutationsObserved = function(mutations) {
         mutations.forEach(function(mutation) {
+            // console.log("A mutation happened");
             if (mutation.addedNodes.length) {
                 for (var i = 0, len = mutation.addedNodes.length; i < len; i++) {
-                    if(mutation.addedNodes[i].tagName == tagName.toUpperCase()) {
+                    if(watchedTagNames.includes(mutation.addedNodes[i].tagName)) {
                         callback(mutation.addedNodes[i]);
                     }
                 }
@@ -382,7 +391,7 @@ function onElementInserted(containerSelector, tagName, callback) {
 }
 
 
-onElementInserted(".yt-live-chat-item-list-renderer#items", "yt-live-chat-text-message-renderer", function(element){
+onElementInserted(".yt-live-chat-item-list-renderer#items", function(element){
   //console.log("New dom element inserted", element.tagName);
   // Check for highlight words
   var chattext = $(element).find("#message").text();
