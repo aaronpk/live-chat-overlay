@@ -74,8 +74,9 @@ You can open the URL on your computer too if you want to full screen it on a sec
 
 There is now an option for "Persistent Session ID" to enable a persistent link for your stream so that you don't have to re-add the browser source every time. Here is how to use it.
 
-In the options form, check "Persistent Session ID" which will show a text box with a randomly generated Session ID. This Session ID will be used for a
-ll you future chats. You can also changle the Session ID inthat field if you want to reuse one that you already saved in a browser source.
+In the options form, check "Persistent Session ID" which will show a text box with a randomly generated Session ID. This Session ID will be used for all you future chats. You can also change the Session ID in that field if you want to reuse one that you already saved in a browser source.
+
+Note: You should always use a randomly generated ID. If you use a short word like "test", then the chats will be combined with anyone else who has used the same short word.
 
 
 ## See this in action!
