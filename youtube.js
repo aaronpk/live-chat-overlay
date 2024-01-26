@@ -1,10 +1,11 @@
 var showOnlyFirstName;
 
 var highlightWords = [];
+var usePersistentSessionID = false;
 var sessionID = "";
 var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
 var remoteServerURL = "https://chat.aaronpk.tv/overlay/pub";
-var version = "0.3.6";
+var version = "0.3.7";
 var config = {};
 var lastID = "";
 var videoID = "";
@@ -13,6 +14,8 @@ var autoHideTimer = null;
 $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,ytd-sponsorships-live-chat-gift-purchase-announcement-renderer,yt-live-chat-paid-sticker-renderer", function () {
 
   $(".active-comment").removeClass("active-comment");
+
+  setTimeout(removeModerationMenu, 500);
 
   clearTimeout(autoHideTimer);
 
@@ -204,7 +207,13 @@ $("yt-live-chat-app").before( '<highlight-chat></highlight-chat><button class="b
 $("body").addClass("inline-chat");
 
 // Restore settings
-var configProperties = ["color","scale","sizeOffset","commentBottom","commentHeight","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","highlightWords","popoutURL","serverURL","autoHideSeconds","authorAvatarOverlayOpacity","persistentSessionID","sessionID"];
+var configProperties = ["color","scale","sizeOffset",
+  "commentBottom","commentHeight","authorBackgroundColor",
+  "authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor",
+  "fontFamily","showOnlyFirstName","highlightWords",
+  "popoutURL","serverURL","autoHideSeconds",
+  "authorAvatarOverlayOpacity","persistentSessionID","sessionID"
+];
 chrome.storage.sync.get(configProperties, function(item){
   var color = "#000";
   if(item.color) {
@@ -257,15 +266,16 @@ chrome.storage.sync.get(configProperties, function(item){
   if(item.serverURL) {
     remoteServerURL = item.serverURL;
   }
+
   if(item.persistentSessionID && item.sessionID) {
-    sessionID = item.sessionID;
+    usePersistentSessionID = item.sessionID;
   }
 
   config = item;
 });
 
 
-$("#primary-content").append('<span id="aspect-ratio-container" style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
+// $("#primary-content").append('<span id="aspect-ratio-container" style="font-size: 0.7em">Aspect Ratio: <span id="aspect-ratio"></span></span>');
 $("#primary-content").append('<span id="get-overlay-url-container"><a href="#" id="pop-out-button" class="button">Get Overlay URL</a></span>');
 $("#primary-content").append('<span class="hidden"><input type="url" readonly id="pop-out-url"></span>');
 
@@ -274,20 +284,25 @@ function displayAspectRatio() {
   ratio += " (target 1.77)";
   $("#aspect-ratio").text(ratio);
 }
-displayAspectRatio();
-window.onresize = displayAspectRatio;
+// displayAspectRatio();
+// window.onresize = displayAspectRatio;
 
 $("#pop-out-button").click(function(e){
   e.preventDefault();
+
+  if(usePersistentSessionID) {
+    sessionID = usePersistentSessionID;
+  }
 
   if(!sessionID) {
     if(window.location.hash) {
       sessionID = window.location.hash.replace("#", "");
     } else {
       sessionID = generateSessionID();
-      window.location.hash = sessionID;
     }
   }
+
+  window.location.hash = sessionID;
 
   $("#pop-out-url").val(remoteWindowURL+"#"+sessionID);
   $("#pop-out-url").parent().removeClass("hidden");
@@ -346,6 +361,8 @@ $(function(){
     }
   });
 
+  removeReactionButtons();
+
 });
 
 
@@ -401,7 +418,18 @@ onElementInserted(".yt-live-chat-item-list-renderer#items", function(element){
   if(highlights.length > 0) {
     $(element).addClass("highlighted-comment");
   }
-  // Remove moderation menu for chat line
-  $(element).find("#menu").remove();
 });
+
+
+function removeModerationMenu() {
+  $("tp-yt-iron-dropdown, #menu").remove();
+  // Remove the "top chat/live chat" option since removing the iron-dropdown also removes the dropdown from that.
+  // This way people won't be confused about why pressing it isn't working anymore.
+  $("yt-sort-filter-sub-menu-renderer").remove();
+}
+
+function removeReactionButtons() {
+  $("yt-reaction-control-panel-overlay-view-model").remove();
+}
+
 
