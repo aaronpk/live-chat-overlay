@@ -5,17 +5,21 @@ var usePersistentSessionID = false;
 var sessionID = "";
 var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
 var remoteServerURL = "https://chat.aaronpk.tv/overlay/pub";
-var version = "0.3.7";
+var version = "0.3.8";
 var config = {};
 var lastID = "";
 var videoID = "";
 var autoHideTimer = null;
 
-$("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,ytd-sponsorships-live-chat-gift-purchase-announcement-renderer,yt-live-chat-paid-sticker-renderer", function () {
+$("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-live-chat-paid-message-renderer,yt-live-chat-membership-item-renderer,ytd-sponsorships-live-chat-gift-purchase-announcement-renderer,yt-live-chat-paid-sticker-renderer", function() {
 
   $(".active-comment").removeClass("active-comment");
 
-  setTimeout(removeModerationMenu, 500);
+  // "Click" on some innocuous part of the page to hide the moderation popup thingy.
+  // YouTube seems to want to pop that up any time you click anywhere on a message.
+  setTimeout(function(){
+    $("yt-live-chat-message-input-renderer").click();
+  }, 200);
 
   clearTimeout(autoHideTimer);
 
@@ -199,7 +203,7 @@ function hideActiveChat() {
   lastID = false;
 }
 
-$("body").on("click", ".btn-clear", function () {
+$("body").on("click", ".btn-clear", function() {
   hideActiveChat();
 });
 
@@ -409,7 +413,7 @@ function onElementInserted(containerSelector, callback) {
 
 
 onElementInserted(".yt-live-chat-item-list-renderer#items", function(element){
-  //console.log("New dom element inserted", element.tagName);
+  // console.log("New dom element inserted", element.tagName);
   // Check for highlight words
   var chattext = $(element).find("#message").text();
   var chatWords = chattext.split(" ");
@@ -421,15 +425,16 @@ onElementInserted(".yt-live-chat-item-list-renderer#items", function(element){
 });
 
 
-function removeModerationMenu() {
-  $("tp-yt-iron-dropdown, #menu").remove();
+/*
+function removeModerationMenu(element) {
+  $(element).find("tp-yt-iron-dropdown, #menu").remove();
   // Remove the "top chat/live chat" option since removing the iron-dropdown also removes the dropdown from that.
   // This way people won't be confused about why pressing it isn't working anymore.
-  $("yt-sort-filter-sub-menu-renderer").remove();
+  $(element).find("yt-sort-filter-sub-menu-renderer").remove();
 }
 
 function removeReactionButtons() {
-  $("yt-reaction-control-panel-overlay-view-model").remove();
+  // $("yt-reaction-control-panel-overlay-view-model").remove();
 }
-
+*/
 

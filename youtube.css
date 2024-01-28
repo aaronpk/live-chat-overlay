@@ -379,3 +379,11 @@ yt-live-chat-viewer-engagement-message-renderer {
 .hidden {
   display: none;
 }
+
+yt-live-chat-app tp-yt-iron-dropdown {
+    display: none;
+}
+yt-live-chat-app yt-sort-filter-sub-menu-renderer tp-yt-iron-dropdown {
+    display: block;
+}
+
