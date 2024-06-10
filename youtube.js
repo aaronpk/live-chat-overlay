@@ -5,7 +5,7 @@ var usePersistentSessionID = false;
 var sessionID = "";
 var remoteWindowURL = "https://chat.aaronpk.tv/overlay/";
 var remoteServerURL = "https://chat.aaronpk.tv/overlay/pub";
-var version = "0.3.8";
+var version = "0.3.9";
 var config = {};
 var lastID = "";
 var videoID = "";
@@ -50,7 +50,7 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   if (equalIndex !== -1) {
     let part1 = data.authorimg.slice(0, equalIndex);
     let part2 = data.authorimg.slice(equalIndex);
-    part2 = part2.replace("32", "128").replace("64", "128");
+    part2 = part2.replace("s32", "s128").replace("s64", "s128");
 
     data.authorimg = part1 + part2;
   }
