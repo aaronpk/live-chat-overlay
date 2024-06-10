@@ -44,15 +44,23 @@ $("body").unbind("click").on("click", "yt-live-chat-text-message-renderer,yt-liv
   if(showOnlyFirstName) {
     data.authorname = data.authorname.replace(/ [^ ]+$/, '');
   }
-  data.authorimg = $(this).find("#img").attr('src');
-  data.authorimg = data.authorimg.replace("32", "128");
+  data.authorimg = $(this).find("#img").attr("src");
+  // Replace the 32px and 64px avatar with a 128px avatar but keep the identifier identical before the first '='
+  const equalIndex = data.authorimg.indexOf("=");
+  if (equalIndex !== -1) {
+    let part1 = data.authorimg.slice(0, equalIndex);
+    let part2 = data.authorimg.slice(equalIndex);
+    part2 = part2.replace("32", "128").replace("64", "128");
+
+    data.authorimg = part1 + part2;
+  }
 
   data.message = $(this).find("#message").html();
 
   data.sticker = $(this).find(".yt-live-chat-paid-sticker-renderer #sticker #img").attr("src");
 
 
-  // Donation amounts for stickers use a differnet id than regular superchats
+  // Donation amounts for stickers use a different id than regular superchats
   if(data.sticker) {
     data.donation = $(this).find("#purchase-amount-chip").html();
   } else {
