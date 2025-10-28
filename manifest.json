@@ -20,7 +20,8 @@
     "matches": ["https://youtube.com/live_chat*", "https://www.youtube.com/live_chat*", "https://studio.youtube.com/live_chat*"]
   }],
   "options_ui": {
-    "page": "settings/options.html"
+    "page": "settings/options.html",
+    "open_in_tab": true
   },
   "browser_specific_settings": {
     "gecko": {

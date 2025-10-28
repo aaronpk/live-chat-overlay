@@ -2,151 +2,895 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Overlay Settings</title>
   <style>
-    .section {
-      border-top: 1px #ddd solid;
-      padding-top: 8px;
-      padding-bottom: 8px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .setting {
+
+    :root {
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-light: #eef2ff;
+      --success: #10b981;
+      --background: #f9fafb;
+      --surface: #ffffff;
+      --border: #e5e7eb;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --text-muted: #9ca3af;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--background);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 16px;
+      padding: 20px 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+      border-radius: var(--radius);
+      color: white;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .header h1 {
+      font-size: 22px;
+      font-weight: 700;
       margin-bottom: 4px;
     }
+
+    .header p {
+      font-size: 13px;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .info-box {
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+    }
+
+    .info-box p {
+      color: var(--text-secondary);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .info-box ul {
+      margin-left: 20px;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .section {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    .section:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-header h2 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--primary-light);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .toggle-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      font-size: 10px;
+    }
+
+    .section-header:hover .toggle-icon {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .section.collapsed .section-content {
+      display: none;
+    }
+
+    .section.collapsed .toggle-icon::before {
+      content: "▼";
+    }
+
+    .toggle-icon::before {
+      content: "▲";
+    }
+
+    .section-content {
+      animation: slideDown 0.2s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .setting {
+      margin-bottom: 16px;
+    }
+
+    .setting:last-child {
+      margin-bottom: 0;
+    }
+
     label {
       display: block;
+      font-weight: 500;
+      font-size: 13px;
+      color: var(--text-primary);
+      margin-bottom: 6px;
     }
-    input.text {
-      display: block;
-      padding: 4px;
-      border: 1px #ccc solid;
+
+    .hint {
+      color: var(--text-muted);
+      font-size: 11px;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    input.text,
+    input[type="url"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px 12px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      transition: all 0.2s ease;
+      background: var(--surface);
+      font-family: inherit;
+    }
+
+    input.text:focus,
+    input[type="url"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    input.text:hover,
+    input[type="url"]:hover,
+    input[type="number"]:hover,
+    select:hover {
+      border-color: var(--primary);
+    }
+
+    input[type="color"] {
+      width: 60px;
+      height: 40px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: var(--surface);
+    }
+
+    input[type="color"]:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Custom Range Slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
       border-radius: 4px;
-      width: 90%;
+      background: linear-gradient(to right, var(--primary) 0%, var(--primary) 50%, var(--border) 50%, var(--border) 100%);
+      outline: none;
+      transition: all 0.2s ease;
     }
-    input.checkbox {
-      float: left;
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      transition: all 0.2s ease;
     }
-    button {
-      padding: 6px;
-      border: 1px #ccc solid;
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      box-shadow: var(--shadow-lg);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      border: none;
+      box-shadow: var(--shadow-md);
+      transition: all 0.2s ease;
+    }
+
+    input[type="range"]::-moz-range-thumb:hover {
+      transform: scale(1.2);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Custom Checkbox */
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+
+    .checkbox-wrapper:hover {
+      background: var(--background);
+    }
+
+    input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
       border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
     }
-    hr {
-      border: 0;
-      border-top: 1px #ccc solid;
+
+    input[type="checkbox"]:checked {
+      background: var(--primary);
+      border-color: var(--primary);
     }
+
+    input[type="checkbox"]:checked::after {
+      content: "✓";
+      position: absolute;
+      color: white;
+      font-size: 14px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    input[type="checkbox"]:hover {
+      border-color: var(--primary);
+    }
+
+    select {
+      padding: 8px 12px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      background: var(--surface);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    select:hover {
+      border-color: var(--primary);
+    }
+
+    .inline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .value {
+      font-variant-numeric: tabular-nums;
+      min-width: 60px;
+      padding: 8px 16px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .color-preview {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.2s ease;
+    }
+
+    button[type="submit"],
+    .reset-button {
+      padding: 12px 24px;
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-md);
+      font-family: inherit;
+    }
+
+    button[type="submit"] {
+      background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+    }
+
+    .reset-button {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      padding: 12px 20px;
+    }
+
+    button[type="submit"]:hover,
+    .reset-button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    button[type="submit"]:active,
+    .reset-button:active {
+      transform: translateY(0);
+    }
+
+    .reset-button:hover {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    }
+
+    .save-indicator {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--success);
+      color: white;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      display: none;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .save-indicator.show {
+      display: flex;
+    }
+
+    .hidden-input {
+      display: none;
+    }
+
     #toggle-persistent {
-       display: none;
+      display: none;
+      margin-top: 16px;
+      padding: 16px;
+      background: var(--background);
+      border-radius: var(--radius-sm);
+      border: 2px dashed var(--border);
     }
-    #persistent-session-id[type=checkbox]:checked~#toggle-persistent {
-       display: block;
+
+    #persistent-session-id:checked ~ #toggle-persistent {
+      display: block;
+      animation: slideDown 0.2s ease;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      max-width: 500px;
+      width: 90%;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      padding: 24px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .modal-header h3 {
+      font-size: 20px;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .modal-body p {
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    .modal-body p:last-child {
+      margin-bottom: 0;
+      color: #ef4444;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .modal-button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .modal-button.secondary {
+      background: var(--background);
+      color: var(--text-primary);
+      border: 2px solid var(--border);
+    }
+
+    .modal-button.secondary:hover {
+      background: var(--border);
+    }
+
+    .modal-button.danger {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .modal-button.danger:hover {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .modal-button.danger:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 16px;
+      }
+
+      .header {
+        padding: 24px 16px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .section {
+        padding: 16px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .modal {
+        width: 95%;
+      }
+
+      .modal-footer {
+        flex-direction: column-reverse;
+      }
+
+      .modal-button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
 
-  <p>Customize the colors of the live chat overlay. Enter the <a href="https://www.google.com/search?q=hex+color+picker">hex codes</a> of the colors you'd like to use. Remember that full black #000 will be keyed out. You can delete a value to reset it to the default.</p>
-  <ul>
-    <li>Black: #000</li>
-    <li>Dark Grey: #222</li>
-    <li>White: #fff</li>
-  </ul>
+  <div class="container">
+    <div class="header">
+      <h1>🎨 Live Chat Overlay Settings</h1>
+      <p>Customize your chat overlay appearance with interactive controls. All changes save instantly.</p>
+    </div>
 
-  <form>
-    <div class="section">
-      <div class="setting">
-        <label>Highlight Words</label>
-        <div>Enter a list of comma-separated words that will be highlighted in the chat</div>
-        <input type="text" class="text" id="highlight-words">
-      </div>
+    <div class="info-box">
+      <p><strong>💡 Quick Tip:</strong> Remember that full black (#000) will be keyed out in OBS. Use the color reference below:</p>
+      <ul>
+        <li>Black: #000</li>
+        <li>Dark Grey: #222</li>
+        <li>White: #fff</li>
+      </ul>
     </div>
-    <div class="section">
-      <div class="setting">
-        <label>Background Color (type <code>transparent</code> for use in OBS)</label>
-        <input type="text" class="text" id="color">
+
+    <form>
+      <!-- General Settings -->
+      <div class="section">
+        <div class="section-header">
+          <h2><span class="section-icon">⚙️</span> General Settings</h2>
+          <div class="toggle-icon"></div>
+        </div>
+        <div class="section-content">
+          <div class="setting">
+            <label>Highlight Words</label>
+            <input type="text" class="text" id="highlight-words" placeholder="e.g., question, help, important">
+            <div class="hint">Enter comma-separated words that will be highlighted in the chat</div>
+          </div>
+          
+          <div class="setting">
+            <label>Background Color</label>
+            <div class="inline">
+              <input type="text" class="text" id="color" placeholder="#000 or transparent" style="max-width: 200px;">
+              <input type="color" id="color-picker">
+              <div class="checkbox-wrapper">
+                <input type="checkbox" id="transparent-bg">
+                <label for="transparent-bg" style="margin: 0;">Transparent (for OBS)</label>
+              </div>
+            </div>
+            <div class="hint">Use transparent background for OBS chroma key, or pick a custom color</div>
+          </div>
+        </div>
       </div>
+
+      <!-- Author Styling -->
+      <div class="section collapsed">
+        <div class="section-header">
+          <h2><span class="section-icon">👤</span> Author Styling</h2>
+          <div class="toggle-icon"></div>
+        </div>
+        <div class="section-content">
+          <div class="grid-2">
+            <div class="setting">
+              <label>Author Name Color</label>
+              <input type="color" id="author-color">
+            </div>
+            <div class="setting">
+              <label>Author Background Color</label>
+              <input type="color" id="author-bg-color">
+            </div>
+            <div class="setting">
+              <label>Avatar Border Color</label>
+              <input type="color" id="author-avatar-border-color">
+            </div>
+            <div class="setting">
+              <label>Avatar Overlay Opacity</label>
+              <div class="inline">
+                <input type="range" id="author-avatar-overlay-opacity" min="0" max="1" step="0.01" style="flex: 1;">
+                <span class="value" id="author-avatar-overlay-opacity-value"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message Styling -->
+      <div class="section collapsed">
+        <div class="section-header">
+          <h2><span class="section-icon">💬</span> Message Styling</h2>
+          <div class="toggle-icon"></div>
+        </div>
+        <div class="section-content">
+          <div class="grid-2">
+            <div class="setting">
+              <label>Message Background Color</label>
+              <input type="color" id="comment-bg-color">
+            </div>
+            <div class="setting">
+              <label>Message Text Color</label>
+              <input type="color" id="comment-color">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Display Options -->
+      <div class="section">
+        <div class="section-header">
+          <h2><span class="section-icon">🎯</span> Display Options</h2>
+          <div class="toggle-icon"></div>
+        </div>
+        <div class="section-content">
+          <div class="setting">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="firstname">
+              <label for="firstname" style="margin: 0;">Show only first name</label>
+            </div>
+          </div>
+
+          <div class="setting">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="fullpage-mode">
+              <label for="fullpage-mode" style="margin: 0;">Full page overlay mode</label>
+            </div>
+            <div class="hint">Enable to make the chat overlay fill the entire screen (useful for certain streaming setups)</div>
+          </div>
+          
+          <div class="setting">
+            <label>Font Family</label>
+            <div class="inline" style="width: 100%;">
+              <select id="font-family-select" style="flex: 1;">
+                <option value="Avenir Next, Helvetica, Geneva, Verdana, Arial, sans-serif">Default (Avenir/Helvetica)</option>
+                <option value="Arial, Helvetica, sans-serif">Arial</option>
+                <option value="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">Inter/System</option>
+                <option value="Roboto, Helvetica, Arial, sans-serif">Roboto</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="Times New Roman, Times, serif">Times New Roman</option>
+                <option value="Courier New, Courier, monospace">Courier New</option>
+                <option value="custom">Custom…</option>
+              </select>
+            </div>
+            <input type="text" class="text" id="font-family" placeholder="Enter custom font stack (e.g., 'Open Sans', sans-serif)" style="margin-top: 8px;">
+          </div>
+          
+          <div class="setting">
+            <label>Auto-Hide Messages</label>
+            <div class="inline">
+              <input type="range" id="auto-hide-seconds" min="0" max="120" step="1" style="flex: 1;">
+              <span class="value" id="auto-hide-seconds-value"></span>
+            </div>
+            <div class="hint">Set to 0 to never hide messages automatically</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advanced Layout -->
+      <div class="section collapsed">
+        <div class="section-header">
+          <h2><span class="section-icon">📐</span> Advanced Layout</h2>
+          <div class="toggle-icon"></div>
+        </div>
+        <div class="section-content">
+          <div class="setting">
+            <label>Comment Scale</label>
+            <div class="inline">
+              <input type="range" id="scale" min="0.5" max="1.5" step="0.01" style="flex: 1;">
+              <span class="value" id="scale-value"></span>
+            </div>
+            <div class="hint">Adjust overall size of chat messages (0.5 = 50%, 1.5 = 150%)</div>
+          </div>
+          
+          <div class="setting">
+            <label>Comment Bottom Position</label>
+            <input type="text" class="text hidden-input" id="comment-bottom">
+            <div class="inline">
+              <input type="number" id="comment-bottom-number" step="0.1" style="width: 120px;">
+              <select id="comment-bottom-unit">
+                <option value="px">px</option>
+                <option value="vh">vh</option>
+                <option value="vw">vw</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="%">%</option>
+              </select>
+            </div>
+            <div class="hint">Vertical position from bottom (negative values move it lower)</div>
+          </div>
+          
+          <div class="setting">
+            <label>Comment Height</label>
+            <input type="text" class="text hidden-input" id="comment-height">
+            <div class="inline">
+              <input type="number" id="comment-height-number" step="0.1" style="width: 120px;">
+              <select id="comment-height-unit">
+                <option value="px">px</option>
+                <option value="vh" selected>vh</option>
+                <option value="vw">vw</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="%">%</option>
+              </select>
+            </div>
+            <div class="hint">Maximum height for active comments (default: 30vh)</div>
+          </div>
+          
+          <div class="setting">
+            <label>Width Offset</label>
+            <input type="number" class="text" id="size-offset" step="1" placeholder="0">
+            <div class="hint">Make text area wider when scaled down (e.g., 100)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Server Configuration -->
+      <div class="section collapsed">
+        <div class="section-header">
+          <h2><span class="section-icon">🌐</span> Server Configuration</h2>
+          <div class="toggle-icon"></div>
+        </div>
+        <div class="section-content">
+          <div class="setting">
+            <label>Popout Chat URL</label>
+            <input type="url" class="text" id="popout-url" placeholder="https://chat.example.com/overlay/">
+          </div>
+          
+          <div class="setting">
+            <label>Remote Server URL</label>
+            <input type="url" class="text" id="server-url" placeholder="https://chat.example.com/overlay/pub">
+          </div>
+          
+          <div class="setting">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="persistent-session-id">
+              <label for="persistent-session-id" style="margin: 0;">Use Persistent Session ID</label>
+            </div>
+            <div id="toggle-persistent">
+              <label>Session ID</label>
+              <input type="text" pattern="[a-zA-Z0-9]+" maxlength="10" class="text" id="session-id" placeholder="Enter up to 10 alphanumeric characters">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 12px; margin-top: 16px;">
+        <button type="submit" style="flex: 1;">💾 Save All Settings</button>
+        <button type="button" id="reset-button" class="reset-button">🔄 Reset to Defaults</button>
+      </div>
+    </form>
+
+    <div class="save-indicator" id="save-indicator">
+      <span>✓</span>
+      <span>Settings saved successfully!</span>
     </div>
-    <div class="section">
-      <div class="setting">
-        <label>Author Name Color</label>
-        <input type="text" class="text" id="author-color">
-      </div>
-      <div class="setting">
-        <label>Author Background Color</label>
-        <input type="text" class="text" id="author-bg-color">
-      </div>
-      <div class="setting">
-        <label>Author Avatar Overlay Opacity</label>
-        <input type="text" class="text" id="author-avatar-overlay-opacity">
-      </div>
-      <div class="setting">
-        <label>Author Avatar Border Color</label>
-        <input type="text" class="text" id="author-avatar-border-color">
-      </div>
-    </div>
-    <div class="section">
-      <div class="setting">
-        <label>Chat Message Background Color</label>
-        <input type="text" class="text" id="comment-bg-color">
-      </div>
-      <div class="setting">
-        <label>Chat Message Text Color</label>
-        <input type="text" class="text" id="comment-color">
-      </div>
-    </div>
-    <div class="section">
-      <div class="setting" style="margin-bottom: 10px;">
-        <input type="checkbox" class="checkbox" id="firstname">
-        <label>Show only first name</label>
-      </div>
-      <div class="setting">
-        <label>Font</label>
-        <input type="text" class="text" id="font-family">
-      </div>
-      <div class="setting">
-        <label>Auto-Hide Messages (Seconds, 0 = never hide)</label>
-        <input type="number" class="text" id="auto-hide-seconds">
-      </div>
-    </div>
-    <div class="section">
-      <div class="setting">
-        <label>Popout Chat URL</label>
-        <input type="url" class="text" id="popout-url">
-      </div>
-      <div class="setting">
-        <label>Remote Server URL</label>
-        <input type="url" class="text" id="server-url">
-      </div>
-      <div class="setting">
-        <input type="checkbox" class="checkbox" id="persistent-session-id">
-        <label for "persistent-session-id">Persistent Session ID</label>
-        <div class="setting" id="toggle-persistent">
-          <label>Session ID (up to 10 alphanumeric characters)</label>
-          <input type="text" pattern="[a-zA-Z0-9]+" maxlength="10" class="text" id="session-id">
+
+    <!-- Reset Confirmation Modal -->
+    <div class="modal-overlay" id="reset-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>⚠️ Reset to Default Settings?</h3>
+        </div>
+        <div class="modal-body">
+          <p>This will restore all settings to their default values. Your current customizations will be lost.</p>
+          <p><strong>This action cannot be undone.</strong></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-button secondary" id="cancel-reset">Cancel</button>
+          <button type="button" class="modal-button danger" id="confirm-reset">Reset Everything</button>
         </div>
       </div>
     </div>
-    <div class="section">
-      <p><i>Adjust these to make the comment text smaller or fit more lines of text. Sorry it's kind of hard to use.</i></p>
-      <div class="setting">
-        <label>Active Comment Scale (e.g. 0.8)</label>
-        <input type="text" class="text" id="scale">
-      </div>
-      <div class="setting">
-        <label>Active Comment Bottom Position</label>
-        <div>(set negative to move lower when scaled down, e.g. -2vh)</div>
-        <input type="text" class="text" id="comment-bottom">
-      </div>
-      <div class="setting">
-        <label>Active Comment Height (default 30vh)</label>
-        <input type="text" class="text" id="comment-height">
-      </div>
-      <div class="setting">
-        <label>Width Offset</label>
-        <div>(make text area wider when scaled down, e.g. 100)</div>
-        <input type="text" class="text" id="size-offset">
-      </div>
-    </div>
-    <button type="submit">Save</button>
-  </form>
+  </div>
 
   <script src="options.js"></script>
 
