@@ -473,6 +473,37 @@
       gap: 12px;
     }
 
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .tab-button {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      background: var(--surface);
+      border-top-left-radius: var(--radius-sm);
+      border-top-right-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .tab-button.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    .tabbed .section { display: none; }
+    .tabbed .section[data-tab="general"].active,
+    .tabbed .section[data-tab="author"].active,
+    .tabbed .section[data-tab="message"].active,
+    .tabbed .section[data-tab="display"].active,
+    .tabbed .section[data-tab="layout"].active,
+    .tabbed .section[data-tab="server"].active { display: block; }
+
     /* Modal Styles */
     .modal-overlay {
       position: fixed;
@@ -630,7 +661,15 @@
 </head>
 <body>
 
-  <div class="container">
+  <div class="container tabbed">
+    <div class="tabs">
+      <button type="button" class="tab-button active" data-tab="general">General</button>
+      <button type="button" class="tab-button" data-tab="author">Author</button>
+      <button type="button" class="tab-button" data-tab="message">Message</button>
+      <button type="button" class="tab-button" data-tab="display">Display</button>
+      <button type="button" class="tab-button" data-tab="layout">Layout</button>
+      <button type="button" class="tab-button" data-tab="server">Server</button>
+    </div>
     <div class="header">
       <h1>🎨 Live Chat Overlay Settings</h1>
       <p>Customize your chat overlay appearance with interactive controls. All changes save instantly.</p>
@@ -647,7 +686,7 @@
 
     <form>
       <!-- General Settings -->
-      <div class="section">
+      <div class="section active" data-tab="general">
         <div class="section-header">
           <h2><span class="section-icon">⚙️</span> General Settings</h2>
           <div class="toggle-icon"></div>
@@ -675,7 +714,7 @@
       </div>
 
       <!-- Author Styling -->
-      <div class="section collapsed">
+      <div class="section" data-tab="author">
         <div class="section-header">
           <h2><span class="section-icon">👤</span> Author Styling</h2>
           <div class="toggle-icon"></div>
@@ -706,7 +745,7 @@
       </div>
 
       <!-- Message Styling -->
-      <div class="section collapsed">
+      <div class="section" data-tab="message">
         <div class="section-header">
           <h2><span class="section-icon">💬</span> Message Styling</h2>
           <div class="toggle-icon"></div>
@@ -721,12 +760,22 @@
               <label>Message Text Color</label>
               <input type="color" id="comment-color">
             </div>
+            <div class="setting" style="grid-column: 1 / -1;">
+              <label>Message Background Gradient (CSS)</label>
+              <input type="text" class="text" id="comment-bg-gradient" placeholder="e.g., linear-gradient(135deg, #111111, #333333)">
+              <div class="hint">Optional. If set, overrides Message Background Color.</div>
+            </div>
+            <div class="setting" style="grid-column: 1 / -1;">
+              <label>Message Box Shadow (CSS)</label>
+              <input type="text" class="text" id="comment-box-shadow" placeholder="e.g., 0 10px 20px rgba(0,0,0,0.35)">
+              <div class="hint">Optional. Standard CSS box-shadow value.</div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Display Options -->
-      <div class="section">
+      <div class="section" data-tab="display">
         <div class="section-header">
           <h2><span class="section-icon">🎯</span> Display Options</h2>
           <div class="toggle-icon"></div>
@@ -776,7 +825,7 @@
       </div>
 
       <!-- Advanced Layout -->
-      <div class="section collapsed">
+      <div class="section" data-tab="layout">
         <div class="section-header">
           <h2><span class="section-icon">📐</span> Advanced Layout</h2>
           <div class="toggle-icon"></div>
@@ -834,7 +883,7 @@
       </div>
 
       <!-- Server Configuration -->
-      <div class="section collapsed">
+      <div class="section" data-tab="server">
         <div class="section-header">
           <h2><span class="section-icon">🌐</span> Server Configuration</h2>
           <div class="toggle-icon"></div>

@@ -3,6 +3,8 @@
     --keyer-bg-color: #000; /* change for a chroma key if you want, beware profile avatars may key out */
     --comment-color: #fff;
     --comment-bg-color: #222; /* needs to be slightly above black to not get keyed out */
+    --comment-bg-gradient: ; /* optional gradient overrides bg color when present */
+    --comment-box-shadow: ; /* optional box shadow */
     --comment-border-radius: 0px;
     --comment-font-size: 40px;
     --author-color: #222;
@@ -157,8 +159,10 @@ highlight-chat.preview {
     padding: var(--comment-padding);
     color: var(--comment-color);
     background-color: var(--comment-bg-color);
+    background-image: var(--comment-bg-gradient);
     border-radius: var(--comment-border-radius);
     font-size: var(--comment-font-size);
+    box-shadow: var(--comment-box-shadow);
 }
 .hl-message img {
     width: 50px;

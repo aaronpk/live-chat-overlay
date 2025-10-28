@@ -21,6 +21,8 @@ var DEFAULT_SETTINGS = {
   commentBottom: "10px",
   commentHeight: "30vh",
   commentBackgroundColor: "#222",
+  commentBackgroundGradient: "",
+  commentBoxShadow: "",
   commentColor: "#fff",
   authorBackgroundColor: "#ffa500",
   authorAvatarBorderColor: "#ffa500",
@@ -103,6 +105,8 @@ function saveOptions(e) {
     commentBottom: commentBottomComposed,
     commentHeight: commentHeightComposed,
     commentBackgroundColor: document.querySelector("#comment-bg-color").value,
+    commentBackgroundGradient: document.querySelector("#comment-bg-gradient").value,
+    commentBoxShadow: document.querySelector("#comment-box-shadow").value,
     commentColor: document.querySelector("#comment-color").value,
     authorBackgroundColor: document.querySelector("#author-bg-color").value,
     authorAvatarBorderColor: document.querySelector("#author-avatar-border-color").value,
@@ -125,7 +129,7 @@ function saveOptions(e) {
 
 function restoreOptions() {
 
-  var properties = ["color","scale","commentBottom","commentHeight","sizeOffset","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor","fontFamily","showOnlyFirstName","fullpageMode","highlightWords","popoutURL","serverURL","autoHideSeconds","authorAvatarOverlayOpacity","persistentSessionID","sessionID"];
+  var properties = ["color","scale","commentBottom","commentHeight","sizeOffset","authorBackgroundColor","authorAvatarBorderColor","authorColor","commentBackgroundColor","commentBackgroundGradient","commentBoxShadow","commentColor","fontFamily","showOnlyFirstName","fullpageMode","highlightWords","popoutURL","serverURL","autoHideSeconds","authorAvatarOverlayOpacity","persistentSessionID","sessionID"];
   chrome.storage.sync.get(properties, function(result){
     var colorInput = document.querySelector("#color");
     var colorPicker = document.querySelector("#color-picker");
@@ -176,6 +180,8 @@ function restoreOptions() {
 
     document.querySelector("#author-color").value = normalizeColorValue(result.authorColor || "#222");
     document.querySelector("#comment-bg-color").value = normalizeColorValue(result.commentBackgroundColor || "#222");
+    document.querySelector("#comment-bg-gradient").value = result.commentBackgroundGradient || "";
+    document.querySelector("#comment-box-shadow").value = result.commentBoxShadow || "";
     document.querySelector("#comment-color").value = normalizeColorValue(result.commentColor || "#fff");
 
     var fontText = document.querySelector("#font-family");
@@ -323,6 +329,24 @@ document.addEventListener("DOMContentLoaded", function() {
   sectionHeaders.forEach(function(header){
     header.addEventListener('click', function(){
       toggleSection(this);
+    });
+  });
+
+  // Tabs behavior
+  var tabs = document.querySelectorAll('.tab-button');
+  var sections = document.querySelectorAll('.container.tabbed .section');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var target = this.getAttribute('data-tab');
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      this.classList.add('active');
+      sections.forEach(function(sec){
+        if (sec.getAttribute('data-tab') === target) {
+          sec.classList.add('active');
+        } else {
+          sec.classList.remove('active');
+        }
+      });
     });
   });
   
