@@ -120,6 +120,7 @@ highlight-chat {
     color: #fff;
     font-size: 30px;
     transform: scale(var(--comment-scale));
+    pointer-events: none !important;
 }
 highlight-chat.preview {
     border: 1px #ccc solid;
