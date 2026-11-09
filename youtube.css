@@ -3,6 +3,8 @@
     --keyer-bg-color: #000; /* change for a chroma key if you want, beware profile avatars may key out */
     --comment-color: #fff;
     --comment-bg-color: #222; /* needs to be slightly above black to not get keyed out */
+    --comment-bg-gradient: ; /* optional gradient overrides bg color when present */
+    --comment-box-shadow: ; /* optional box shadow */
     --comment-border-radius: 0px;
     --comment-font-size: 40px;
     --author-color: #222;
@@ -157,8 +159,10 @@ highlight-chat.preview {
     padding: var(--comment-padding);
     color: var(--comment-color);
     background-color: var(--comment-bg-color);
+    background-image: var(--comment-bg-gradient);
     border-radius: var(--comment-border-radius);
     font-size: var(--comment-font-size);
+    box-shadow: var(--comment-box-shadow);
 }
 .hl-message img {
     width: 50px;
@@ -385,5 +389,25 @@ yt-live-chat-app tp-yt-iron-dropdown {
 }
 yt-live-chat-app yt-sort-filter-sub-menu-renderer tp-yt-iron-dropdown {
     display: block;
+}
+
+/* Full Page Mode */
+body.fullpage-mode.inline-chat yt-live-chat-app {
+    display: none !important;
+}
+body.fullpage-mode highlight-chat {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+body.fullpage-mode .btn-clear {
+    bottom: 20px;
 }
 

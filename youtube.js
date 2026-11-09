@@ -222,7 +222,7 @@ $("body").addClass("inline-chat");
 var configProperties = ["color","scale","sizeOffset",
   "commentBottom","commentHeight","authorBackgroundColor",
   "authorAvatarBorderColor","authorColor","commentBackgroundColor","commentColor",
-  "fontFamily","showOnlyFirstName","highlightWords",
+  "commentBackgroundGradient","commentBoxShadow","fontFamily","showOnlyFirstName","fullpageMode","highlightWords",
   "popoutURL","serverURL","autoHideSeconds",
   "authorAvatarOverlayOpacity","persistentSessionID","sessionID"
 ];
@@ -248,11 +248,21 @@ chrome.storage.sync.get(configProperties, function(item){
   if(item.commentBackgroundColor) {
     root.style.setProperty("--comment-bg-color", item.commentBackgroundColor);
   }
+  if(item.commentBackgroundGradient) {
+    root.style.setProperty("--comment-bg-gradient", item.commentBackgroundGradient);
+  } else {
+    root.style.setProperty("--comment-bg-gradient", "");
+  }
   if(item.authorColor) {
     root.style.setProperty("--author-color", item.authorColor);
   }
   if(item.commentColor) {
     root.style.setProperty("--comment-color", item.commentColor);
+  }
+  if(item.commentBoxShadow) {
+    root.style.setProperty("--comment-box-shadow", item.commentBoxShadow);
+  } else {
+    root.style.setProperty("--comment-box-shadow", "");
   }
   if(item.fontFamily) {
     root.style.setProperty("--font-family", item.fontFamily);
@@ -270,7 +280,13 @@ chrome.storage.sync.get(configProperties, function(item){
     root.style.setProperty("--comment-area-size-offset", item.sizeOffset);
   }
   showOnlyFirstName = item.showOnlyFirstName;
-  highlightWords = item.highlightWords;
+  highlightWords = item.highlightWords || [];
+
+  if(item.fullpageMode) {
+    $("body").addClass("fullpage-mode");
+  } else {
+    $("body").removeClass("fullpage-mode");
+  }
 
   if(item.popoutURL) {
     remoteWindowURL = item.popoutURL;
@@ -433,7 +449,6 @@ onElementInserted(".yt-live-chat-item-list-renderer#items", function(element){
 });
 
 
-/*
 function removeModerationMenu(element) {
   $(element).find("tp-yt-iron-dropdown, #menu").remove();
   // Remove the "top chat/live chat" option since removing the iron-dropdown also removes the dropdown from that.
@@ -442,7 +457,6 @@ function removeModerationMenu(element) {
 }
 
 function removeReactionButtons() {
-  // $("yt-reaction-control-panel-overlay-view-model").remove();
+  $("yt-reaction-control-panel-overlay-view-model").remove();
 }
-*/
 
